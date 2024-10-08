@@ -15,6 +15,7 @@ import { MatButtonModule } from "@angular/material/button"
 import { MajorsComponent } from "majors/majors.component"
 import { MajorStudentsComponent } from "majors/major-students/major-students.component"
 import { HttpClientModule } from "@angular/common/http"
+import {QuizzComponent} from "./Quizz/quizz.component";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from "@angular/common/http"
     StudentDetailsComponent,
     MajorsComponent,
     MajorStudentsComponent,
+    QuizzComponent,
   ],
   imports: [
     BrowserModule,
