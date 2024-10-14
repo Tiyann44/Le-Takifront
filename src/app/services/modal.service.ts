@@ -1,28 +1,27 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ModalService {
-    openTab(evt: Event, tabName: string) {
-        const tabcontent = document.getElementsByClassName("tabcontent") as HTMLCollectionOf<HTMLElement>;
-        for (let i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none"; // Cache tous les onglets
-        }
+    private modal: HTMLElement | null = null;
 
-        const tablinks = document.getElementsByClassName("tablinks") as HTMLCollectionOf<HTMLElement>;
-        for (let i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active"); // Supprime la classe active de tous les onglets
-        }
+    constructor() {}
 
-        const activeTab = document.getElementById(tabName);
-        if (activeTab) {
-            activeTab.style.display = "block"; // Affiche l'onglet actif
-        }
+    setModal(modal: HTMLElement) {
+        this.modal = modal;
+    }
 
-        const currentTarget = (evt.target as HTMLElement);
-        if (currentTarget) {
-            currentTarget.classList.add("active"); // Ajoute la classe active au bouton cliqué
+    openModal() {
+        if (this.modal) {
+            console.log("Ouverture du modal"); // Ajoute ce log
+            this.modal.style.display = 'block'; // Affiche le modal
+        }
+    }
+
+    closeModal() {
+        if (this.modal) {
+            this.modal.style.display = 'none'; // Cache le modal
         }
     }
 }
