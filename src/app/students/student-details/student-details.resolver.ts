@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router"
 import { Observable } from "rxjs"
 import { StudentService } from "services/student.service"
-import { Student } from "models/student.model"
-import { Major } from "models/major.model"
+import { Student } from "models/theme.model"
+import { Major } from "models/score.model"
 
 @Injectable({
   providedIn: "root",

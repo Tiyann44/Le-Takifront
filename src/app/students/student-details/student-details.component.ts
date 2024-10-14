@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core"
 import { map, Observable } from "rxjs"
-import { Student } from "models/student.model"
+import { Student } from "models/theme.model"
 import { ActivatedRoute, Router } from "@angular/router"
-import { Course } from "models/course.model"
+import { Course } from "models/question.model"
 import { CourseService } from "services/course.service"
 import { StudentService } from "services/student.service"
-import { Major } from "../../models/major.model"
+import { Major } from "../../models/score.model"
 import { MajorService } from "../../services/major.service"
 
 @Component({

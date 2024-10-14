@@ -1,6 +1,6 @@
 import { Component } from "@angular/core"
 import { map, Observable } from "rxjs"
-import { Major } from "models/major.model"
+import { Major } from "models/score.model"
 import { ActivatedRoute } from "@angular/router"
 
 @Component({

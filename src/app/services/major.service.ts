@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
-import { Major } from "models/major.model"
+import { Major } from "models/score.model"
 import { MajorStudentsDto } from "models/dto/MajorStudentsDto"
 import { MajorsAndCoursesDto } from "models/dto/majorsAndCoursesDto"
 import { HttpClient } from "@angular/common/http"
-import { Student } from "../models/student.model"
+import { Student } from "../models/theme.model"
 
 @Injectable({
   providedIn: "root",

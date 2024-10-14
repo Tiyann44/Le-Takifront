@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core"
 import { map, Observable } from "rxjs"
 import { ActivatedRoute } from "@angular/router"
 import { MajorStudentsDto } from "../../models/dto/MajorStudentsDto"
-import { Student } from "../../models/student.model"
+import { Student } from "../../models/theme.model"
 
 @Component({
   selector: "epf-major-students",
