@@ -14,89 +14,103 @@ body {
   color: var(--text-color);
   line-height: 1.6;
 }
-
-  .modal {
-  display: none;
-  position: fixed;
-  z-index: 1001;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+main {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
+.auth-container {
+  background-color: white;
   border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
 }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
+.auth-tabs {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.auth-tab {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.auth-tab.active {
+  border-bottom-color: var(--pastel-blue);
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .form-group input {
   width: 100%;
-  padding: 8px;
+  padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 4px;
+  font-family: inherit;
 }
 
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-  border-radius: 5px 5px 0 0;
-}
-
-.tab button {
-  background-color: inherit;
-  float: left;
+.submit-btn {
+  background-color: var(--pastel-lavender);
+  color: var(--text-color);
   border: none;
-  outline: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
   cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 1rem;
 }
 
-.tab button:hover {
-  background-color: #ddd;
+.submit-btn:hover {
+  background-color: var(--pastel-pink);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.tab button.active {
+footer {
   background-color: var(--pastel-blue);
   color: white;
+  text-align: center;
+  padding: 1rem 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
-.tab-content {
-  display: none;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 5px 5px;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animated {
+  animation: fadeIn 0.5s ease-in-out;
 }
