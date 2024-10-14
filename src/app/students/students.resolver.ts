@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Resolve } from "@angular/router"
 import { Observable } from "rxjs"
-import { Student } from "models/student.model"
+import { Student } from "models/theme.model"
 import { StudentService } from "services/student.service"
 
 @Injectable({

@@ -1,5 +1,5 @@
-import { Major } from "../major.model"
-import { Course } from "../course.model"
+import { Major } from "../score.model"
+import { Course } from "../question.model"
 
 export class MajorsAndCoursesDto {
   constructor(majors: Major[], courses: Course[]) {

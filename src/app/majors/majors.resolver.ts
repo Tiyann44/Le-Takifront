@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router"
 import { Observable } from "rxjs"
 import { MajorService } from "services/major.service"
-import { Major } from "models/major.model"
+import { Major } from "models/score.model"
 
 @Injectable({
   providedIn: "root",

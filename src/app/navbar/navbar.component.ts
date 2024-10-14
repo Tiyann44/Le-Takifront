@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core"
-import { Link } from "models/links.model"
+import { Link } from "models/user.model"
 
 @Component({
   selector: "epf-navbar",

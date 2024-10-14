@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
-import { Student } from "models/student.model"
-import { Course } from "models/course.model"
+import { Student } from "models/theme.model"
+import { Course } from "models/question.model"
 import { HttpClient } from "@angular/common/http"
 
 @Injectable({
