@@ -17,6 +17,7 @@ import { MajorStudentsComponent } from "majors/major-students/major-students.com
 import { HttpClientModule } from "@angular/common/http"
 import {QuizzComponent} from "./Quizz/quizz.component";
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,106 +1,47 @@
-<html><head><base href="https://takitquiz.com/">
-    <title>TakItQuiz - Testez vos connaissances !</title>
-    </head>
-<body>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Prêt à tester vos connaissances ?</h1>
+        <p>Découvrez nos quiz amusants et éducatifs</p>
+        <button class="cta-button">Jouer maintenant</button>
+    </div>
+</section>
 
-<main>
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Testez vos connaissances !</h1>
-            <p>Découvrez nos quiz passionnants et relevez le défi.</p>
-            <a href="/jouer" class="play-button">Jouer Maintenant</a>
-        </div>
-    </section>
-
-    <section class="quiz-gallery container">
-        <h2>Nos Quiz Populaires</h2>
+<section class="quiz-gallery">
+    <div class="container">
+        <h2 class="section-title">Nos Quiz Populaires</h2>
         <div class="quiz-grid">
             <div class="quiz-card">
-                <img src="cinema-quiz.jpg" alt="Affiche de film pour le quiz cinéma" width="250" height="200">
+                <img src="assets/images/quiz-culture-generale-pastel.jpg" alt="Quiz de culture générale">
                 <div class="quiz-card-content">
-                    <h3>Quiz Cinéma</h3>
-                    <a href="/quiz/cinema" class="start-quiz-button">Commencer</a>
+                    <h3>Culture Générale</h3>
+                    <p>Testez vos connaissances variées</p>
+                    <button class="cta-button">Démarrer le quiz</button>
                 </div>
             </div>
             <div class="quiz-card">
-                <img src="history-quiz.jpg" alt="Image historique pour le quiz d'histoire" width="250" height="200">
+                <img src="assets/images/quiz-sciences-pastel.jpg" alt="Quiz de sciences">
                 <div class="quiz-card-content">
-                    <h3>Quiz Histoire</h3>
-                    <a href="/quiz/histoire" class="start-quiz-button">Commencer</a>
+                    <h3>Sciences</h3>
+                    <p>Explorez les merveilles scientifiques</p>
+                    <button class="cta-button">Démarrer le quiz</button>
                 </div>
             </div>
             <div class="quiz-card">
-                <img src="science-quiz.jpg" alt="Image scientifique pour le quiz de sciences" width="250" height="200">
+                <img src="assets/images/quiz-histoire-pastel.jpg" alt="Quiz d'histoire">
                 <div class="quiz-card-content">
-                    <h3>Quiz Sciences</h3>
-                    <a href="/quiz/sciences" class="start-quiz-button">Commencer</a>
+                    <h3>Histoire</h3>
+                    <p>Voyagez à travers les époques</p>
+                    <button class="cta-button">Démarrer le quiz</button>
                 </div>
             </div>
             <div class="quiz-card">
-                <img src="music-quiz.jpg" alt="Image musicale pour le quiz de musique" width="250" height="200">
+                <img src="assets/images/quiz-geographie-pastel.jpg" alt="Quiz de géographie">
                 <div class="quiz-card-content">
-                    <h3>Quiz Musique</h3>
-                    <a href="/quiz/musique" class="start-quiz-button">Commencer</a>
+                    <h3>Géographie</h3>
+                    <p>Parcourez le monde depuis chez vous</p>
+                    <button class="cta-button">Démarrer le quiz</button>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container footer-content">
-        <ul class="footer-links">
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/conditions">Conditions Générales</a></li>
-            <li><a href="/a-propos">À propos</a></li>
-        </ul>
-        <div class="social-icons">
-            <a href="https://facebook.com/takitquiz" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="https://twitter.com/takitquiz" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="https://instagram.com/takitquiz" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
-</footer>
-
-<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-<script>
-    // Add smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-
-    // Add animation to quiz cards on scroll
-    const quizCards = document.querySelectorAll('.quiz-card');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = 1;
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
-
-    quizCards.forEach(card => {
-        card.style.opacity = 0;
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(card);
-    });
-
-    // Add neon glow effect to buttons
-    const buttons = document.querySelectorAll('.cta-button, .play-button, .start-quiz-button');
-    buttons.forEach(button => {
-        button.addEventListener('mouseover', () => {
-            button.style.boxShadow = '0 0 10px #FF1493, 0 0 20px #FF1493, 0 0 30px #FF1493';
-        });
-        button.addEventListener('mouseout', () => {
-            button.style.boxShadow = 'none';
-        });
-    });
-</script>
-</body>
+</section>
