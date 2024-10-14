@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router"
 import { Observable } from "rxjs"
-import { StudentService } from "services/student.service"
+import { UserService } from "services/user.service"
 import { Student } from "models/theme.model"
 import { Major } from "models/score.model"
 
@@ -9,7 +9,7 @@ import { Major } from "models/score.model"
   providedIn: "root",
 })
 export class StudentDetailsResolver implements Resolve<Student> {
-  constructor(private studentService: StudentService) {
+  constructor(private studentService: UserService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Student> {

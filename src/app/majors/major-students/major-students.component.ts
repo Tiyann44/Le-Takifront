@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { map, Observable } from "rxjs"
 import { ActivatedRoute } from "@angular/router"
-import { MajorStudentsDto } from "../../models/dto/MajorStudentsDto"
+import { MajorStudentsDto } from "../../models/dto/answerDto"
 import { Student } from "../../models/theme.model"
 
 @Component({

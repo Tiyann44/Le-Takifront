@@ -3,10 +3,10 @@ import { map, Observable } from "rxjs"
 import { Student } from "models/theme.model"
 import { ActivatedRoute, Router } from "@angular/router"
 import { Course } from "models/question.model"
-import { CourseService } from "services/course.service"
-import { StudentService } from "services/student.service"
+import { CourseService } from "services/score.service"
+import { UserService } from "services/user.service"
 import { Major } from "../../models/score.model"
-import { MajorService } from "../../services/major.service"
+import { MajorService } from "../../services/theme.service"
 
 @Component({
   selector: "epf-student-details",
@@ -25,7 +25,7 @@ export class StudentDetailsComponent {
   constructor(
     private _route: ActivatedRoute,
     private courseService: CourseService,
-    private studentService: StudentService,
+    private studentService: UserService,
     private majorService: MajorService,
     private router: Router,
   ) {
@@ -36,7 +36,7 @@ export class StudentDetailsComponent {
     this.allCourses$ = this.courseService.findAll()
   }
 
-  addCourseToStudent(student: Student) {
+  /*addCourseToStudent(student: Student) {
     if (this.courseSelectModel != null) {
       this.studentService.addCourseToStudent(student, this.courseSelectModel!!)
     } else {
@@ -46,7 +46,7 @@ export class StudentDetailsComponent {
 
   removeCourseToStudent(student: Student, course: Course) {
     this.studentService.removeCourseToStudent(student, course)
-  }
+  }*/
 
   save(student: Student) {
     const id = this._route.snapshot.params["id"]
