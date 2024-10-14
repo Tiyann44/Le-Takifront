@@ -1,13 +1,13 @@
 :host {
   --pastel-blue: #A0E1E1;
   --pastel-pink: #FFD1DC;
-  --pastel-lavender: #E6E6FA;
-  --off-white: #F8F8FF;
-  --text-color: #333;
+  --pastel-lavender: #9683EC;
+  --off-black: #333;
+  --text-color: #F8F8FF;
 }
 
 header {
-  background-color: white;
+  background-color: dimgray;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   position: fixed;
   width: 100%;
@@ -46,7 +46,7 @@ nav a:hover {
 }
 
 .cta-button {
-  background-color: var(--pastel-lavender);
+  background-color: cadetblue;
   color: var(--text-color);
   border: none;
   padding: 0.7rem 1.5rem;
@@ -57,9 +57,10 @@ nav a:hover {
 }
 
 .cta-button:hover {
-  background-color: var(--pastel-pink);
+  background-color: var(--pastel-blue);
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
+
 
 
