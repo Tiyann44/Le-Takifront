@@ -1,6 +1,7 @@
-import {AfterViewInit, Component, OnInit} from "@angular/core"
-import { Link } from "models/links.model"
-import {Router} from "@angular/router";
+import { Component } from '@angular/core';
+import { Link } from "models/links.model";
+import { Router } from "@angular/router";
+import { ModalService } from 'services/modal.service';
 
 @Component({
   selector: "epf-navbar",
@@ -8,17 +9,20 @@ import {Router} from "@angular/router";
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent {
+  links: Link[] = [];
 
-  links: Link[] = []
+  constructor(private router: Router, private modalService: ModalService) {}
 
-  constructor(private router: Router) { }
+  openModal() {
+    const modal = document.getElementById("authModal");
+    console.log("Modal ouvert"); // Pour vérifier si la méthode est appelée
+    if (modal) {
+      modal.style.display = "block"; // Affiche le modal
+    }
 
-  openConnexion() {
-    // Redirige vers la page de connexion
-    this.router.navigate(['/connexion']);
+    // Ouvre l'onglet de connexion
+    this.modalService.openTab(new MouseEvent('click'), 'Login'); // Appelle openTab du service
   }
-  /*constructor() {
-    this.links.push({ name: "Students", href: "students" })
-    this.links.push({ name: "Majors", href: "majors" })
-  }*/
+
 }
+

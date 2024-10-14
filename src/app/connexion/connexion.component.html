@@ -2,11 +2,11 @@
     <div class="modal-content">
         <span class="close" (click)="closeModal()">&times;</span>
         <div class="tab">
-            <button class="tablinks" (click)="openTab(event, 'Login')" id="defaultOpen">Connexion</button>
-            <button class="tablinks" (click)="openTab(event, 'Register')">Inscription</button>
+            <button class="tablinks" (click)="openTab($event, 'Login')" id="defaultOpen">Connexion</button>
+            <button class="tablinks" (click)="openTab($event, 'Register')">Inscription</button>
         </div>
 
-        <div id="Login" class="tabcontent" style="display: block;"> <!-- Affichage par défaut de la connexion -->
+        <div id="Login" class="tab content" style="display: block;"> <!-- Affichage par défaut de la connexion -->
             <h2>Connexion</h2>
             <form id="loginForm">
                 <div class="form-group">
@@ -21,7 +21,7 @@
             </form>
         </div>
 
-        <div id="Register" class="tabcontent" style="display: none;"> <!-- Masqué par défaut -->
+        <div id="Register" class="tab content" style="display: none;"> <!-- Masqué par défaut -->
             <h2>Inscription</h2>
             <form id="registerForm">
                 <div class="form-group">
