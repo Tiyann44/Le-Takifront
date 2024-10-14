@@ -12,27 +12,16 @@
   align-items: center;
   justify-content: center;
   background-color: var(--pastel-blue);
-  background-image: url("/assets/fond.jpg");
+  background-image: url("/assets/fond2.jpg");
   background-size: cover;
   background-position: center;
 }
 
-::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.05);
-  z-index: 2;
-}
-
 .hero-content {
   position: relative;
-  z-index: 10;
+  z-index: 3;
   text-align: center;
-  background-color:white;
+  background-color: rgb(255, 255, 255, 0.90);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -109,6 +98,7 @@ body {
 
 
 .cta-button {
+  z-index: 5;
   background-color: cadetblue;
   color: var(--text-color);
   border: none;

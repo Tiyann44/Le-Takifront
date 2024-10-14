@@ -16,6 +16,7 @@ import { MajorsComponent } from "majors/majors.component"
 import { MajorStudentsComponent } from "majors/major-students/major-students.component"
 import { HttpClientModule } from "@angular/common/http"
 import {QuizzComponent} from "./Quizz/quizz.component";
+import {ConnexionComponent} from "./connexion/connexion.component";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {QuizzComponent} from "./Quizz/quizz.component";
     MajorsComponent,
     MajorStudentsComponent,
     QuizzComponent,
+    ConnexionComponent,
   ],
   imports: [
     BrowserModule,
