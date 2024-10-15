@@ -1,13 +1,15 @@
-<header>
+<nav *ngIf="isHomePage()">
     <div class="container header-content">
         <div class="logo">TakItQuiz</div>
-        <nav>
-            <ul>
-                <li><a routerLink="/quiz">Quizz</a></li>
-                <li><a routerLink="/contact">Admin</a></li>
-
-            </ul>
-        </nav>
+        <a routerLink="/">Accueil</a>
+        <a routerLink="/quiz">Quizz</a>
+        <a routerLink="/contact">Contact</a>
         <a routerLink="/connexion" class="cta-button">Connexion</a>
     </div>
-</header>
+</nav>
+
+<nav *ngIf="isLoginPage()">
+    <ul>
+        <li><a routerLink="/">Retour à l'accueil</a></li>
+    </ul>
+</nav>
