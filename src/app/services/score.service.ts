@@ -10,7 +10,7 @@ export class ScoreService {
   constructor(private http: HttpClient) {
   }
 
-  private ScoreURL = "http://localhost:8080/scores"
+  private ScoreURL = "http://localhost:8080/api/scores"
 
   findAll(): Observable<Score[]> {
     return this.http.get<Score[]>(this.ScoreURL)

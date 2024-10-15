@@ -10,7 +10,7 @@ export class ChoiceService {
     constructor(private http: HttpClient) {
     }
 
-    private ChoiceURL = "http://localhost:8080/choices"
+    private ChoiceURL = "http://localhost:8080/api/choices"
 
     findAll(): Observable<Choice[]> {
         return this.http.get<Choice[]>(this.ChoiceURL)

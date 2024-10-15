@@ -5,7 +5,6 @@ export interface Quiz {
     id?: bigint
     name: string
     description: string
-    theme: Theme
-    questions: Question[]
+    image: string
 
 }
