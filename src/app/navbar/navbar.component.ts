@@ -29,5 +29,9 @@ export class NavbarComponent {
     return this.currentRoute === '/connexion'; // ou autre chemin pour la connexion
   }
 
+  isThemePage(): boolean {
+    return this.currentRoute === '/themes'; // ou autre chemin pour les thèmes
+  }
+
 }
 

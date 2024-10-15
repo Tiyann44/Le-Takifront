@@ -5,7 +5,7 @@ import {Component, OnInit} from '@angular/core';
     templateUrl: './connexion.component.html', // Chemin vers le bon fichier HTML
     styleUrls: ['./connexion.component.scss'] // Si tu as un fichier de styles
 })
-export class connexionComponent implements OnInit {
+export class ConnexionComponent implements OnInit {
     isLoginActive: boolean = true; // Variable pour gérer l'état actif des onglets
 
     constructor() {}
