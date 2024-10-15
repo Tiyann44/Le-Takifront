@@ -25,18 +25,6 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="birthDate">Birthdate</label>
-      <input type="date" class="form-control" id="birthDate"
-             required
-             [ngModel]="student.birthdate | date:'yyyy-MM-dd'" name="birthDate"
-             #birthDate="ngModel" (ngModelChange)="updateBirthdate($event, student)">
-      <div [hidden]="birthDate.pristine && birthDate.untouched || birthDate.value !== today.toISOString().slice(0, 10)"
-           class="alert alert-danger">
-        Birthdate is required
-      </div>
-    </div>
-
     <div *ngIf="allMajors$ | async; let allMajors" class="form-group">
       <label for="major">Major</label>
       <select id="major" [(ngModel)]="majorSelectModel" name="majors" class="form-control">

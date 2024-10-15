@@ -1,26 +1,31 @@
 import { Component } from "@angular/core"
 import { map, Observable } from "rxjs"
-import { Student } from "models/theme.model"
+import { User} from "models/user.model"
 import { ActivatedRoute, Router } from "@angular/router"
 import { UserService } from "services/user.service"
 
 @Component({
-  selector: "epf-students",
-  templateUrl: "./students.component.html",
-  styleUrls: ["./students.component.scss"],
+  selector: "epf-users",
+  templateUrl: "./users.component.html",
+  styleUrls: ["./users.component.scss"],
 })
-export class StudentsComponent {
-  students$: Observable<Student[]> = this._route.data.pipe(map((data) => data["students"]))
+export class UsersComponent {
+  users$: Observable<User[]> = this._route.data.pipe(map((data) => data["users"]))
 
-  constructor(private _route: ActivatedRoute, private studentService: UserService, private router: Router,) {
+  constructor(private _route: ActivatedRoute, private userService: UserService, private router: Router,) {
   }
 
-  deleteStudent(event: any, student: Student) {
+  deleteById(event: any, user: User) {
     event.stopPropagation()
-    this.studentService.delete(student).subscribe(() => this.router.navigate(["students"]))
+    this.userService.deleteById(user).subscribe(() => this.router.navigate(["users"]))
   }
 
-  searchByMajorAndCourse($event: Observable<Student[]>) {
-    this.students$ = $event
+  deleteByEmail(event: any, user: User) {
+    event.stopPropagation()
+    this.userService.deleteByEmail(user).subscribe(() => this.router.navigate(["users"]))
+  }
+
+  searchByMajorAndCourse($event: Observable<User[]>) {
+    this.users$ = $event
   }
 }

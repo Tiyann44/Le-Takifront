@@ -1,73 +1,71 @@
 import { Component, OnInit } from "@angular/core"
 import { map, Observable } from "rxjs"
-import { Student } from "models/theme.model"
+import { User } from "models/user.model"
 import { ActivatedRoute, Router } from "@angular/router"
-import { Course } from "models/question.model"
-import { CourseService } from "services/score.service"
+import { Question } from "models/question.model"
+import { QuestionService } from "services/question.service"
 import { UserService } from "services/user.service"
-import { Major } from "../../models/score.model"
-import { MajorService } from "../../services/theme.service"
+import { Score } from "models/score.model"
+import { ScoreService } from "services/score.service"
 
 @Component({
-  selector: "epf-student-details",
-  templateUrl: "./student-details.component.html",
-  styleUrls: ["./student-details.component.scss"],
+  selector: "epf-User-details",
+  templateUrl: "./User-details.component.html",
+  styleUrls: ["./User-details.component.scss"],
 })
-export class StudentDetailsComponent {
-  student$: Observable<Student> = this._route.data.pipe(map((data) => data["student"]))
-  allMajors$: Observable<Major[]> | undefined
-  allCourses$: Observable<Course[]> | undefined
-  majorSelectModel: Major | null = null
-  courseSelectModel: Course | null = null
-  notSelectedCourse: boolean | undefined
+export class UserDetailsComponent {
+  User$: Observable<User> = this._route.data.pipe(map((data) => data["User"]))
+  allScores$: Observable<Score[]> | undefined
+  allQuestions$: Observable<Question[]> | undefined
+  ScoreSelectModel: Score | null = null
+  QuestionSelectModel: Question | null = null
+  notSelectedQuestion: boolean | undefined
   today = new Date(Date.now())
 
   constructor(
     private _route: ActivatedRoute,
-    private courseService: CourseService,
-    private studentService: UserService,
-    private majorService: MajorService,
+    private QuestionService: QuestionService,
+    private UserService: UserService,
+    private ScoreService: ScoreService,
     private router: Router,
   ) {
-    this.allMajors$ = this.majorService.findAll()
+    this.allScores$ = this.ScoreService.findAll()
   }
 
-  courseClick() {
-    this.allCourses$ = this.courseService.findAll()
+  QuestionClick() {
+    this.allQuestions$ = this.QuestionService.findAll()
   }
 
-  /*addCourseToStudent(student: Student) {
-    if (this.courseSelectModel != null) {
-      this.studentService.addCourseToStudent(student, this.courseSelectModel!!)
+  /*addQuestionToUser(User: User) {
+    if (this.QuestionSelectModel != null) {
+      this.UserService.addQuestionToUser(User, this.QuestionSelectModel!!)
     } else {
-      this.notSelectedCourse = true
+      this.notSelectedQuestion = true
     }
   }
 
-  removeCourseToStudent(student: Student, course: Course) {
-    this.studentService.removeCourseToStudent(student, course)
+  removeQuestionToUser(User: User, Question: Question) {
+    this.UserService.removeQuestionToUser(User, Question)
   }*/
 
-  save(student: Student) {
+  save(User: User) {
     const id = this._route.snapshot.params["id"]
 
-    if (this.majorSelectModel !== null) {
-      student.major = this.majorSelectModel
-    }
+    /*if (this.ScoreSelectModel !== null) {
+      User.scores = this.ScoreSelectModel
+    }*/
 
     if (id == "new") {
-      this.studentService.create(student).subscribe(() => {
-        this.router.navigate(["students"])
+      this.UserService.create(User).subscribe(() => {
+        this.router.navigate(["Users"])
       })
     } else {
-      this.studentService.update(id, student).subscribe(() => {
-        this.router.navigate(["students"])
+      this.UserService.update(id, User).subscribe(() => {
+        this.router.navigate(["Users"])
       })
     }
   }
 
   // because the format of the date doesn't fit date picker
-  updateBirthdate($event: any, student: Student) {
-    student.birthdate = new Date($event)
-  }
+
 }

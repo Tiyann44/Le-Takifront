@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center">
-  <h1>Students</h1>
-  <a mat-raised-button color="primary" routerLink="/student-details/new">New</a>
+  <h1>users</h1>
+  <a mat-raised-button color="primary" routerLink="/users-details/new">New</a>
 </div>
 <table class="table table-hover">
   <thead>
@@ -13,13 +13,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let student of (students$ | async)" routerLink="/student-details/{{student.id}}">
-    <td>{{ student.firstName }}</td>
-    <td>{{ student.lastName }}</td>
-    <td>{{ student.birthdate | date : "dd/MM/yyyy" }}</td>
-    <td>{{ student.major!!.name }}</td>
+  <tr *ngFor="let users of (users$ | async)" routerLink="/users-details/{{users.id}}">
+    <td>{{ users.firstName }}</td>
+    <td>{{ users.lastName }}</td>
+    <td>{{ users.birthdate | date : "dd/MM/yyyy" }}</td>
+    <td>{{ users.major!!.name }}</td>
     <td>
-      <button mat-icon-button color="warn" (click)="deleteStudent($event, student)">
+      <button mat-icon-button color="warn" (click)="deleteById($event, users)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>
