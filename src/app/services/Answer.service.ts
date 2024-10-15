@@ -10,7 +10,7 @@ export class AnswerService {
     constructor(private http: HttpClient) {
     }
 
-    private AnswerURL = "http://localhost:8080/answers"
+    private AnswerURL = "http://localhost:8080/api/answers"
 
     findAll(): Observable<Answer[]> {
         return this.http.get<Answer[]>(this.AnswerURL)

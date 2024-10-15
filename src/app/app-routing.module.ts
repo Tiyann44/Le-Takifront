@@ -7,6 +7,7 @@ import { UserDetailsComponent } from "users/user-details/user-details.component"
 import { UserDetailsResolver } from "users/user-details/user-details.resolver"
 import {QuizzComponent} from "./Quizz/quizz.component";
 import{ConnexionComponent} from "./connexion/connexion.component";
+import {ThemeComponent} from "./theme/theme.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },

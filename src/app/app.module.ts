@@ -15,6 +15,7 @@ import { MatButtonModule } from "@angular/material/button"
 import { HttpClientModule } from "@angular/common/http"
 import {QuizzComponent} from "./Quizz/quizz.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
+import {ThemeComponent} from "./theme/theme.component";
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {ConnexionComponent} from "./connexion/connexion.component";
     UserDetailsComponent,
     QuizzComponent,
     ConnexionComponent,
+    ThemeComponent
   ],
   imports: [
     BrowserModule,
