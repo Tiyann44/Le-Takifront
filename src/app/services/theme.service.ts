@@ -10,7 +10,7 @@ export class ThemeService {
   constructor(private http: HttpClient) {
   }
 
-  private themeURL = "http://localhost:8080/theme"
+  private themeURL = "http://localhost:8080/api/themes"
 
   findAll(): Observable<Theme[]> {
     return this.http.get<Theme[]>(this.themeURL)

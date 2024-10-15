@@ -14,7 +14,8 @@ import { MatIconModule } from "@angular/material/icon"
 import { MatButtonModule } from "@angular/material/button"
 import { HttpClientModule } from "@angular/common/http"
 import {QuizzComponent} from "./Quizz/quizz.component";
-import { connexionComponent } from "./connexion/connexion.component";
+import {ThemeComponent} from "./theme/theme.component";
+import { ConnexionComponent } from "./connexion/connexion.component";
 
 
 
@@ -26,7 +27,9 @@ import { connexionComponent } from "./connexion/connexion.component";
     UsersComponent,
     UserDetailsComponent,
     QuizzComponent,
-    connexionComponent,
+
+    ConnexionComponent,
+    ThemeComponent
   ],
   imports: [
     BrowserModule,
