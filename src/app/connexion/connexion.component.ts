@@ -1,58 +1,49 @@
-import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
-import { ModalService } from 'services/modal.service';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-    selector: 'app-connexion',
-    templateUrl: './connexion.component.html',
-    styleUrls: ['./connexion.component.scss']
+    selector: 'app-connexion', // ou app-auth si tu l'appelles autrement
+    templateUrl: './connexion.component.html', // Chemin vers le bon fichier HTML
+    styleUrls: ['./connexion.component.scss'] // Si tu as un fichier de styles
 })
-export class ConnexionComponent implements OnInit {
-    @ViewChild('authModal') authModal!: ElementRef;
-    constructor(private modalService: ModalService) {}
+export class connexionComponent implements OnInit {
+    isLoginActive: boolean = true; // Variable pour gérer l'état actif des onglets
 
-    ngOnInit() {
-        const defaultOpen = document.getElementById("defaultOpen");
-        if (defaultOpen) {
-            defaultOpen.click();
-        }
+    constructor() {}
 
-        this.modalService.setModal(this.authModal.nativeElement);
-        console.log("Modal configuré :", this.authModal.nativeElement);
+    ngOnInit(): void {}
+
+    // Méthode pour afficher l'onglet de connexion
+    onLoginTabClick(): void {
+        this.isLoginActive = true;
     }
 
-    closeModal() {
-        const modal = document.getElementById("authModal");
-        if (modal) {
-            modal.style.display = "none"; // Cache le modal
-        }
+    // Méthode pour afficher l'onglet d'inscription
+    onRegisterTabClick(): void {
+        this.isLoginActive = false;
     }
 
-    openTab(evt: Event, tabName: string) {
-        console.log(`Onglet ouvert: ${tabName}`);
-        const tabcontent = document.getElementsByClassName("tabcontent") as HTMLCollectionOf<HTMLElement>;
-        for (let i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none"; // Cache tous les onglets
-        }
-
-        const activeTab = document.getElementById(tabName);
-        if (activeTab) {
-            activeTab.style.display = "block"; // Affiche l'onglet actif
-        }
-
-        // Ajoute la classe active au bouton cliqué
-        const currentTarget = evt.currentTarget as HTMLElement;
-        if (currentTarget) {
-            currentTarget.classList.add("active"); // Ajoute la classe active au bouton
-        }
+    // Méthode pour gérer la soumission du formulaire de connexion
+    onLoginSubmit(emailInput: HTMLInputElement, passwordInput: HTMLInputElement): void {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        console.log(`Tentative de connexion avec l'email : ${email} et le mot de passe : ${password}`);
+        alert(`Tentative de connexion avec ${email}`);
     }
 
-    onLoginSubmit() {
-        console.log("Login submitted");
-        this.closeModal();
-    }
-
-    onRegisterSubmit() {
-        console.log("Registration submitted");
-        this.closeModal();
+    // Méthode pour gérer la soumission du formulaire d'inscription
+    onRegisterSubmit(
+        firstnameInput: HTMLInputElement,
+        lastnameInput: HTMLInputElement,
+        emailInput: HTMLInputElement,
+        usernameInput: HTMLInputElement,
+        passwordInput: HTMLInputElement
+    ): void {
+        const firstname = firstnameInput.value;
+        const lastname = lastnameInput.value;
+        const email = emailInput.value;
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        console.log(`Tentative d'inscription avec le nom : ${firstname} ${lastname}, l'email : ${email}, le pseudo : ${username} et le mot de passe : ${password}`);
+        alert(`Tentative d'inscription pour ${username}`);
     }
 }
