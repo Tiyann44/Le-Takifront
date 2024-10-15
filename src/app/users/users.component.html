@@ -16,8 +16,7 @@
   <tr *ngFor="let users of (users$ | async)" routerLink="/users-details/{{users.id}}">
     <td>{{ users.firstName }}</td>
     <td>{{ users.lastName }}</td>
-    <td>{{ users.birthdate | date : "dd/MM/yyyy" }}</td>
-    <td>{{ users.major!!.name }}</td>
+    <td>{{ users.email }}</td>
     <td>
       <button mat-icon-button color="warn" (click)="deleteById($event, users)">
         <mat-icon>delete</mat-icon>

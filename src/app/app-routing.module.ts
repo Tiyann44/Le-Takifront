@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
 import { HomeComponent } from "home/home.component"
-import { UsersComponent } from "students/students.component"
-import { UsersResolver } from "students/students.resolver"
-import { UserDetailsComponent } from "students/student-details/student-details.component"
-import { UserDetailsResolver } from "students/student-details/student-details.resolver"
+import { UsersComponent } from "users/users.component"
+import { UsersResolver } from "users/users.resolver"
+import { UserDetailsComponent } from "users/user-details/user-details.component"
+import { UserDetailsResolver } from "users/user-details/user-details.resolver"
 import {QuizzComponent} from "./Quizz/quizz.component";
 
 const routes: Routes = [
