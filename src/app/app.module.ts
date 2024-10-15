@@ -7,13 +7,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 import { NavbarComponent } from "navbar/navbar.component"
 import { MatListModule } from "@angular/material/list"
 import { HomeComponent } from "home/home.component"
-import { StudentsComponent } from "students/students.component"
-import { StudentDetailsComponent } from "students/student-details/student-details.component"
+import {UsersComponent} from "users/users.component"
+import {UserDetailsComponent} from "users/user-details/user-details.component"
 import { FormsModule } from "@angular/forms"
 import { MatIconModule } from "@angular/material/icon"
 import { MatButtonModule } from "@angular/material/button"
-import { MajorsComponent } from "majors/majors.component"
-import { MajorStudentsComponent } from "majors/major-students/major-students.component"
 import { HttpClientModule } from "@angular/common/http"
 import {QuizzComponent} from "./Quizz/quizz.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
@@ -24,10 +22,8 @@ import {ConnexionComponent} from "./connexion/connexion.component";
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    StudentsComponent,
-    StudentDetailsComponent,
-    MajorsComponent,
-    MajorStudentsComponent,
+    UsersComponent,
+    UserDetailsComponent,
     QuizzComponent,
     ConnexionComponent,
   ],
