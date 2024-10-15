@@ -2,13 +2,13 @@
     <h1>Thèmes de Quiz</h1>
     <div class="themes-grid">
         <div class="theme-card" *ngFor="let theme of themes" (click)="toggleQuizzes(theme)">
-            <img [src]="theme.image" [alt]="theme.title" class="theme-image">
+            <img [src]="theme.image" [alt]="theme.name" class="theme-image">
             <div class="theme-content">
-                <div class="theme-title">{{ theme.title }}</div>
+                <div class="theme-title">{{ theme.name }}</div>
                 <div class="theme-description">{{ theme.description }}</div>
                 <div *ngIf="theme.showQuizzes" class="quiz-list">
                     <div class="quiz-item" *ngFor="let quiz of theme.quizzes">
-                        <a [routerLink]="['/quiz', quiz.id]" class="quiz-link">{{ quiz.title }}</a>
+                        <a [routerLink]="['/quiz', quiz.id]" class="quiz-link">{{ quiz.name }}</a>
                     </div>
                 </div>
             </div>

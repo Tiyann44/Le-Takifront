@@ -1,49 +1,41 @@
-import { Component } from '@angular/core';
-
-interface Quiz {
-    id: string;
-    title: string;
-}
-
-interface Theme {
-    title: string;
-    description: string;
-    image: string;
-    quizzes: Quiz[];
-    showQuizzes?: boolean; // Pour gérer l'affichage des quiz
-}
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'services/theme.service'; // Assurez-vous que le chemin est correct
+import { Theme } from 'models/theme.model'; // Assurez-vous que le chemin est correct
+import { Router } from '@angular/router'; // Importez Router
 
 @Component({
     selector: 'app-themes',
     templateUrl: './themes.component.html',
-    styleUrls: ['./themes.component.scss'], // Si tu as un fichier SCSS
+    styleUrls: ['./themes.component.scss'],
 })
-export class ThemesComponent {
-    themes: Theme[] = [
-        {
-            title: 'Histoire',
-            description: 'Explorez les époques et les événements qui ont façonné notre monde.',
-            image: 'https://picsum.photos/400/300?random=1',
-            quizzes: [
-                { id: 'h1', title: 'La Révolution Française' },
-                { id: 'h2', title: 'La Seconde Guerre Mondiale' },
-                { id: 'h3', title: 'Les Grandes Civilisations Antiques' }
-            ]
-        },
-        {
-            title: 'Sciences',
-            description: 'Découvrez les merveilles de la science et de la technologie.',
-            image: 'https://picsum.photos/400/300?random=2',
-            quizzes: [
-                { id: 's1', title: 'Les Lois de la Physique' },
-                { id: 's2', title: 'L\'Évolution des Espèces' },
-                { id: 's3', title: 'Les Découvertes Spatiales' }
-            ]
-        },
-        // Ajoute les autres thèmes ici...
-    ];
+export class ThemesComponent implements OnInit {
+    themes: Theme[] = [];
 
-    toggleQuizzes(theme: Theme) {
-        theme.showQuizzes = !theme.showQuizzes; // Basculer l'affichage des quiz
+    constructor(private themeService: ThemeService, private router: Router) {}
+
+    ngOnInit(): void {
+        this.loadThemes();
     }
+
+    loadThemes(): void {
+        this.themeService.findAll().subscribe((data: Theme[]) => {
+            this.themes = data;
+        });
+    }
+    /*loadThemes(): void {
+        this.themeService.findAll().subscribe((data: Theme[]) => {
+            // Ajout de l'image de manière dynamique, sinon mettez à jour l'API pour renvoyer les images
+            this.themes = data.map(theme => ({
+                ...theme,
+                image: 'https://picsum.photos/400/300?random=' + theme.id, // Génération d'images aléatoires
+                showQuizzes: false // Initialisation de showQuizzes
+            }));
+        });
+    }*/
+    toggleQuizzes(theme: Theme) {
+        this.router.navigate(['/quizzes', theme.id]); // Redirige vers la page des quiz
+    }
+
+
+
 }

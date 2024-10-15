@@ -13,7 +13,7 @@ import { FormsModule } from "@angular/forms"
 import { MatIconModule } from "@angular/material/icon"
 import { MatButtonModule } from "@angular/material/button"
 import { HttpClientModule } from "@angular/common/http"
-import {QuizzComponent} from "./Quizz/quizz.component";
+import {QuizzesComponent} from "./Quizzes/quizzes.component";
 import { ConnexionComponent } from "./connexion/connexion.component";
 import { ThemesComponent } from './themes/themes.component';
 
@@ -26,7 +26,7 @@ import { ThemesComponent } from './themes/themes.component';
     HomeComponent,
     UsersComponent,
     UserDetailsComponent,
-    QuizzComponent,
+    QuizzesComponent,
     ConnexionComponent,
     ThemesComponent,
   ],
