@@ -4,7 +4,9 @@
   display: flex;
   flex-direction: column;
   padding: 30px;
-  color: theme.$white h1 {
+  color: theme.$white;
+
+  h1 {
     color: theme.$common-purple;
     font-size: xx-large;
   }
