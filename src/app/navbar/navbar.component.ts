@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core"
-import { Link } from "models/link.model"
+import { Link } from "models/link.model
+import { Router } from "@angular/router";
+import { ModalService } from 'services/modal.service';
+
 
 @Component({
   selector: "epf-navbar",
@@ -7,10 +10,15 @@ import { Link } from "models/link.model"
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent {
-  links: Link[] = []
+  links: Link[] = [];
 
-  constructor() {
-    this.links.push({ name: "Students", href: "students" })
-    this.links.push({ name: "Majors", href: "majors" })
+  constructor(private modalService: ModalService) {}
+
+  openModal() {
+    console.log("Modal ouvert"); // Pour vérifier si la méthode est appelée
+    this.modalService.openModal(); // Appelle la méthode pour ouvrir le modal dans le service
   }
+
+
 }
+

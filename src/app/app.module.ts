@@ -14,6 +14,8 @@ import { MatIconModule } from "@angular/material/icon"
 import { MatButtonModule } from "@angular/material/button"
 import { HttpClientModule } from "@angular/common/http"
 import {QuizzComponent} from "./Quizz/quizz.component";
+import {ConnexionComponent} from "./connexion/connexion.component";
+
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import {QuizzComponent} from "./Quizz/quizz.component";
     UsersComponent,
     UserDetailsComponent,
     QuizzComponent,
+    ConnexionComponent,
   ],
   imports: [
     BrowserModule,
