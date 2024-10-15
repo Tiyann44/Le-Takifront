@@ -1,15 +1,19 @@
 <nav *ngIf="isHomePage()">
-    <div class="container header-content">
+    <div class="container nav-content">
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/quiz">Quizz</a>
         <a routerLink="/contact">Contact</a>
         <a routerLink="/connexion" class="cta-button">Connexion</a>
     </div>
+
 </nav>
 
 <nav *ngIf="isLoginPage()">
-    <ul>
-        <li><a routerLink="/">Retour à l'accueil</a></li>
-    </ul>
+    <div class="container nav-content">
+        <div class="logo">TakItQuiz</div>
+        <a routerLink="/">Accueil</a>
+        <a routerLink="/quiz">Quizz</a>
+        <a routerLink="/contact">Contact</a>
+    </div>
 </nav>

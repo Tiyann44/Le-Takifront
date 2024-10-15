@@ -6,7 +6,7 @@
   --text-color: #F8F8FF;
 }
 
-header {
+nav {
   background-color: dimgray;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   position: fixed;
@@ -15,7 +15,7 @@ header {
   z-index: 1000;
 }
 
-.header-content {
+.nav-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,7 +42,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--pastel-pink);
+  color: var(--pastel-blue);
 }
 
 .cta-button {

@@ -26,7 +26,7 @@ export class NavbarComponent {
   }
 
   isLoginPage(): boolean {
-    return this.currentRoute === '/login'; // ou autre chemin pour la connexion
+    return this.currentRoute === '/connexion'; // ou autre chemin pour la connexion
   }
 
 }
