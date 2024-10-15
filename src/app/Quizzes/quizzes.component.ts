@@ -19,11 +19,11 @@ export class QuizzesComponent implements OnInit {
         this.loadQuizzes(this.themeId);
     }
 
-    loadQuizzes(themeId: bigint): void {
+    loadQuizzes(themeId: bigint): void {/*
         // Si vous avez une méthode dans votre service pour obtenir les quiz par ID de thème, utilisez-la ici
         this.quizService.findAll().subscribe((data: Quiz[]) => {
             this.quizzes = data.filter(quiz => quiz.theme.id === themeId); // Filtrer par ID de thème
-        });
+        });*/
     }
 }
 
