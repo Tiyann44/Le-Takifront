@@ -77,7 +77,7 @@ main {
 }
 
 .submit-btn {
-  background-color: var(--pastel-lavender);
+  background-color: cadetblue;
   color: var(--text-color);
   border: none;
   padding: 0.7rem 1.5rem;
@@ -87,10 +87,11 @@ main {
   font-weight: 500;
   width: 100%;
   margin-top: 1rem;
+  z-index: 5;
 }
 
 .submit-btn:hover {
-  background-color: var(--pastel-pink);
+  background-color: var(--pastel-blue);
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }

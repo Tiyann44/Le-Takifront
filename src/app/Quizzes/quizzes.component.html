@@ -1,0 +1,10 @@
+<div class="container">
+    <h1>Quizzes pour le thème {{ themeId }}</h1>
+    <div class="quizzes-grid">
+        <div class="quiz-card" *ngFor="let quiz of quizzes">
+            <h3>{{ quiz.name }}</h3>
+            <p>{{ quiz.description }}</p>
+            <a [routerLink]="['/quiz', quiz.id]" class="quiz-link">Démarrer le Quiz</a>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,7 @@ import {Component, OnInit} from '@angular/core';
     templateUrl: './connexion.component.html', // Chemin vers le bon fichier HTML
     styleUrls: ['./connexion.component.scss'] // Si tu as un fichier de styles
 })
-export class connexionComponent implements OnInit {
+export class ConnexionComponent implements OnInit {
     isLoginActive: boolean = true; // Variable pour gérer l'état actif des onglets
 
     constructor() {}
@@ -23,10 +23,9 @@ export class connexionComponent implements OnInit {
     }
 
     // Méthode pour gérer la soumission du formulaire de connexion
-    onLoginSubmit(emailInput: HTMLInputElement, passwordInput: HTMLInputElement): void {
+    onLoginSubmit(emailInput: HTMLInputElement): void {
         const email = emailInput.value;
-        const password = passwordInput.value;
-        console.log(`Tentative de connexion avec l'email : ${email} et le mot de passe : ${password}`);
+        console.log(`Tentative de connexion avec l'email : ${email}`);
         alert(`Tentative de connexion avec ${email}`);
     }
 
@@ -35,15 +34,13 @@ export class connexionComponent implements OnInit {
         firstnameInput: HTMLInputElement,
         lastnameInput: HTMLInputElement,
         emailInput: HTMLInputElement,
-        usernameInput: HTMLInputElement,
-        passwordInput: HTMLInputElement
+        usernameInput: HTMLInputElement
     ): void {
         const firstname = firstnameInput.value;
         const lastname = lastnameInput.value;
         const email = emailInput.value;
         const username = usernameInput.value;
-        const password = passwordInput.value;
-        console.log(`Tentative d'inscription avec le nom : ${firstname} ${lastname}, l'email : ${email}, le pseudo : ${username} et le mot de passe : ${password}`);
+        console.log(`Tentative d'inscription avec le nom : ${firstname} ${lastname}, l'email : ${email}, et le pseudo : ${username} `);
         alert(`Tentative d'inscription pour ${username}`);
     }
 }

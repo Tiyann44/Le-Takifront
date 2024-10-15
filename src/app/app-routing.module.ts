@@ -5,14 +5,17 @@ import { UsersComponent } from "users/users.component"
 import { UsersResolver } from "users/users.resolver"
 import { UserDetailsComponent } from "users/user-details/user-details.component"
 import { UserDetailsResolver } from "users/user-details/user-details.resolver"
-import {QuizzComponent} from "./Quizz/quizz.component";
-import {ThemeComponent} from "./theme/theme.component";
-import { connexionComponent } from "./connexion/connexion.component";
+import {QuizzesComponent} from "./Quizzes/quizzes.component";
+import { ConnexionComponent } from "./connexion/connexion.component";
+import { ThemesComponent } from './themes/themes.component';
+
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
-  { path: 'quiz', component: QuizzComponent },
-  {path: 'connexion', component: connexionComponent},
+  { path: 'quizzes/:themeId', component: QuizzesComponent },
+  { path: '', redirectTo: '/themes', pathMatch: 'full' },
+  {path: 'connexion', component: ConnexionComponent},
+  {path: 'themes', component: ThemesComponent},
   {
     path: "students",
     component: UsersComponent,

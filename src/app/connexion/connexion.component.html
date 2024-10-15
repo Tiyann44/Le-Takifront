@@ -7,20 +7,16 @@
         </div>
 
         <!-- Formulaire de Connexion -->
-        <form *ngIf="isLoginActive" (ngSubmit)="onLoginSubmit(loginEmail, loginPassword)">
+        <form *ngIf="isLoginActive" (ngSubmit)="onLoginSubmit(loginEmail)">
             <div class="form-group">
                 <label for="login-email">Email</label>
                 <input type="email" id="login-email" #loginEmail required>
-            </div>
-            <div class="form-group">
-                <label for="login-password">Mot de passe</label>
-                <input type="password" id="login-password" #loginPassword required>
             </div>
             <button type="submit" class="submit-btn">Se connecter</button>
         </form>
 
         <!-- Formulaire d'Inscription -->
-        <form *ngIf="!isLoginActive" (ngSubmit)="onRegisterSubmit(registerFirstname, registerLastname, registerEmail, registerUsername, registerPassword)">
+        <form *ngIf="!isLoginActive" (ngSubmit)="onRegisterSubmit(registerFirstname, registerLastname, registerEmail, registerUsername)">
             <div class="form-group">
                 <label for="register-firstname">Prénom</label>
                 <input type="text" id="register-firstname" #registerFirstname required>
@@ -36,10 +32,6 @@
             <div class="form-group">
                 <label for="register-username">Pseudo</label>
                 <input type="text" id="register-username" #registerUsername required>
-            </div>
-            <div class="form-group">
-                <label for="register-password">Mot de passe</label>
-                <input type="password" id="register-password" #registerPassword required>
             </div>
             <button type="submit" class="submit-btn">S'inscrire</button>
         </form>

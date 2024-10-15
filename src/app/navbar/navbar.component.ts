@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { Link } from "models/link.model"
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ModalService } from 'services/modal.service';
 
 
@@ -10,15 +10,32 @@ import { ModalService } from 'services/modal.service';
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent {
+  currentRoute: string = "";
   links: Link[] = [];
 
-  constructor(private modalService: ModalService) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
-  openModal() {
-    console.log("Modal ouvert"); // Pour vérifier si la méthode est appelée
-    this.modalService.openModal(); // Appelle la méthode pour ouvrir le modal dans le service
+  ngOnInit(): void {
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
   }
 
+  isHomePage(): boolean {
+    return this.currentRoute === '/';
+  }
+
+  isLoginPage(): boolean {
+    return this.currentRoute === '/connexion'; // ou autre chemin pour la connexion
+  }
+
+  isThemePage(): boolean {
+    return this.currentRoute === '/themes'; // ou autre chemin pour les thèmes
+  }
+
+  isQuizzesPage(): boolean {
+    return this.currentRoute === '/quizzes/:themeId'; // ou autre chemin pour les quiz
+  }
 
 }
 

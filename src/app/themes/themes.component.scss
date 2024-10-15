@@ -1,0 +1,125 @@
+:root {
+  --pastel-blue: #A0E1E1;
+  --pastel-pink: #FFD1DC;
+  --pastel-lavender: #E6E6FA;
+  --off-white: #F8F8FF;
+  --text-color: #333;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--off-white);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+main {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px - 100px);
+}
+
+h1 {
+  text-align: center;
+  color: var(--pastel-blue);
+  margin-bottom: 2rem;
+}
+
+.themes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.theme-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.theme-link {
+  text-decoration: none; // Pour enlever le soulignement du lien
+  color: inherit; // Pour que la couleur du texte hérite de celle du parent
+  display: block; // Pour que le lien remplisse toute la carte
+}
+
+.theme-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+.theme-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.theme-content {
+  padding: 1rem;
+}
+
+.theme-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.theme-description {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.quiz-list {
+  display: none;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.quiz-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.quiz-item:last-child {
+  border-bottom: none;
+}
+
+.quiz-link {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.quiz-link:hover {
+  color: var(--pastel-pink);
+}
+
+footer {
+  background-color: var(--pastel-blue);
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animated {
+  animation: fadeIn 0.5s ease-in-out;
+}
