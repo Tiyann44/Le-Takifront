@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import { Observable} from "rxjs"
 import { Quiz } from "models/quiz.model"
 import { HttpClient } from "@angular/common/http"
 
@@ -12,9 +12,12 @@ export class QuizService {
 
     private QuizURL = "http://localhost:8080/api/quizzes"
 
+
     findAll(): Observable<Quiz[]> {
-        return this.http.get<Quiz[]>(this.QuizURL)
+        return this.http.get<Quiz[]>(this.QuizURL).pipe(
+        );
     }
+
 
     findById(id: number): Observable<Quiz> {
         return this.http.get<Quiz>(`${this.QuizURL}/${id}`)
@@ -31,4 +34,9 @@ export class QuizService {
     deleteById(Quiz: Quiz) {
         return this.http.delete(`${this.QuizURL}/${Quiz.id}`)
     }
+
+    findByThemeId(themeId: bigint): Observable<Quiz[]> {
+        return this.http.get<Quiz[]>(`${this.QuizURL}/theme/${themeId}`);
+    }
+
 }

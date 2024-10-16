@@ -34,7 +34,7 @@ export class NavbarComponent {
   }
 
   isQuizzesPage(): boolean {
-    return this.currentRoute === '/quizzes/:themeId'; // ou autre chemin pour les quiz
+    return this.currentRoute.startsWith('/quizzes/');
   }
 
 }
