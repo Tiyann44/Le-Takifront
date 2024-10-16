@@ -1,19 +1,18 @@
 <div class="container">
     <h1>Quiz pour le thème : {{ themeName }}</h1>
-    <div *ngIf="quizzes.length === 0">
+    <div *ngIf="quizzes && quizzes.length === 0">
         <p>Aucun quiz disponible pour ce thème pour le moment.</p>
     </div>
-    <div class="quiz-list" *ngIf="quizzes.length > 0">
-        <div class="quiz-card animated" *ngFor="let quiz of quizzes">
-            <img [src]="quiz.image" [alt]="quiz.name" class="quiz-image">
+    <div class="quizzes-grid" *ngIf="quizzes.length > 0">
+        <div class="quiz-card animated" *ngFor="let quiz of quizzes" (click)="quiz.id ? startQuiz(quiz.id) : null">
+        <img [src]="quiz.image" [alt]="quiz.name" class="quiz-image">
             <div class="quiz-content">
-                <h2 class="quiz-title">{{ quiz.name }}</h2>
-                <p class="quiz-description">{{ quiz.description }}</p>
-                <div class="quiz-meta">
-                    <span>{{ quiz.questions.length }} questions</span>
-                </div>
-                <a [routerLink]="['/quiz', quiz.id]" class="start-quiz-btn">Commencer le quiz</a>
+                <div class="quiz-title">{{ quiz.name }}</div>
+                <div class="quiz-description">{{ quiz.description }}</div>
             </div>
         </div>
     </div>
+    <ng-template #noQuizzes>
+        <p>Aucun quiz disponible pour ce thème pour le moment.</p>
+    </ng-template>
 </div>
