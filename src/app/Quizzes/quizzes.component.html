@@ -1,10 +1,19 @@
 <div class="container">
-    <h1>Quizzes pour le thème {{ themeId }}</h1>
-    <div class="quizzes-grid">
-        <div class="quiz-card" *ngFor="let quiz of quizzes">
-            <h3>{{ quiz.name }}</h3>
-            <p>{{ quiz.description }}</p>
-            <a [routerLink]="['/quiz', quiz.id]" class="quiz-link">Démarrer le Quiz</a>
+    <h1>Quiz pour le thème : {{ themeName }}</h1>
+    <div *ngIf="quizzes.length === 0">
+        <p>Aucun quiz disponible pour ce thème pour le moment.</p>
+    </div>
+    <div class="quiz-list" *ngIf="quizzes.length > 0">
+        <div class="quiz-card animated" *ngFor="let quiz of quizzes">
+            <img [src]="quiz.image" [alt]="quiz.name" class="quiz-image">
+            <div class="quiz-content">
+                <h2 class="quiz-title">{{ quiz.name }}</h2>
+                <p class="quiz-description">{{ quiz.description }}</p>
+                <div class="quiz-meta">
+                    <span>{{ quiz.questions.length }} questions</span>
+                </div>
+                <a [routerLink]="['/quiz', quiz.id]" class="start-quiz-btn">Commencer le quiz</a>
+            </div>
         </div>
     </div>
 </div>

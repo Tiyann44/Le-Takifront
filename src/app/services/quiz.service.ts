@@ -31,4 +31,9 @@ export class QuizService {
     deleteById(Quiz: Quiz) {
         return this.http.delete(`${this.QuizURL}/${Quiz.id}`)
     }
+
+    findByThemeId(themeId: bigint): Observable<Quiz[]> {
+        return this.http.get<Quiz[]>(`${this.QuizURL}/theme/${themeId}`);
+    }
+
 }

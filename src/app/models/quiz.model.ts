@@ -6,5 +6,7 @@ export interface Quiz {
     name: string
     description: string
     image: string
+    theme: Theme
+    questions: Question[]
 
 }
