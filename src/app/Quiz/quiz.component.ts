@@ -41,16 +41,25 @@ export class QuizComponent implements OnInit {
 
             if (this.questions.length === 0) {
                 console.log('Aucune question disponible pour ce quiz.');
+            } else {
+                // Charger les réponses et les choix pour chaque question
+                this.questions.forEach(question => {
+                    this.questionService.findAnswersByQuestionId(Number(question.id)).subscribe((answers: Answer[]) => {
+                        question.answers = answers; // Assurez-vous que 'answers' est une propriété de ton modèle Question
+
+                        // Charger les choix associés à chaque réponse
+                        answers.forEach(answer => {
+                            this.questionService.findChoicesByAnswerId(Number(answer.id)).subscribe((choices: Choice[]) => {
+                                answer.choices = choices; // Assurez-vous que 'choices' est une propriété de ton modèle Answer
+                            });
+                        });
+                    });
+                });
             }
         }, error => {
             console.error('Erreur lors de la récupération des questions:', error);
         });
     }
-
-
-
-
-
 
     selectChoice(choice: Choice): void {
         this.selectedChoices.set(this.currentQuestionIndex, choice);
@@ -74,4 +83,13 @@ export class QuizComponent implements OnInit {
         });
         this.quizCompleted = true;
     }
+
+    resetQuiz(): void {
+        this.currentQuestionIndex = 0; // Réinitialiser l'index de la question
+        this.score = 0; // Réinitialiser le score
+        this.selectedChoices.clear(); // Vider les choix sélectionnés
+        this.quizCompleted = false; // Réinitialiser l'état de complétion du quiz
+        this.loadQuestions(); // Recharger les questions (si nécessaire)
+    }
+
 }

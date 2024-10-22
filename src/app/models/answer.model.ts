@@ -6,4 +6,5 @@ export interface Answer {
     question: Question
     choice: Choice
     isCorrect: boolean
+    choices?: Choice[];
 }

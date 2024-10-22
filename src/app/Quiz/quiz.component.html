@@ -1,36 +1,30 @@
-<div class="container" *ngIf="!quizCompleted">
-    <div class="quiz-container animated">
-        <!-- Barre de progression -->
-        <div class="progress-bar">
-            <div class="progress" [style.width]="(currentQuestionIndex + 1) / questions.length * 100 + '%'"></div>
-        </div>
+<div *ngIf="questions.length > 0; else noQuestions">
+    <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
+    <img [src]="questions[currentQuestionIndex]?.image" *ngIf="questions[currentQuestionIndex]?.image" alt="Question Image">
 
-        <!-- Affichage de la question -->
-        <div class="question" *ngIf="questions.length > 0">
-            <h2>{{ questions[currentQuestionIndex].question }}</h2>
-
-            <!-- Affichage des choix de réponse -->
-            <div class="options">
-                <div *ngFor="let choice of questions[currentQuestionIndex].answers">
-                    <div
-                            class="option"
-                            [class.selected]="selectedChoices.get(currentQuestionIndex)?.id === choice.choice.id"
-                            (click)="selectChoice(choice.choice)">
-                        {{ choice.choice.option }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bouton pour passer à la question suivante -->
-        <div class="quiz-controls">
-            <button class="btn btn-next" (click)="nextQuestion()">Question suivante</button>
+    <!-- Afficher les choix -->
+    <div *ngFor="let answer of questions[currentQuestionIndex]?.answers">
+        <div *ngFor="let choice of answer.choices">
+            <input
+                    type="radio"
+                    [value]="choice.id"
+                    [checked]="selectedChoices.get(currentQuestionIndex)?.id === choice.id"
+                    (change)="selectChoice(choice)">
+            {{ choice.option }} <!-- Affichage de l'option du choix -->
         </div>
     </div>
+
+    <button (click)="nextQuestion()">
+        {{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Terminer' }}
+    </button>
 </div>
 
-<!-- Résultats après soumission du quiz -->
-<div class="container" *ngIf="quizCompleted">
+<ng-template #noQuestions>
+    <p>Aucune question disponible pour ce quiz.</p>
+</ng-template>
+
+<ng-container *ngIf="quizCompleted">
     <h2>Quiz terminé !</h2>
     <p>Votre score : {{ score }} sur {{ questions.length }}</p>
-</div>
+    <button (click)="resetQuiz()">Recommencer le quiz</button>
+</ng-container>

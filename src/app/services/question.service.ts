@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core"
 import {map, Observable} from "rxjs"
 import { Question } from "models/question.model"
 import { HttpClient } from "@angular/common/http"
+import {Answer} from "../models/answer.model";
+import {Choice} from "../models/choice.model";
 
 @Injectable({
     providedIn: "root",
@@ -14,6 +16,14 @@ export class QuestionService {
 
     findAll(): Observable<Question[]> {
         return this.http.get<Question[]>(this.QuestionURL)
+    }
+
+    findAnswersByQuestionId(quizId: number): Observable<Answer[]> {
+        return this.http.get<Answer[]>(`${this.QuestionURL}/${quizId}`);
+    }
+
+    findChoicesByAnswerId(answerId: number): Observable<Choice[]> {
+        return this.http.get<Choice[]>(`${this.QuestionURL}/answers/${answerId}/choices`);
     }
 
 
