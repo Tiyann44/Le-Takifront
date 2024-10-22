@@ -20,6 +20,11 @@ export class QuestionService {
         return this.http.get<Question>(`${this.QuestionURL}/${id}`)
     }
 
+    findByQuizId(quizId: number): Observable<Question[]> {
+        return this.http.get<Question[]>(`${this.QuestionURL}?quizId=${quizId}`);
+    }
+
+
     update(id: number, student: Question): Observable<Question> {
         return this.http.post<Question>(`${this.QuestionURL}/${id}`, student)
     }

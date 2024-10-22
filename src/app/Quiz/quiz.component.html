@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="quiz-container">
+    <h1>{{ quiz?.name }}</h1>
+    <p>{{ quiz?.description }}</p>
 
-</body>
-</html>
+    <div *ngFor="let question of questions">
+        <h3>{{ question.question }}</h3>
+        <ul>
+            <li *ngFor="let answer of question.answers">
+                <label>
+                    <input type="radio" name="question{{ question.id }}" [value]="answer.choice.id" />
+                    {{ answer.choice.option }}
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>
