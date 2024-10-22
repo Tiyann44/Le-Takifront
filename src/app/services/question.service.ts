@@ -16,12 +16,17 @@ export class QuestionService {
         return this.http.get<Question[]>(this.QuestionURL)
     }
 
+    getQuestionsByQuizId(quizId: number): Observable<Question[]> {
+        return this.http.get<Question[]>(`${this.QuestionURL}/${quizId}`);
+    }
+
+
     findById(id: number): Observable<Question> {
         return this.http.get<Question>(`${this.QuestionURL}/${id}`)
     }
 
     findByQuizId(quizId: number): Observable<Question[]> {
-        return this.http.get<Question[]>(`${this.QuestionURL}?quizId=${quizId}`);
+        return this.http.get<Question[]>(`${this.QuestionURL}/quiz/${quizId}`);
     }
 
 

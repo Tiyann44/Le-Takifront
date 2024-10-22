@@ -1,16 +1,29 @@
-<div class="quiz-container">
-    <h1>{{ quiz?.name }}</h1>
-    <p>{{ quiz?.description }}</p>
+<div class="container" *ngIf="!quizCompleted">
+    <div class="quiz-container animated">
+        <div class="progress-bar">
+            <div class="progress" [style.width]="(currentQuestionIndex + 1) / questions.length * 100 + '%'"></div>
+        </div>
 
-    <div *ngFor="let question of questions">
-        <h3>{{ question.question }}</h3>
-        <ul>
-            <li *ngFor="let answer of question.answers">
-                <label>
-                    <input type="radio" name="question{{ question.id }}" [value]="answer.choice.id" />
-                    {{ answer.choice.option }}
-                </label>
-            </li>
-        </ul>
+        <div class="question" *ngIf="questions.length > 0">
+            <h2>{{ questions[currentQuestionIndex].question }}</h2>
+            <div class="options">
+                <div *ngFor="let answer of questions[currentQuestionIndex].answers">
+                    <div class="option" (click)="selectOption(answer)">
+                        {{ answer.choice.option }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="quiz-controls">
+            <button class="btn btn-next" (click)="nextQuestion()">Question suivante</button>
+        </div>
     </div>
+</div>
+
+<!-- Résultats après soumission du quiz -->
+<div class="container" *ngIf="quizCompleted">
+    <h2>Quiz terminé !</h2>
+    <p>Votre score : {{ score }} sur {{ questions.length }}</p>
 </div>
