@@ -1,21 +1,28 @@
 <div class="container" *ngIf="!quizCompleted">
     <div class="quiz-container animated">
+        <!-- Barre de progression -->
         <div class="progress-bar">
             <div class="progress" [style.width]="(currentQuestionIndex + 1) / questions.length * 100 + '%'"></div>
         </div>
 
+        <!-- Affichage de la question -->
         <div class="question" *ngIf="questions.length > 0">
             <h2>{{ questions[currentQuestionIndex].question }}</h2>
+
+            <!-- Affichage des choix de réponse -->
             <div class="options">
-                <div *ngFor="let answer of questions[currentQuestionIndex].answers">
-                    <div class="option" (click)="selectOption(answer)">
-                        {{ answer.choice.option }}
+                <div *ngFor="let choice of questions[currentQuestionIndex].answers">
+                    <div
+                            class="option"
+                            [class.selected]="selectedChoices.get(currentQuestionIndex)?.id === choice.choice.id"
+                            (click)="selectChoice(choice.choice)">
+                        {{ choice.choice.option }}
                     </div>
                 </div>
-
             </div>
         </div>
 
+        <!-- Bouton pour passer à la question suivante -->
         <div class="quiz-controls">
             <button class="btn btn-next" (click)="nextQuestion()">Question suivante</button>
         </div>

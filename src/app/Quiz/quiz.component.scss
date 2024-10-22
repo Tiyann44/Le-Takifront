@@ -1,17 +1,9 @@
-:root {
-  --pastel-blue: #A0E1E1;
-  --pastel-pink: #FFD1DC;
-  --pastel-lavender: #E6E6FA;
-  --off-white: #F8F8FF;
-  --text-color: #333;
-}
-
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--off-white);
-  color: var(--text-color);
+  background-color: #F8F8FF; /* Couleur d'arrière-plan */
+  color: #333; /* Couleur de texte */
   line-height: 1.6;
 }
 
@@ -25,7 +17,7 @@ body {
 .quiz-container {
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 2rem;
 }
 
@@ -33,40 +25,45 @@ body {
   margin-bottom: 2rem;
 }
 
+.question h2 {
+  margin-bottom: 1rem;
+}
+
 .options {
-  display: grid;
+  display: flex;
+  flex-direction: column; /* Colonne pour les choix */
   gap: 1rem;
 }
 
 .option {
-  background-color: var(--off-white);
-  border: 2px solid var(--pastel-blue);
+  background-color: #F8F8FF;
+  border: 2px solid #A0E1E1; /* Bordure */
   border-radius: 5px;
   padding: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #FFD1DC; /* Couleur au survol */
+  }
 }
 
-.option:hover {
-  background-color: var(--pastel-pink);
+.quiz-controls {
+  display: flex;
+  justify-content: flex-end; /* Aligne le bouton à droite */
+  margin-top: 2rem;
 }
 
-.option.selected {
-  background-color: var(--pastel-blue);
-  color: white;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 10px;
-  background-color: var(--off-white);
+.btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
   border-radius: 5px;
-  margin-bottom: 2rem;
-  overflow: hidden;
-}
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #A0E1E1; /* Couleur de fond du bouton */
+  color: white;
 
-.progress {
-  height: 100%;
-  background-color: var(--pastel-blue);
-  transition: width 0.3s ease;
+  &:hover {
+    background-color: #E6E6FA; /* Couleur au survol */
+  }
 }

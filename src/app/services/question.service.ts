@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {map, Observable} from "rxjs"
 import { Question } from "models/question.model"
 import { HttpClient } from "@angular/common/http"
 
@@ -16,9 +16,12 @@ export class QuestionService {
         return this.http.get<Question[]>(this.QuestionURL)
     }
 
+
     getQuestionsByQuizId(quizId: number): Observable<Question[]> {
         return this.http.get<Question[]>(`${this.QuestionURL}/${quizId}`);
     }
+
+
 
 
     findById(id: number): Observable<Question> {

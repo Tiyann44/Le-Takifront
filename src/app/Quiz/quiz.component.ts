@@ -17,34 +17,45 @@ export class QuizComponent implements OnInit {
     selectedChoices: Map<number, Choice> = new Map(); // Stocke les choix sélectionnés
     score: number = 0;
     quizCompleted: boolean = false;
-    selectedAnswer: Answer | null = null;
 
     constructor(private route: ActivatedRoute, private questionService: QuestionService) {}
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
-            this.quizId = params['id']; // Récupère l'id du quiz depuis l'URL
+            this.quizId = Number(params['id']);
+            console.log('Quiz ID récupéré:', this.quizId); // Ajoute cette ligne
             this.loadQuestions();
         });
     }
 
+
     loadQuestions(): void {
-        this.questionService.getQuestionsByQuizId(this.quizId).subscribe((questions: Question[]) => {
-            this.questions = questions;
+        this.questionService.findAll().subscribe((data: Question[]) => {
+            // Filtrer les questions selon le quizId
+            this.questions = data.filter(question => {
+                return Number(question.quizId) === this.quizId ; // Comparer avec le quizId actuel
+            });
+
+            // Log pour vérifier le résultat du filtrage
+            console.log('Questions récupérées pour le quiz:', this.questions);
+
+            if (this.questions.length === 0) {
+                console.log('Aucune question disponible pour ce quiz.');
+            }
+        }, error => {
+            console.error('Erreur lors de la récupération des questions:', error);
         });
     }
 
-    // Sélectionne une réponse pour la question en cours
+
+
+
+
+
     selectChoice(choice: Choice): void {
         this.selectedChoices.set(this.currentQuestionIndex, choice);
     }
 
-    selectOption(selectedAnswer: Answer) {
-        this.selectedAnswer = selectedAnswer;
-    }
-
-
-    // Passe à la question suivante
     nextQuestion(): void {
         if (this.currentQuestionIndex < this.questions.length - 1) {
             this.currentQuestionIndex++;
@@ -53,15 +64,12 @@ export class QuizComponent implements OnInit {
         }
     }
 
-    // Vérifie la réponse et calcule le score
     submitQuiz(): void {
         this.questions.forEach((question, index) => {
             const selectedChoice = this.selectedChoices.get(index);
-            if (selectedChoice) {
-                const correctAnswer = question.answers.find(answer => answer.isCorrect)?.choice;
-                if (correctAnswer && selectedChoice.id === correctAnswer.id) {
-                    this.score++;
-                }
+            const correctAnswer = question.answers.find(answer => answer.isCorrect);
+            if (selectedChoice && correctAnswer && selectedChoice.id === correctAnswer.id) {
+                this.score++;
             }
         });
         this.quizCompleted = true;
