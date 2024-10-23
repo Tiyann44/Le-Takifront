@@ -1,16 +1,25 @@
+<!-- Bannière avec l'image de la question actuelle en arrière-plan et le titre du quiz -->
+<div
+        class="quiz-banner"
+        [ngStyle]="{'background-image': 'url(' + questions[currentQuestionIndex]?.image + ')'}">
+    <div class="quiz-banner-content">
+        <h1>Titre</h1>
+    </div>
+</div>
+
+<!-- Contenu du quiz, affichage des questions et réponses -->
 <div *ngIf="questions.length > 0; else noQuestions">
     <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
-    <img [src]="questions[currentQuestionIndex]?.image" *ngIf="questions[currentQuestionIndex]?.image" alt="Question Image">
 
-    <!-- Afficher les choix -->
+    <!-- Afficher les réponses et les choix associés -->
     <div *ngFor="let answer of questions[currentQuestionIndex]?.answers">
-        <div *ngFor="let choice of answer.choices">
+        <div *ngIf="answer.choices && answer.choices.length > 0">
             <input
                     type="radio"
-                    [value]="choice.id"
-                    [checked]="selectedChoices.get(currentQuestionIndex)?.id === choice.id"
-                    (change)="selectChoice(choice)">
-            {{ choice.option }} <!-- Affichage de l'option du choix -->
+                    [value]="answer.choices[0]?.id"
+                    [checked]="selectedChoices.get(currentQuestionIndex)?.id === answer.choices[0]?.id"
+                    (change)="selectChoice(answer.choices[0])">
+            {{ answer.choices[0]?.option }} <!-- Affichage de l'option du choix -->
         </div>
     </div>
 
@@ -19,10 +28,12 @@
     </button>
 </div>
 
+<!-- Si aucune question n'est disponible -->
 <ng-template #noQuestions>
     <p>Aucune question disponible pour ce quiz.</p>
 </ng-template>
 
+<!-- Affichage du score à la fin du quiz -->
 <ng-container *ngIf="quizCompleted">
     <h2>Quiz terminé !</h2>
     <p>Votre score : {{ score }} sur {{ questions.length }}</p>

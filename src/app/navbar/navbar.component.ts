@@ -37,5 +37,9 @@ export class NavbarComponent {
     return this.currentRoute.startsWith('/quizzes/');
   }
 
+    isQuizPage(): boolean {
+        return this.currentRoute.startsWith('/quiz/');
+    }
+
 }
 
