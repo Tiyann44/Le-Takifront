@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { Link } from "models/link.model"
 import { Router, ActivatedRoute } from "@angular/router";
-import { ModalService } from 'services/modal.service';
 
 
 @Component({
