@@ -1,25 +1,28 @@
-<!-- Bannière avec l'image de la question actuelle en arrière-plan et le titre du quiz -->
-<div
-        class="quiz-banner"
-        [ngStyle]="{'background-image': 'url(' + questions[currentQuestionIndex]?.image + ')'}">
+<!-- Bannière avec un fond uni sombre et le titre du quiz -->
+<div class="quiz-banner">
     <div class="quiz-banner-content">
-        <h1>Titre</h1>
+        <h1>Titre</h1> <!-- Le titre du quiz dynamique -->
     </div>
 </div>
 
 <!-- Contenu du quiz, affichage des questions et réponses -->
-<div *ngIf="questions.length > 0; else noQuestions">
+<div *ngIf="questions.length > 0; else noQuestions" class="quiz-container">
     <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
 
+    <!-- Affichage de l'image de la question si elle est présente -->
+    <img [src]="questions[currentQuestionIndex]?.image" *ngIf="questions[currentQuestionIndex]?.image" alt="Question Image">
+
     <!-- Afficher les réponses et les choix associés -->
-    <div *ngFor="let answer of questions[currentQuestionIndex]?.answers">
+    <div *ngFor="let answer of questions[currentQuestionIndex]?.answers" class="answer-container">
         <div *ngIf="answer.choices && answer.choices.length > 0">
-            <input
-                    type="radio"
-                    [value]="answer.choices[0]?.id"
-                    [checked]="selectedChoices.get(currentQuestionIndex)?.id === answer.choices[0]?.id"
-                    (change)="selectChoice(answer.choices[0])">
-            {{ answer.choices[0]?.option }} <!-- Affichage de l'option du choix -->
+            <label>
+                <input
+                        type="radio"
+                        [value]="answer.choices[0]?.id"
+                        [checked]="selectedChoices.get(currentQuestionIndex)?.id === answer.choices[0]?.id"
+                        (change)="selectChoice(answer.choices[0])">
+                {{ answer.choices[0]?.option }} <!-- Affichage de l'option du choix -->
+            </label>
         </div>
     </div>
 
