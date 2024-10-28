@@ -8,9 +8,11 @@ import { UserDetailsResolver } from "users/user-details/user-details.resolver"
 import {QuizzesComponent} from "./Quizzes/quizzes.component";
 import { ConnexionComponent } from "./connexion/connexion.component";
 import { ThemesComponent } from './themes/themes.component';
+import {QuizComponent} from "./Quiz/quiz.component";
 
 
 const routes: Routes = [
+  { path: 'quiz/:id', component: QuizComponent },
   { path: "", component: HomeComponent },
   { path: 'quizzes/:themeId', component: QuizzesComponent },
   { path: '', redirectTo: '/themes', pathMatch: 'full' },

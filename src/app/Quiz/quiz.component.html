@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- Bannière avec un fond uni sombre et le titre du quiz -->
+<div class="quiz-banner">
+    <div class="quiz-banner-content">
+        <h1>Titre</h1> <!-- Le titre du quiz dynamique -->
+    </div>
+</div>
 
-</body>
-</html>
+<!-- Contenu du quiz, affichage des questions et réponses -->
+<div *ngIf="questions.length > 0; else noQuestions" class="quiz-container">
+    <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
+
+    <!-- Affichage de l'image de la question si elle est présente -->
+    <img [src]="questions[currentQuestionIndex]?.image" *ngIf="questions[currentQuestionIndex]?.image" alt="Question Image">
+
+    <!-- Afficher les réponses et les choix associés -->
+    <div *ngFor="let answer of questions[currentQuestionIndex]?.answers" class="answer-container">
+        <div *ngIf="answer.choices && answer.choices.length > 0">
+            <label>
+                <input
+                        type="radio"
+                        [value]="answer.choices[0]?.id"
+                        [checked]="selectedChoices.get(currentQuestionIndex)?.id === answer.choices[0]?.id"
+                        (change)="selectChoice(answer.choices[0])">
+                {{ answer.choices[0]?.option }} <!-- Affichage de l'option du choix -->
+            </label>
+        </div>
+    </div>
+
+    <button (click)="nextQuestion()">
+        {{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Terminer' }}
+    </button>
+</div>
+
+<!-- Si aucune question n'est disponible -->
+<ng-template #noQuestions>
+    <p>Aucune question disponible pour ce quiz.</p>
+</ng-template>
+
+<!-- Affichage du score à la fin du quiz -->
+<ng-container *ngIf="quizCompleted">
+    <h2>Quiz terminé !</h2>
+    <p>Votre score : {{ score }} sur {{ questions.length }}</p>
+    <button (click)="resetQuiz()">Recommencer le quiz</button>
+</ng-container>

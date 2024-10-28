@@ -22,8 +22,21 @@ main {
   align-items: center;
 }
 
+.background-cover {
+  position: fixed; /* Fixé pour couvrir l'ensemble de l'écran */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Prend toute la largeur de la fenêtre */
+  height: 100vh; /* Prend toute la hauteur de la fenêtre */
+  background-image: url("/assets/fond2.jpg"); /* Remplace avec le chemin de ton image */
+  background-size: cover; /* Ajuste l'image pour qu'elle couvre tout l'écran */
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; /* Met l'image de fond derrière le contenu */
+}
+
 .auth-container {
-  background-color: white;
+  background-color: ghostwhite;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   padding: 2rem;
@@ -34,6 +47,7 @@ main {
 .auth-tabs {
   display: flex;
   margin-bottom: 2rem;
+
 }
 
 .auth-tab {
@@ -46,8 +60,10 @@ main {
 }
 
 .auth-tab.active {
-  border-bottom-color: var(--pastel-blue);
+  border-bottom-color: cadetblue;
   font-weight: bold;
+  color : cadetblue;
+
 }
 
 .auth-form {
@@ -91,7 +107,7 @@ main {
 }
 
 .submit-btn:hover {
-  background-color: var(--pastel-blue);
+  background-color: lightblue;
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }

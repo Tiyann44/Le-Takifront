@@ -1,12 +1,11 @@
+<div class="background-cover"></div>
 <main class="container">
     <div class="auth-container animated">
-        <!-- Onglets de navigation Connexion/Inscription -->
         <div class="auth-tabs">
             <div class="auth-tab" [ngClass]="{'active': isLoginActive}" (click)="onLoginTabClick()">Connexion</div>
             <div class="auth-tab" [ngClass]="{'active': !isLoginActive}" (click)="onRegisterTabClick()">Inscription</div>
         </div>
 
-        <!-- Formulaire de Connexion -->
         <form *ngIf="isLoginActive" (ngSubmit)="onLoginSubmit(loginEmail)">
             <div class="form-group">
                 <label for="login-email">Email</label>
@@ -15,7 +14,6 @@
             <button type="submit" class="submit-btn">Se connecter</button>
         </form>
 
-        <!-- Formulaire d'Inscription -->
         <form *ngIf="!isLoginActive" (ngSubmit)="onRegisterSubmit(registerFirstname, registerLastname, registerEmail, registerUsername)">
             <div class="form-group">
                 <label for="register-firstname">Prénom</label>
