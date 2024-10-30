@@ -4,6 +4,7 @@ import { QuestionService } from '../services/question.service';
 import { Question } from '../models/question.model';
 import { Choice } from '../models/choice.model';
 import { Answer } from '../models/answer.model';
+import { AnswerService } from '../services/answer.service';
 import {forkJoin, tap} from "rxjs";
 
 @Component({
@@ -19,7 +20,11 @@ export class QuizComponent implements OnInit {
     score: number = 0;
     quizCompleted: boolean = false;
 
-    constructor(private route: ActivatedRoute, private questionService: QuestionService) {}
+    constructor(
+        private route: ActivatedRoute,
+        private questionService: QuestionService,
+        private answerService: AnswerService
+) {}
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
@@ -47,39 +52,25 @@ export class QuizComponent implements OnInit {
     }
 
     loadAnswers(): void {
-        const allAnswersObservables = this.questions.map(question =>
-            this.questionService.findAnswersByQuestionId(Number(question.id)).pipe(
-                tap(answers => {
-                    console.log(`Réponses pour la question ${question.id}:`, answers);
-                    question.answers = answers;
-                    this.loadChoices(answers); // Charger les choix pour chaque réponse
-                })
-            )
-        );
-
-        forkJoin(allAnswersObservables).subscribe(() => {
-            console.log('Tous les réponses ont été chargées.');
-        }, error => {
-            console.error('Erreur lors du chargement des réponses:', error);
+        this.questions.forEach(question => {
+            this.answerService.getAnswersByQuestionId(Number(question.id)).subscribe((answers: Answer[]) => {
+                question.answers = answers;
+                console.log(`Réponses pour la question ${question.id}:`, question.answers);
+            }, error => {
+                console.error('Erreur lors du chargement des réponses:', error);
+            });
         });
     }
 
-    loadChoices(answers: Answer[]): void {
-        const allChoicesObservables = answers.map(answer =>
-            this.questionService.findChoicesByAnswerId(Number(answer.id)).pipe(
-                tap(choices => {
-                    console.log(`Choix pour la réponse ${answer.id}:`, choices);
-                    answer.choices = choices; // Assurez-vous que 'choices' est une propriété de ton modèle Answer
-                })
-            )
-        );
 
-        forkJoin(allChoicesObservables).subscribe(() => {
-            console.log('Tous les choix ont été chargés.');
-        }, error => {
-            console.error('Erreur lors du chargement des choix:', error);
-        });
-    }
+
+    /*
+            forkJoin(allChoicesObservables).subscribe(() => {
+                console.log('Tous les choix ont été chargés.');
+            }, error => {
+                console.error('Erreur lors du chargement des choix:', error);
+            });
+        }*/
 
 
 
