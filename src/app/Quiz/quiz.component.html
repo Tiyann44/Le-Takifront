@@ -14,14 +14,15 @@
 
     <!-- Afficher les réponses et les choix associés -->
     <div *ngFor="let answer of questions[currentQuestionIndex]?.answers" class="answer-container">
-        <div *ngIf="answer.choices && answer.choices.length > 0">
+        <h3>Réponse: {{ answer.id }}</h3> <!-- Optionnel : afficher l'ID de la réponse -->
+        <div *ngFor="let choice of answer.choices">
             <label>
                 <input
                         type="radio"
-                        [value]="answer.choices[0]?.id"
-                        [checked]="selectedChoices.get(currentQuestionIndex)?.id === answer.choices[0]?.id"
-                        (change)="selectChoice(answer.choices[0])">
-                {{ answer.choices[0]?.option }} <!-- Affichage de l'option du choix -->
+                        [value]="choice.id"
+                        [checked]="selectedChoices.get(currentQuestionIndex)?.id === choice.id"
+                        (change)="selectChoice(choice)">
+                {{ choice.option }} <!-- Affichage de l'option du choix -->
             </label>
         </div>
     </div>

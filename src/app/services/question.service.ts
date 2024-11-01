@@ -17,10 +17,6 @@ export class QuestionService {
     findAll(): Observable<Question[]> {
         return this.http.get<Question[]>(this.QuestionURL)
     }
-/*
-    findAnswersByQuestionId(quizId: number): Observable<Answer[]> {
-        return this.http.get<Answer[]>(`${this.QuestionURL}/${quizId}`);
-    }*/
 
     findAnswersByQuestionId(questionId: number): Observable<Answer[]> {
         return this.http.get<Answer[]>(`${this.QuestionURL}/${questionId}/answers`).pipe(
@@ -30,7 +26,6 @@ export class QuestionService {
         );
     }
 
-
     findChoicesByAnswerId(answerId: number): Observable<Choice[]> {
         return this.http.get<Choice[]>(`${this.QuestionURL}/answers/${answerId}/choices`);
     }
@@ -39,8 +34,6 @@ export class QuestionService {
     getQuestionsByQuizId(quizId: number): Observable<Question[]> {
         return this.http.get<Question[]>(`${this.QuestionURL}/${quizId}`);
     }
-
-
 
 
     findById(id: number): Observable<Question> {
