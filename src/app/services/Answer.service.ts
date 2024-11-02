@@ -31,4 +31,9 @@ export class AnswerService {
     deleteById(Answer: Answer) {
         return this.http.delete(`${this.AnswerURL}/${Answer.id}`)
     }
+
+    getAnswersByQuestionId(questionId: number): Observable<Answer[]> {
+        return this.http.get<Answer[]>(`${this.AnswerURL}/question/${questionId}`);
+    }
+
 }

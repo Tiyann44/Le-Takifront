@@ -4,7 +4,9 @@ import { QuestionService } from '../services/question.service';
 import { Question } from '../models/question.model';
 import { Choice } from '../models/choice.model';
 import { Answer } from '../models/answer.model';
-import {forkJoin, tap} from "rxjs";
+import { AnswerService } from '../services/Answer.service';
+import {ChoiceService} from "../services/choice.service";
+import {forkJoin, of, tap} from "rxjs";
 
 @Component({
     selector: 'app-quiz',
@@ -14,12 +16,19 @@ import {forkJoin, tap} from "rxjs";
 export class QuizComponent implements OnInit {
     quizId!: number;
     questions: Question[] = [];
+    answers : Answer[] = [];
+    choices : Choice[] = [];
     currentQuestionIndex: number = 0;
     selectedChoices: Map<number, Choice> = new Map(); // Stocke les choix sélectionnés
     score: number = 0;
     quizCompleted: boolean = false;
 
-    constructor(private route: ActivatedRoute, private questionService: QuestionService) {}
+    constructor(
+        private route: ActivatedRoute,
+        private questionService: QuestionService,
+        private answerService: AnswerService,
+        private choiceService: ChoiceService
+) {}
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
@@ -40,6 +49,11 @@ export class QuizComponent implements OnInit {
                 console.log('Aucune question disponible pour ce quiz.');
             } else {
                 this.loadAnswers(); // Charger les réponses après avoir récupéré les questions
+                //this.loadChoices(this.answers); // Charger les choix après avoir récupéré les réponses
+
+                console.log('Questions récupérées:', this.questions);
+                console.log('Réponses récupérées:', this.answers);
+                console.log('Choix récupérés:', this.choices);
             }
         }, error => {
             console.error('Erreur lors de la récupération des questions:', error);
@@ -47,44 +61,26 @@ export class QuizComponent implements OnInit {
     }
 
     loadAnswers(): void {
-        const allAnswersObservables = this.questions.map(question =>
-            this.questionService.findAnswersByQuestionId(Number(question.id)).pipe(
-                tap(answers => {
-                    console.log(`Réponses pour la question ${question.id}:`, answers);
-                    question.answers = answers;
-                    this.loadChoices(answers); // Charger les choix pour chaque réponse
-                })
-            )
-        );
-
-        forkJoin(allAnswersObservables).subscribe(() => {
-            console.log('Tous les réponses ont été chargées.');
-        }, error => {
-            console.error('Erreur lors du chargement des réponses:', error);
+        this.questions.forEach(question => {
+            this.answerService.getAnswersByQuestionId(Number(question.id)).subscribe((answers: Answer[]) => {
+                question.answers = answers;
+                this.answers.push(...answers);
+                this.answers.forEach(currentAnswer => {
+                    this.choiceService.findById(Number(currentAnswer.choiceId)).subscribe((choice: Choice) => {
+                        currentAnswer.choice = choice;
+                       // console.log(`Choix récupéré pour la réponse ${currentAnswer.id}:`, choice);
+                        //console.log(`choix récupérées pour la question ${question.id}:`, currentAnswer.choice);
+                    });
+                });
+            }, error => {
+                console.error('Erreur lors du chargement des réponses:', error);
+            });
         });
     }
-
-    loadChoices(answers: Answer[]): void {
-        const allChoicesObservables = answers.map(answer =>
-            this.questionService.findChoicesByAnswerId(Number(answer.id)).pipe(
-                tap(choices => {
-                    console.log(`Choix pour la réponse ${answer.id}:`, choices);
-                    answer.choices = choices; // Assurez-vous que 'choices' est une propriété de ton modèle Answer
-                })
-            )
-        );
-
-        forkJoin(allChoicesObservables).subscribe(() => {
-            console.log('Tous les choix ont été chargés.');
-        }, error => {
-            console.error('Erreur lors du chargement des choix:', error);
-        });
-    }
-
-
 
     selectChoice(choice: Choice): void {
         this.selectedChoices.set(this.currentQuestionIndex, choice);
+        console.log('Choix sélectionné pour la question', this.currentQuestionIndex, ':', choice);
     }
 
     nextQuestion(): void {
