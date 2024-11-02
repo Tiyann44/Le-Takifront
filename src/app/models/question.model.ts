@@ -8,6 +8,7 @@ export interface Question {
   quizId : bigint
   image?: string;
   quiz: Quiz
+  quizName?: string
   answers: Answer[]
   filteredChoices?: { answerId: number; choices: Choice[] }[]; // Ajoute cette ligne
 }

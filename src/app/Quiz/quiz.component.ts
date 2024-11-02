@@ -17,7 +17,6 @@ export class QuizComponent implements OnInit {
     quizId!: number;
     questions: Question[] = [];
     answers : Answer[] = [];
-    currentAnswer: Answer | undefined;
     choices : Choice[] = [];
     currentQuestionIndex: number = 0;
     selectedChoices: Map<number, Choice> = new Map(); // Stocke les choix sélectionnés
@@ -50,7 +49,11 @@ export class QuizComponent implements OnInit {
                 console.log('Aucune question disponible pour ce quiz.');
             } else {
                 this.loadAnswers(); // Charger les réponses après avoir récupéré les questions
-                //this.loadChoices(); // Charger les choix après avoir récupéré les réponses
+                //this.loadChoices(this.answers); // Charger les choix après avoir récupéré les réponses
+
+                console.log('Questions récupérées:', this.questions);
+                console.log('Réponses récupérées:', this.answers);
+                console.log('Choix récupérés:', this.choices);
             }
         }, error => {
             console.error('Erreur lors de la récupération des questions:', error);
@@ -59,49 +62,25 @@ export class QuizComponent implements OnInit {
 
     loadAnswers(): void {
         this.questions.forEach(question => {
-            console.log(`Récupération des réponses pour la question ID: ${question.id}`); // Log pour le début de la récupération des réponses
-
             this.answerService.getAnswersByQuestionId(Number(question.id)).subscribe((answers: Answer[]) => {
                 question.answers = answers;
-                this.loadChoices(answers)
                 this.answers.push(...answers);
-                console.log(`Réponses récupérées pour la question ${question.id}:`, answers); // Log des réponses récupérées
+                this.answers.forEach(currentAnswer => {
+                    this.choiceService.findById(Number(currentAnswer.choiceId)).subscribe((choice: Choice) => {
+                        currentAnswer.choice = choice;
+                       // console.log(`Choix récupéré pour la réponse ${currentAnswer.id}:`, choice);
+                        //console.log(`choix récupérées pour la question ${question.id}:`, currentAnswer.choice);
+                    });
+                });
             }, error => {
                 console.error('Erreur lors du chargement des réponses:', error);
             });
         });
-
-    }
-
-    loadChoices(answers: Answer[]) { // Recevez les réponses en paramètre
-        const questionChoices: Choice[] = []; // Tableau pour stocker les choix de la question actuelle
-
-        answers.forEach(answer => {
-            if (answer.choiceId) { // Vérifiez que choiceId existe
-                console.log(`Récupération du choix pour la réponse ID: ${answer.id}, Choice ID: ${answer.choiceId}`); // Log pour la récupération
-                this.choiceService.findById(Number(answer.choiceId)).subscribe((choice: Choice) => {
-                        if (choice) {
-                            questionChoices.push(choice); // Ajoutez le choix valide au tableau de choix de la question
-                            console.log(`Choix récupéré pour la réponse ${answer.id}:`, choice); // Log du choix récupéré
-                        } else {
-                            console.warn(`Réponse ${answer.id} n'a pas de choix valide.`); // Log si aucun choix valide
-                        }
-                    },
-                    error => {
-                        console.error(`Erreur lors du chargement du choix pour la réponse ${answer.id}:`, error); // Log d'erreur
-                    });
-            } else {
-                console.warn(`Réponse ${answer.id} n'a pas de choix associé.`); // Log si choiceId n'est pas défini
-            }
-        });
-
-        // Une fois tous les choix récupérés, vous pouvez faire quelque chose avec questionChoices
-        // Par exemple, vous pouvez les assigner à une propriété de votre question ou simplement les afficher
-        console.log(`Tous les choix pour la question:`, questionChoices);
     }
 
     selectChoice(choice: Choice): void {
         this.selectedChoices.set(this.currentQuestionIndex, choice);
+        console.log('Choix sélectionné pour la question', this.currentQuestionIndex, ':', choice);
     }
 
     nextQuestion(): void {
