@@ -6,7 +6,6 @@ import { Choice } from '../models/choice.model';
 import { Answer } from '../models/answer.model';
 import { AnswerService } from '../services/Answer.service';
 import {ChoiceService} from "../services/choice.service";
-import {forkJoin, of, tap} from "rxjs";
 
 @Component({
     selector: 'app-quiz',
@@ -49,7 +48,6 @@ export class QuizComponent implements OnInit {
                 console.log('Aucune question disponible pour ce quiz.');
             } else {
                 this.loadAnswers(); // Charger les réponses après avoir récupéré les questions
-                //this.loadChoices(this.answers); // Charger les choix après avoir récupéré les réponses
 
                 console.log('Questions récupérées:', this.questions);
                 console.log('Réponses récupérées:', this.answers);

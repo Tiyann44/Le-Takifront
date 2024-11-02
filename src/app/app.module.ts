@@ -17,6 +17,11 @@ import {QuizzesComponent} from "./Quizzes/quizzes.component";
 import { ConnexionComponent } from "./connexion/connexion.component";
 import { ThemesComponent } from './themes/themes.component';
 import {QuizComponent} from "./Quiz/quiz.component";
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { ThemeModalComponent } from './modals/theme-modal/theme-modal.component';
+import { QuizModalComponent } from './modals/quiz-modal/quiz-modal.component';
+import { QuestionModalComponent } from './modals/question-modal/question-modal.component';
+
 
 
 
@@ -30,7 +35,11 @@ import {QuizComponent} from "./Quiz/quiz.component";
     QuizzesComponent,
     ConnexionComponent,
     ThemesComponent,
-      QuizComponent,
+    QuizComponent,
+    AdminPanelComponent,
+    ThemeModalComponent,
+    QuestionModalComponent,
+    QuizModalComponent,
   ],
   imports: [
     BrowserModule,
