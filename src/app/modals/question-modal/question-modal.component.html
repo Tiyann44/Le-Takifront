@@ -1,0 +1,20 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-content">
+    <h2>Ajouter une Question</h2>
+    <form (ngSubmit)="onSubmit()">
+        <label for="text">Question</label>
+        <input id="text" [(ngModel)]="question.text" name="text" required />
+
+        <label for="quiz">Quiz</label>
+        <input id="quiz" [(ngModel)]="question.quiz" name="quiz" required />
+
+        <label for="answers">Réponses</label>
+        <div *ngFor="let answer of question.answers; let i = index">
+            <input [(ngModel)]="question.answers[i]" [name]="'answer' + i" required />
+        </div>
+
+        <button type="button" (click)="addAnswer()">Ajouter une réponse</button>
+        <button type="submit">Ajouter</button>
+        <button type="button" (click)="closeModal()">Annuler</button>
+    </form>
+</div>
