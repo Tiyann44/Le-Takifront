@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import {Theme} from "../../models/theme.model";
 import {Quiz} from "../../models/quiz.model";
 import {ThemeService} from "../../services/theme.service";
+import {QuizService} from "../../services/quiz.service";
 
 @Component({
   selector: 'app-quiz-modal',
@@ -13,7 +14,7 @@ export class QuizModalComponent {
   quiz: Quiz = { id: null, name: '', description: '', themeName: '', image: '', theme: null, themeId: null };
   themes: Theme[] = [];
 
-  constructor(private themeService: ThemeService) { }
+  constructor(private themeService: ThemeService, private quizService: QuizService) { }
 
   ngOnInit() {
     this.loadThemes();
@@ -29,7 +30,14 @@ export class QuizModalComponent {
   }
 
   onSubmit() {
-    console.log('Quiz ajouté:', this.quiz);
-    this.closeModal();
+    this.quizService.create(this.quiz).subscribe(
+        (createdQuiz) => {
+          console.log('Quiz ajouté:', createdQuiz);
+          this.closeModal(); // Ferme le modal après l'ajout
+        },
+        (error) => {
+          console.error('Erreur lors de l\'ajout du quiz:', error);
+        }
+    );
   }
 }
