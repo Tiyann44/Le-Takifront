@@ -9,6 +9,7 @@ import {Question} from "../models/question.model";
 import {Quiz} from "../models/quiz.model";
 import {Theme} from "../models/theme.model";
 import {ChoiceService} from "../services/choice.service";
+import {forkJoin, Observable} from "rxjs";
 
 @Component({
   selector: 'app-admin',
@@ -43,8 +44,12 @@ export class AdminPanelComponent {
     this.loadQuizzes(); // Charger les quiz
     this.loadQuestions(); // Charger les questions
   }
+
   setActiveTab(tab: string) {
     this.activeTab = tab;
+    this.loadThemes();  // Charger les thèmes
+    this.loadQuizzes(); // Charger les quiz
+    this.loadQuestions(); // Charger les questions
   }
 
   showEditPage(page: string) {
@@ -113,18 +118,106 @@ export class AdminPanelComponent {
   }
 
   // Méthodes d'édition
+  deleteTheme(id: number) {
+    this.quizService.findAll().subscribe((data: Quiz[]) => {
+      const quizzesToDelete = data.filter(quiz => Number(quiz.themeId) === id);
+      console.log('Quizzes à supprimer:', quizzesToDelete);
+
+      if (quizzesToDelete.length === 0) {
+        // Supprimer le thème directement s'il n'y a pas de quizzes associés
+        this.themeService.deleteById(id).subscribe(() => {
+          this.themes = this.themes.filter(theme => theme.id !== id);
+          console.log('Thème supprimé avec succès (aucun quiz à supprimer).');
+        }, error => {
+          console.error('Erreur lors de la suppression du thème:', error);
+        });
+      } else {
+        // Supprimer les quizzes associés, puis le thème
+        const deleteRequests = quizzesToDelete.map(quiz => this.deleteQuiz(Number(quiz.id)));
+        forkJoin(deleteRequests).subscribe(() => {
+          console.log('Tous les quizzes ont été supprimés avec succès.');
+          this.themeService.deleteById(id).subscribe(() => {
+            this.themes = this.themes.filter(theme => theme.id !== id);
+            console.log('Thème supprimé avec succès.');
+          }, error => {
+            console.error('Erreur lors de la suppression du thème:', error);
+          });
+        }, error => {
+          console.error('Erreur lors de la suppression des quizzes:', error);
+        });
+      }
+    });
+  }
+
+
+  deleteQuiz(id: number): Observable<void> {
+    return new Observable<void>(observer => {
+      // Récupérer toutes les questions associées au quiz
+      this.questionService.findAll().subscribe((data: Question[]) => {
+        const questionsToDelete = data.filter(question => Number(question.quizId) === id);
+        console.log('Questions à supprimer:', questionsToDelete);
+
+        // Si aucune question associée, supprimer directement le quiz
+        if (questionsToDelete.length === 0) {
+          this.quizService.deleteById(id).subscribe({
+            next: () => {
+              this.quizzes = this.quizzes.filter(quiz => quiz.id !== id);
+              console.log('Quiz supprimé avec succès (aucune question associée).');
+              observer.next();  // Notifie que la suppression est terminée
+              observer.complete();  // Termine l'observable
+            },
+            error: (error) => {
+              console.error('Erreur lors de la suppression du quiz:', error);
+              observer.error(error);  // Renvoie l'erreur à l'observable
+            }
+          });
+        } else {
+          // Sinon, créer les requêtes de suppression pour les questions
+          const deleteRequests = questionsToDelete.map(question => this.questionService.deleteById(Number(question.id)));
+
+          // Exécuter toutes les suppressions en parallèle avec forkJoin
+          forkJoin(deleteRequests).subscribe({
+            next: () => {
+              console.log('Toutes les questions ont été supprimées avec succès.');
+              // Maintenant, supprimer le quiz
+              this.quizService.deleteById(id).subscribe({
+                next: () => {
+                  this.quizzes = this.quizzes.filter(quiz => quiz.id !== id);
+                  console.log('Quiz supprimé avec succès.');
+                  observer.next();  // Notifie que la suppression est terminée
+                  observer.complete();  // Termine l'observable
+                },
+                error: (error) => {
+                  console.error('Erreur lors de la suppression du quiz:', error);
+                  observer.error(error);  // Renvoie l'erreur à l'observable
+                }
+              });
+            },
+            error: (error) => {
+              console.error('Erreur lors de la suppression des questions:', error);
+              observer.error(error);  // Renvoie l'erreur à l'observable
+            }
+          });
+        }
+      });
+    });
+  }
+
+
+
+
+  deleteQuestion(id: number) {
+    this.questionService.deleteById(id).subscribe(() => {
+      this.questions = this.questions.filter(question => question.id !== id);
+      console.log('Question supprimée avec succès.');
+    }, error => {
+      console.error('Erreur lors de la suppression de la question:', error);
+    });
+  }
+
   editTheme(id: number) {
     this.isEditingTheme = true;
     this.editingTheme = this.themes.find(theme => Number(theme.id) === id);
-  }
-
-  deleteTheme(id: number) {
-    /*this.themeService.deleteById(theme).subscribe(() => {
-      this.themes = this.themes.filter(theme => theme.id !== id);
-      console.log('Thème supprimé avec succès.');
-    }, error => {
-      console.error('Erreur lors de la suppression du thème:', error);
-    });*/
   }
 
   editQuiz(id: number) {
@@ -132,27 +225,9 @@ export class AdminPanelComponent {
     this.editingQuiz = this.quizzes.find(quiz => quiz.id === id);
   }
 
-  deleteQuiz(id: number) {
-    /*this.quizService.delete(id).subscribe(() => {
-      this.quizzes = this.quizzes.filter(quiz => quiz.id !== id);
-      console.log('Quiz supprimé avec succès.');
-    }, error => {
-      console.error('Erreur lors de la suppression du quiz:', error);
-    });*/
-  }
-
   editQuestion(id: number) {
     this.isEditingQuestion = true;
     this.editingQuestion = this.questions.find(question => question.id === id);
-  }
-
-  deleteQuestion(id: number) {
-   /* this.questionService.delete(id).subscribe(() => {
-      this.questions = this.questions.filter(question => question.id !== id);
-      console.log('Question supprimée avec succès.');
-    }, error => {
-      console.error('Erreur lors de la suppression de la question:', error);
-    });*/
   }
 
   saveTheme(event: Event) {

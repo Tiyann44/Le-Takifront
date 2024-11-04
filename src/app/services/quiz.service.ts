@@ -31,11 +31,11 @@ export class QuizService {
         return this.http.post<Quiz>(this.QuizURL, Quiz)
     }
 
-    deleteById(Quiz: Quiz) {
-        return this.http.delete(`${this.QuizURL}/${Quiz.id}`)
+    deleteById(id: number) {
+        return this.http.delete(`${this.QuizURL}/${id}`)
     }
 
-    findByThemeId(themeId: bigint): Observable<Quiz[]> {
+    findByThemeId(themeId: number): Observable<Quiz[]> {
         return this.http.get<Quiz[]>(`${this.QuizURL}/theme/${themeId}`);
     }
 
