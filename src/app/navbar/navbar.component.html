@@ -4,7 +4,12 @@
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
         <a routerLink="/contact">Contact</a>
-        <a routerLink="/connexion" class="cta-button">Connexion</a>
+        <ng-container *ngIf="isLoggedIn(); else showLoginButton">
+            <button (click)="onLogout()" class="cta-button">Déconnexion</button>
+        </ng-container>
+        <ng-template #showLoginButton>
+            <a routerLink="/connexion" class="cta-button">Connexion</a>
+        </ng-template>
     </div>
 </nav>
 
@@ -22,7 +27,12 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/contact">Contact</a>
-        <a routerLink="/connexion" class="cta-button">Connexion</a>
+        <ng-container *ngIf="isLoggedIn(); else showLoginButton">
+            <button (click)="onLogout()" class="cta-button">Déconnexion</button>
+        </ng-container>
+        <ng-template #showLoginButton>
+            <a routerLink="/connexion" class="cta-button">Connexion</a>
+        </ng-template>
     </div>
 </nav>
 
@@ -32,7 +42,12 @@
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
         <a routerLink="/contact">Contact</a>
-        <a routerLink="/connexion" class="cta-button">Connexion</a>
+        <ng-container *ngIf="isLoggedIn(); else showLoginButton">
+            <button (click)="onLogout()" class="cta-button">Déconnexion</button>
+        </ng-container>
+        <ng-template #showLoginButton>
+            <a routerLink="/connexion" class="cta-button">Connexion</a>
+        </ng-template>
     </div>
 </nav>
 
@@ -42,6 +57,11 @@
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
         <a routerLink="/contact">Contact</a>
-        <a routerLink="/connexion" class="cta-button">Connexion</a>
+        <ng-container *ngIf="isLoggedIn(); else showLoginButton">
+            <button (click)="onLogout()" class="cta-button">Déconnexion</button>
+        </ng-container>
+        <ng-template #showLoginButton>
+            <a routerLink="/connexion" class="cta-button">Connexion</a>
+        </ng-template>
     </div>
 </nav>

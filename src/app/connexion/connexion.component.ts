@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "../services/user.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
     selector: 'app-connexion', // ou app-auth si tu l'appelles autrement
@@ -10,7 +11,7 @@ import {UserService} from "../services/user.service";
 export class ConnexionComponent implements OnInit {
     isLoginActive: boolean = true; // Variable pour gérer l'état actif des onglets
 
-    constructor(private userService: UserService, private router: Router) {}
+    constructor(private userService: UserService, private router: Router, private authService: AuthService) {}
 
     ngOnInit(): void {}
 
@@ -34,6 +35,7 @@ export class ConnexionComponent implements OnInit {
             response => {
                 console.log('Connexion réussie', response);
                 alert('Connexion réussie !');
+                this.authService.login(response);
                 this.router.navigate(['/']); // Redirection vers la page principale
             },
             error => {
@@ -74,7 +76,7 @@ export class ConnexionComponent implements OnInit {
             response => {
                 console.log('Inscription réussie', response);
                 alert('Inscription réussie !');
-                this.router.navigate(['/']); // Redirection vers la page principale
+                this.router.navigate(['/connexion']); // Redirection vers la page principale
             },
             error => {
                 console.error('Erreur lors de l\'inscription', error);
