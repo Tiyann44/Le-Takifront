@@ -1,0 +1,95 @@
+<div class="admin-container">
+    <h1>Panel d'Administration</h1>
+    <div class="admin-tabs">
+        <button class="tab-button" [class.active]="activeTab === 'themes'" (click)="setActiveTab('themes')">Thèmes</button>
+        <button class="tab-button" [class.active]="activeTab === 'quizzes'" (click)="setActiveTab('quizzes')">Quiz</button>
+        <button class="tab-button" [class.active]="activeTab === 'questions'" (click)="setActiveTab('questions')">Questions</button>
+    </div>
+
+    <div class="admin-content">
+        <!-- Thèmes -->
+        <div *ngIf="activeTab === 'themes'" class="section active">
+            <button class="add-btn" (click)="showModal('theme')">Ajouter un Thème</button>
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let theme of themes">
+                    <td>{{ theme.title }}</td>
+                    <td>{{ theme.description }}</td>
+                    <td>{{ theme.image }}</td>
+                    <td>
+                        <button class="action-btn edit-btn" (click)="editTheme(theme.id)">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteTheme(theme.id)">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Quiz -->
+        <div *ngIf="activeTab === 'quizzes'" class="section">
+            <button class="add-btn" (click)="showModal('quiz')">Ajouter un Quiz</button>
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Thème</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let quiz of quizzes">
+                    <td>{{ quiz.title }}</td>
+                    <td>{{ quiz.theme }}</td>
+                    <td>{{ quiz.description }}</td>
+                    <td>{{ quiz.image }}</td>
+                    <td>
+                        <button class="action-btn edit-btn" (click)="editQuiz(quiz.id)">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteQuiz(quiz.id)">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Questions -->
+        <div *ngIf="activeTab === 'questions'" class="section">
+            <button class="add-btn" (click)="showModal('question')">Ajouter une Question</button>
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Quiz</th>
+                    <th>Réponses</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let question of questions">
+                    <td>{{ question.text }}</td>
+                    <td>{{ question.quiz }}</td>
+                    <td>{{ question.answers.length }} choix</td>
+                    <td>
+                        <button class="action-btn edit-btn" (click)="editQuestion(question.id)">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteQuestion(question.id)">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Templates -->
+<app-theme-modal *ngIf="showThemeModal" (close)="closeModal('theme')"></app-theme-modal>
+<app-quiz-modal *ngIf="showQuizModal" (close)="closeModal('quiz')"></app-quiz-modal>
+<app-question-modal *ngIf="showQuestionModal" (close)="closeModal('question')"></app-question-modal>

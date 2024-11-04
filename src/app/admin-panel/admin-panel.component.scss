@@ -1,0 +1,97 @@
+// Style global pour le panneau d'administration
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f7f9fc;
+  min-height: 100vh;
+}
+
+// Titre du panneau d'administration
+.admin-panel-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+// Conteneur pour le contenu principal
+.admin-content {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+// Boutons pour les actions d'administration
+.action-button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &.danger {
+    background-color: #dc3545;
+
+    &:hover {
+      background-color: #a71d2a;
+    }
+  }
+}
+
+// Tableaux pour la liste des utilisateurs ou des données
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: 600;
+  }
+
+  td {
+    color: #666;
+  }
+
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+}
+
+// Message d'alerte ou de succès
+.alert {
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  text-align: center;
+
+  &.success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  &.error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+}
