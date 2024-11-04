@@ -16,10 +16,11 @@ export class UserDetailsResolver implements Resolve<User> {
     if (route.params["id"] == "new") {
       return new Observable((observer) => observer.next({
         firstName: "",
-        email: "",
-        id: 0n,
+        mail: "",
+        id: 0,
         isAdmin: false,
         scores: [],
+        image: "",
         lastName: "", }))
     }
     return this.UserService.findById(parseInt(route.params["id"], 10))
