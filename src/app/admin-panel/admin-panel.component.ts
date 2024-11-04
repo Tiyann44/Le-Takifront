@@ -115,7 +115,7 @@ export class AdminPanelComponent {
   // Méthodes d'édition
   editTheme(id: number) {
     this.isEditingTheme = true;
-    this.editingTheme = this.themes.find(theme => theme.id === id);
+    this.editingTheme = this.themes.find(theme => Number(theme.id) === id);
   }
 
   deleteTheme(id: number) {
@@ -158,7 +158,7 @@ export class AdminPanelComponent {
   saveTheme(event: Event) {
     event.preventDefault();
     if (this.editingTheme) {
-      this.themeService.update(this.editingTheme.id, this.editingTheme).subscribe(() => {
+      this.themeService.update(Number(this.editingTheme.id), this.editingTheme).subscribe(() => {
         this.loadThemes(); // Recharger les thèmes
         this.closeModal('theme');
       });
