@@ -39,6 +39,11 @@ export class NavbarComponent {
     isQuizPage(): boolean {
         return this.currentRoute.startsWith('/quiz/');
     }
+
+  isAdminPage(): boolean {
+    return this.currentRoute === '/admin';
+  }
+
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }

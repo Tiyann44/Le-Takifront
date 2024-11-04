@@ -3,12 +3,12 @@ import {Answer} from "./answer.model";
 import {Choice} from "./choice.model";
 
 export interface Question {
-  id?: bigint
+  id?: number
   question: string
-  quizId : bigint
+  quizId : number
   image?: string;
-  quiz: Quiz
+  quiz?: Quiz
   quizName?: string
   answers: Answer[]
-  filteredChoices?: { answerId: number; choices: Choice[] }[]; // Ajoute cette ligne
+  filteredChoices?: { answerId: number; choices: Choice[] }[];
 }

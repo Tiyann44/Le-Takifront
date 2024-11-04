@@ -2,9 +2,9 @@ import {User} from "./user.model";
 import {Quiz} from "./quiz.model";
 
 export interface Score {
-  id?: bigint
+  id?: number
   user: User
   quiz: Quiz
-  score: bigint
+  score: number
   message: string
 }

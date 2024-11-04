@@ -1,6 +1,6 @@
 import {Answer} from "./answer.model";
 
 export interface Choice {
-    id?: bigint
+    id?: number
     option: string
 }
