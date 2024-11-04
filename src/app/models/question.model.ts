@@ -7,7 +7,7 @@ export interface Question {
   question: string
   quizId : number
   image?: string;
-  quiz: Quiz
+  quiz?: Quiz
   quizName?: string
   answers: Answer[]
   filteredChoices?: { answerId: number; choices: Choice[] }[];

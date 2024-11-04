@@ -3,7 +3,7 @@ import {Choice} from "./choice.model";
 
 export interface Answer {
     id?: number;
-    question: Question;
+    question?: Question;
     choice: Choice;
     questionId?: number;
     choiceId?: number;

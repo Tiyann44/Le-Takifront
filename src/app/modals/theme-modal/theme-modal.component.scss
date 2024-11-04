@@ -1,18 +1,78 @@
+:host {
+  --modal-background: rgba(255, 255, 255, 0.9);
+  --modal-border-radius: 10px;
+  --modal-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --modal-header-color: var(--off-black);
+  --modal-text-color: var(--text-color);
+}
+
 .modal-backdrop {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000; // Assurez-vous que le modal est au-dessus du fond
 }
 
 .modal-content {
   position: fixed;
-  top: 50%; left: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  z-index: 11;
+  background-color: var(--modal-background);
+  border-radius: var(--modal-border-radius);
+  box-shadow: var(--modal-shadow);
+  padding: 2rem;
+  z-index: 1001;
+  width: 90%;
+  max-width: 500px; // Ajustez selon vos besoins
+  overflow: auto;
+
+  h2 {
+    color: var(--modal-header-color);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin: 0.5rem 0;
+      color: var(--modal-header-color);
+    }
+
+    input {
+      padding: 0.5rem;
+      border: 1px solid var(--off-black);
+      border-radius: var(--modal-border-radius);
+      margin-bottom: 1rem;
+      outline: none;
+
+      &:focus {
+        border-color: var(--pastel-blue);
+      }
+    }
+
+    button {
+      background-color: cadetblue;
+      color: var(--text-color);
+      border: none;
+      padding: 0.7rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      margin-top: 1rem;
+
+      &:hover {
+        background-color: var(--pastel-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
 }

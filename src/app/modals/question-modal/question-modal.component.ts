@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import {QuestionService} from "../../services/question.service";
+import {Question} from "../../models/question.model";
 
 @Component({
   selector: 'app-question-modal',
@@ -7,18 +9,30 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class QuestionModalComponent {
   @Output() close = new EventEmitter<void>();
-  question = { text: '', quiz: '', answers: [''] };
+  question: Question = {
+    question: '',
+    quizId: 0, // Remplacez par un ID de quiz valide si nécessaire
+    answers: [
+      { choice: { id: undefined, option: '' }, isCorrect: false }, // Choix initial
+      { choice: { id: undefined, option: '' }, isCorrect: false },
+      { choice: { id: undefined, option: '' }, isCorrect: false },
+      { choice: { id: undefined, option: '' }, isCorrect: false }
+    ]
+  };
 
-  closeModal() {
-    this.close.emit();
-  }
+  constructor(private questionService: QuestionService) {}
 
-  addAnswer() {
-    this.question.answers.push('');
+  ngOnInit(): void {
+    // Initialisation si nécessaire
   }
 
   onSubmit() {
-    console.log('Question ajoutée:', this.question);
-    this.closeModal();
+    this.questionService.create(this.question).subscribe(() => {
+      this.closeModal();
+    });
+  }
+
+  closeModal() {
+    // Logique pour fermer le modal
   }
 }
