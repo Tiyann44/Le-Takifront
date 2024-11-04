@@ -9,9 +9,11 @@ import {QuizzesComponent} from "./Quizzes/quizzes.component";
 import { ConnexionComponent } from "./connexion/connexion.component";
 import { ThemesComponent } from './themes/themes.component';
 import {QuizComponent} from "./Quiz/quiz.component";
+import { AdminComponent } from './admin/admin.component';
 
 
 const routes: Routes = [
+  { path: 'admin', component: AdminComponent },
   { path: 'quiz/:id', component: QuizComponent },
   { path: "", component: HomeComponent },
   { path: 'quizzes/:themeId', component: QuizzesComponent },

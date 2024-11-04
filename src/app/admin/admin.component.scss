@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --primary-color: #FF1493;
+  --secondary-color: #4682B4;
+  --soft-blue: #B0C4DE;
+  --dark-blue: #1E3F66;
+  --text-color: #333333;
+  --bg-color: #FFFFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #FFFFFF;
+  color: var(--text-color);
+  line-height: 1.6;
+  padding-top: 80px;
+}
+
+// Ajoutez ici le reste de votre CSS adapté...

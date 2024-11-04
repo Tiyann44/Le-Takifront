@@ -4,6 +4,7 @@
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
         <a routerLink="/contact">Contact</a>
+        <a routerLink="/admin">Admin</a>
         <a routerLink="/connexion" class="cta-button">Connexion</a>
     </div>
 </nav>
@@ -37,6 +38,16 @@
 </nav>
 
 <nav *ngIf="isQuizPage()">
+    <div class="container nav-content">
+        <div class="logo">TakItQuiz</div>
+        <a routerLink="/">Accueil</a>
+        <a routerLink="/themes">Thèmes</a>
+        <a routerLink="/contact">Contact</a>
+        <a routerLink="/connexion" class="cta-button">Connexion</a>
+    </div>
+</nav>
+
+<nav *ngIf="isAdminPage()">
     <div class="container nav-content">
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
