@@ -3,10 +3,12 @@
     <h2>Ajouter un Quiz</h2>
     <form (ngSubmit)="onSubmit()">
         <label for="title">Titre</label>
-        <input id="title" [(ngModel)]="quiz.title" name="title" required />
+        <input id="title" [(ngModel)]="quiz.name" name="title" required />
 
         <label for="theme">Thème</label>
-        <input id="theme" [(ngModel)]="quiz.theme" name="theme" required />
+        <select id="theme" [(ngModel)]="quiz.themeId" name="theme" required>
+            <option *ngFor="let theme of themes" [value]="theme.id">{{ theme.name }}</option>
+        </select>
 
         <label for="description">Description</label>
         <input id="description" [(ngModel)]="quiz.description" name="description" required />

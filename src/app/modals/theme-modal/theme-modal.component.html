@@ -3,7 +3,7 @@
     <h2>Ajouter un Thème</h2>
     <form (ngSubmit)="onSubmit()">
         <label for="title">Titre</label>
-        <input id="title" [(ngModel)]="theme.title" name="title" required />
+        <input id="title" [(ngModel)]="theme.name" name="title" required />
 
         <label for="description">Description</label>
         <input id="description" [(ngModel)]="theme.description" name="description" required />
