@@ -3,9 +3,9 @@ import {Answer} from "./answer.model";
 import {Choice} from "./choice.model";
 
 export interface Question {
-  id?: bigint
+  id?: number
   question: string
-  quizId : bigint
+  quizId : number
   image?: string;
   quiz: Quiz
   quizName?: string

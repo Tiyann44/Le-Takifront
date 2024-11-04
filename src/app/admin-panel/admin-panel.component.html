@@ -98,6 +98,80 @@
     </div>
 </div>
 
+<!-- Section de modification pour les questions -->
+<div id="questionEditPage" class="question-edit-container" *ngIf="isEditingQuestion">
+    <a href="#" class="back-btn" (click)="cancelEdit()">Retour</a>
+    <h2>Modifier la Question</h2>
+    <form class="question-form" (ngSubmit)="saveQuestion($event)">
+        <div class="form-group">
+            <label>Question</label>
+            <input type="text" name="question" [value]="editingQuestion?.question" required>
+        </div>
+        <div class="form-group">
+            <label>Quiz</label>
+            <select name="quiz" required>
+                <option *ngFor="let quiz of quizzes" [value]="quiz.id">{{ quiz.name }}</option>
+            </select>
+        </div>
+        <div class="answers-container">
+            <h3>Réponses</h3>
+            <div class="answer-group" *ngFor="let answer of editingQuestion?.answers; let i = index">
+                <input type="text" [value]="answer.choice?.option" placeholder="Réponse {{i + 1}}" required>
+                <input type="radio" name="correct" [value]="i + 1" class="correct-answer" [checked]="answer.isCorrect">
+                <label>Correcte</label>
+            </div>
+        </div>
+        <button type="submit" class="add-btn">Sauvegarder</button>
+    </form>
+</div>
+
+<!-- Section de modification pour les thèmes -->
+<div id="themeEditPage" class="edit-container" *ngIf="isEditingTheme">
+    <a href="#" class="back-btn" (click)="cancelEdit()">Retour</a>
+    <h2>Modifier le Thème</h2>
+    <form class="edit-form" (ngSubmit)="saveTheme($event)">
+        <div class="form-group">
+            <label>Titre</label>
+            <input type="text" name="title" [value]="editingTheme?.name" required>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" required>{{ editingTheme?.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Image du thème (URL)</label>
+            <input type="url" name="themeImage" [value]="editingTheme?.image" placeholder="https://example.com/image.jpg" required>
+        </div>
+        <button type="submit" class="add-btn">Sauvegarder</button>
+    </form>
+</div>
+
+<!-- Section de modification pour les quiz -->
+<div id="quizEditPage" class="edit-container" *ngIf="isEditingQuiz">
+    <a href="#" class="back-btn" (click)="cancelEdit()">Retour</a>
+    <h2>Modifier le Quiz</h2>
+    <form class="edit-form" (ngSubmit)="saveQuiz($event)">
+        <div class="form-group">
+            <label>Titre</label>
+            <input type="text" name="title" [value]="editingQuiz?.name" required>
+        </div>
+        <div class="form-group">
+            <label>Thème</label>
+            <select name="theme" required>
+                <option *ngFor="let theme of themes" [value]="theme.id">{{ theme.name }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" required>{{ editingQuiz?.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Image de bannière (URL)</label>
+            <input type="url" name="quizImage" [value]="editingQuiz?.image" placeholder="https://example.com/image.jpg" required>
+        </div>
+        <button type="submit" class="add-btn">Sauvegarder</button>
+    </form>
+</div>
 <!-- Modal Templates -->
 <app-theme-modal *ngIf="showThemeModal" (close)="closeModal('theme')"></app-theme-modal>
 <app-quiz-modal *ngIf="showQuizModal" (close)="closeModal('quiz')"></app-quiz-modal>

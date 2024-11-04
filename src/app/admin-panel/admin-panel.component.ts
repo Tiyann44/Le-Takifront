@@ -21,19 +21,23 @@ export class AdminPanelComponent {
   showQuizModal = false;
   showQuestionModal = false;
   currentEditPage: string = '';
+  isEditingTheme = false;
+  isEditingQuiz = false;
+  isEditingQuestion = false;
+  editingTheme?: Theme;
+  editingQuiz?: Quiz;
+  editingQuestion?: Question;
 
   themes: Theme[] = [];
   quizzes: Quiz[] = [];
   questions: Question[] = [];
-  answers: Answer[] = [];
-  choices: Choice[] = [];
 
   constructor(
       private themeService: ThemeService,
       private quizService: QuizService,
       private questionService: QuestionService,
       private answerService: AnswerService,
-        private choiceService: ChoiceService
+      private choiceService: ChoiceService
 
   ) {this.loadThemes();  // Charger les thèmes
     this.loadQuizzes(); // Charger les quiz
@@ -91,17 +95,100 @@ export class AdminPanelComponent {
   }
 
   closeModal(type: string) {
-    if (type === 'theme') this.showThemeModal = false;
-    if (type === 'quiz') this.showQuizModal = false;
-    if (type === 'question') this.showQuestionModal = false;
+    if (type === 'theme') {
+      this.showThemeModal = false;
+      this.isEditingTheme = false; // Réinitialiser l'édition
+      this.editingTheme = undefined; // Réinitialiser l'objet d'édition
+    }
+    if (type === 'quiz') {
+      this.showQuizModal = false;
+      this.isEditingQuiz = false; // Réinitialiser l'édition
+      this.editingQuiz = undefined; // Réinitialiser l'objet d'édition
+    }
+    if (type === 'question') {
+      this.showQuestionModal = false;
+      this.isEditingQuestion = false; // Réinitialiser l'édition
+      this.editingQuestion = undefined; // Réinitialiser l'objet d'édition
+    }
   }
 
-  editTheme(id: number) { /* logiques d'édition */ }
-  deleteTheme(id: number) { /* logiques de suppression */ }
-  editQuiz(id: number) { /* logiques d'édition */ }
-  deleteQuiz(id: number) { /* logiques de suppression */ }
-  editQuestion(id: number) { /* logiques d'édition */ }
-  deleteQuestion(id: number) { /* logiques de suppression */ }
+  // Méthodes d'édition
+  editTheme(id: number) {
+    this.isEditingTheme = true;
+    this.editingTheme = this.themes.find(theme => theme.id === id);
+  }
+
+  deleteTheme(id: number) {
+    /*this.themeService.deleteById(theme).subscribe(() => {
+      this.themes = this.themes.filter(theme => theme.id !== id);
+      console.log('Thème supprimé avec succès.');
+    }, error => {
+      console.error('Erreur lors de la suppression du thème:', error);
+    });*/
+  }
+
+  editQuiz(id: number) {
+    this.isEditingQuiz = true;
+    this.editingQuiz = this.quizzes.find(quiz => quiz.id === id);
+  }
+
+  deleteQuiz(id: number) {
+    /*this.quizService.delete(id).subscribe(() => {
+      this.quizzes = this.quizzes.filter(quiz => quiz.id !== id);
+      console.log('Quiz supprimé avec succès.');
+    }, error => {
+      console.error('Erreur lors de la suppression du quiz:', error);
+    });*/
+  }
+
+  editQuestion(id: number) {
+    this.isEditingQuestion = true;
+    this.editingQuestion = this.questions.find(question => question.id === id);
+  }
+
+  deleteQuestion(id: number) {
+   /* this.questionService.delete(id).subscribe(() => {
+      this.questions = this.questions.filter(question => question.id !== id);
+      console.log('Question supprimée avec succès.');
+    }, error => {
+      console.error('Erreur lors de la suppression de la question:', error);
+    });*/
+  }
+
+  saveTheme(event: Event) {
+    event.preventDefault();
+    if (this.editingTheme) {
+      this.themeService.update(this.editingTheme.id, this.editingTheme).subscribe(() => {
+        this.loadThemes(); // Recharger les thèmes
+        this.closeModal('theme');
+      });
+    }
+  }
+
+  saveQuiz(event: Event) {
+    event.preventDefault();
+    if (this.editingQuiz) {
+      this.quizService.update(this.editingQuiz.id, this.editingQuiz).subscribe(() => {
+        this.loadQuizzes(); // Recharger les quiz
+        this.closeModal('quiz');
+      });
+    }
+  }
+
+  saveQuestion(event: Event) {
+    event.preventDefault();
+    if (this.editingQuestion) {
+      this.questionService.update(Number(this.editingQuestion.id), this.editingQuestion).subscribe(() => {
+        this.loadQuestions(); // Recharger les questions
+        this.closeModal('question');
+      });
+    }
+  }
+
+  cancelEdit() {
+    this.closeModal(this.currentEditPage);
+  }
 
   protected readonly Number = Number;
 }
+

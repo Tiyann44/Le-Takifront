@@ -2,13 +2,13 @@ import {Theme} from "./theme.model"
 import {Question} from "./question.model";
 
 export interface Quiz {
-    id: bigint
+    id: number
     name: string
     description: string
     themeName?: string
     image: string
     theme: Theme
-    themeId: bigint
+    themeId: number
     questions: Question[]
 
 }
