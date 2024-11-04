@@ -168,7 +168,7 @@ export class AdminPanelComponent {
   saveQuiz(event: Event) {
     event.preventDefault();
     if (this.editingQuiz) {
-      this.quizService.update(this.editingQuiz.id, this.editingQuiz).subscribe(() => {
+      this.quizService.update(Number(this.editingQuiz.id), this.editingQuiz).subscribe(() => {
         this.loadQuizzes(); // Recharger les quiz
         this.closeModal('quiz');
       });
