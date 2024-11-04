@@ -5,13 +5,16 @@
         <label for="text">Question</label>
         <input id="text" [(ngModel)]="question.question" name="text" required />
 
-        <label for="quiz">Quiz ID</label>
-        <input id="quiz" [(ngModel)]="question.quizId" name="quiz" type="number" required />
+        <label for="quiz">Quiz</label>
+        <select id="quiz" [(ngModel)]="question.quizId" name="quiz" required>
+            <option *ngFor="let quiz of quizzes" [value]="quiz.id">{{ quiz.name }}</option>
+        </select>
 
-        <label for="answers">Réponses</label>
+        <label>Choix</label>
         <div *ngFor="let answer of question.answers; let i = index">
-            <input [(ngModel)]="question.answers[i].choice" [name]="'answer' + i" required />
-            <input type="checkbox" [(ngModel)]="question.answers[i].isCorrect" [name]="'isCorrect' + i" /> Correct
+            <input [(ngModel)]="question.answers[i].choice.option" [name]="'answer' + i" required />
+            <input type="checkbox" [(ngModel)]="question.answers[i].isCorrect"
+                   [name]="'isCorrect' + i" (change)="onCorrectAnswerSelected(i)" /> Correct
         </div>
 
         <button type="submit">Ajouter</button>

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import {QuestionService} from "../../services/question.service";
 import {Question} from "../../models/question.model";
+import {Quiz} from "../../models/quiz.model";
+import {QuizService} from "../../services/quiz.service";
 
 @Component({
   selector: 'app-question-modal',
@@ -9,6 +11,7 @@ import {Question} from "../../models/question.model";
 })
 export class QuestionModalComponent {
   @Output() close = new EventEmitter<void>();
+  quizzes: Quiz[] = [];
   question: Question = {
     question: '',
     quizId: 0, // Remplacez par un ID de quiz valide si nécessaire
@@ -20,19 +23,45 @@ export class QuestionModalComponent {
     ]
   };
 
-  constructor(private questionService: QuestionService) {}
+  constructor(
+      private questionService: QuestionService,
+        private quizService: QuizService,
+  ) {}
 
   ngOnInit(): void {
-    // Initialisation si nécessaire
+    this.loadQuizzes();
   }
 
-  onSubmit() {
-    this.questionService.create(this.question).subscribe(() => {
-      this.closeModal();
+  loadQuizzes() {
+    this.quizService.findAll().subscribe((quizzes) => {
+      this.quizzes = quizzes;
+      console.log('Quizzes chargés:', quizzes); // Vérifiez ce que vous recevez
     });
   }
 
+  onCorrectAnswerSelected(selectedIndex: number) {
+    this.question.answers.forEach((answer, index) => {
+      answer.isCorrect = index === selectedIndex;
+    });
+    console.log(`Réponse correcte sélectionnée à l'index ${selectedIndex}`, this.question.answers);
+  }
+
+  onSubmit() {
+    console.log('Données de la question avant enregistrement :', this.question);
+
+    // Envoi de la question au backend via le service
+    this.questionService.create(this.question).subscribe(
+        (response) => {
+          console.log('Question enregistrée avec succès !', response);
+          this.closeModal();
+        },
+        (error) => {
+          console.error('Erreur lors de l\'enregistrement de la question :', error);
+        }
+    );
+  }
+
   closeModal() {
-    // Logique pour fermer le modal
+    this.close.emit();
   }
 }
