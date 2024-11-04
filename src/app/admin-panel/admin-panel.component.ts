@@ -113,18 +113,53 @@ export class AdminPanelComponent {
   }
 
   // Méthodes d'édition
+  deleteTheme(id: number) {
+    this.quizService.findByThemeId(id).subscribe((quizzes: Quiz[]) => {
+      // Supprimer tous les quiz associés au thème
+      quizzes.forEach(quiz => {
+        this.deleteQuiz(Number(quiz.id)); // Appeler la méthode deleteQuiz pour chaque quiz
+      });
+
+      // Maintenant, supprimer le thème
+      this.themeService.deleteById(id).subscribe(() => {
+        this.themes = this.themes.filter(theme => theme.id !== id);
+        console.log('Thème supprimé avec succès.');
+      }, error => {
+        console.error('Erreur lors de la suppression du thème:', error);
+      });
+    });
+  }
+
+  deleteQuiz(id: number) {
+    // Récupérer toutes les questions associées au quiz
+    this.questionService.findByQuizId(id).subscribe((questions: Question[]) => {
+      // Supprimer toutes les questions associées au quiz
+      questions.forEach(question => {
+        this.deleteQuestion(Number(question.id)); // Appeler la méthode deleteQuestion pour chaque question
+      });
+
+      // Maintenant, supprimer le quiz
+      this.quizService.deleteById(id).subscribe(() => {
+        this.quizzes = this.quizzes.filter(quiz => quiz.id !== id);
+        console.log('Quiz supprimé avec succès.');
+      }, error => {
+        console.error('Erreur lors de la suppression du quiz:', error);
+      });
+    });
+  }
+
+  deleteQuestion(id: number) {
+    this.questionService.deleteById(id).subscribe(() => {
+      this.questions = this.questions.filter(question => question.id !== id);
+      console.log('Question supprimée avec succès.');
+    }, error => {
+      console.error('Erreur lors de la suppression de la question:', error);
+    });
+  }
+
   editTheme(id: number) {
     this.isEditingTheme = true;
     this.editingTheme = this.themes.find(theme => Number(theme.id) === id);
-  }
-
-  deleteTheme(id: number) {
-    /*this.themeService.deleteById(theme).subscribe(() => {
-      this.themes = this.themes.filter(theme => theme.id !== id);
-      console.log('Thème supprimé avec succès.');
-    }, error => {
-      console.error('Erreur lors de la suppression du thème:', error);
-    });*/
   }
 
   editQuiz(id: number) {
@@ -132,27 +167,9 @@ export class AdminPanelComponent {
     this.editingQuiz = this.quizzes.find(quiz => quiz.id === id);
   }
 
-  deleteQuiz(id: number) {
-    /*this.quizService.delete(id).subscribe(() => {
-      this.quizzes = this.quizzes.filter(quiz => quiz.id !== id);
-      console.log('Quiz supprimé avec succès.');
-    }, error => {
-      console.error('Erreur lors de la suppression du quiz:', error);
-    });*/
-  }
-
   editQuestion(id: number) {
     this.isEditingQuestion = true;
     this.editingQuestion = this.questions.find(question => question.id === id);
-  }
-
-  deleteQuestion(id: number) {
-   /* this.questionService.delete(id).subscribe(() => {
-      this.questions = this.questions.filter(question => question.id !== id);
-      console.log('Question supprimée avec succès.');
-    }, error => {
-      console.error('Erreur lors de la suppression de la question:', error);
-    });*/
   }
 
   saveTheme(event: Event) {

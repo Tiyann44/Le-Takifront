@@ -28,7 +28,7 @@ export class ThemeService {
     return this.http.post<Theme>(this.themeURL, Theme)
   }
 
-  deleteById(Theme: Theme) {
-    return this.http.delete(`${this.themeURL}/${Theme.id}`)
+  deleteById(id: number) {
+    return this.http.delete(`${this.themeURL}/${id}`)
   }
 }
