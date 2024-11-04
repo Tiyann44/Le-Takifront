@@ -21,12 +21,14 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let theme of themes">
-                    <td>{{ theme.title }}</td>
+                    <td>{{ theme.name }}</td>
                     <td>{{ theme.description }}</td>
+                    <div class="image-url">
                     <td>{{ theme.image }}</td>
+                    </div>
                     <td>
-                        <button class="action-btn edit-btn" (click)="editTheme(theme.id)">Modifier</button>
-                        <button class="action-btn delete-btn" (click)="deleteTheme(theme.id)">Supprimer</button>
+                        <button class="action-btn edit-btn" (click)="editTheme(Number(theme.id))">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteTheme(Number(theme.id))">Supprimer</button>
                     </td>
                 </tr>
                 </tbody>
@@ -48,13 +50,15 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let quiz of quizzes">
-                    <td>{{ quiz.title }}</td>
-                    <td>{{ quiz.theme }}</td>
+                    <td>{{ quiz.name }}</td>
+                    <td>{{ quiz.themeName}}</td>
                     <td>{{ quiz.description }}</td>
+                    <div class="image-url">
                     <td>{{ quiz.image }}</td>
+                    </div>
                     <td>
-                        <button class="action-btn edit-btn" (click)="editQuiz(quiz.id)">Modifier</button>
-                        <button class="action-btn delete-btn" (click)="deleteQuiz(quiz.id)">Supprimer</button>
+                        <button class="action-btn edit-btn" (click)="editQuiz(Number(quiz.id))">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteQuiz(Number(quiz.id))">Supprimer</button>
                     </td>
                 </tr>
                 </tbody>
@@ -69,18 +73,23 @@
                 <tr>
                     <th>Question</th>
                     <th>Quiz</th>
-                    <th>Réponses</th>
+                    <th>Choix</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let question of questions">
-                    <td>{{ question.text }}</td>
-                    <td>{{ question.quiz }}</td>
-                    <td>{{ question.answers.length }} choix</td>
+                    <td>{{ question.question }}</td>
+                    <td>{{ question.quizName }}</td>
+                    <ul>
+                        <!-- Afficher les réponses associées à la question -->
+                        <li *ngFor="let answer of question.answers">
+                            {{ answer.choice?.option }} <!-- Assurez-vous que `choice` est une propriété de `answer` -->
+                        </li>
+                    </ul>
                     <td>
-                        <button class="action-btn edit-btn" (click)="editQuestion(question.id)">Modifier</button>
-                        <button class="action-btn delete-btn" (click)="deleteQuestion(question.id)">Supprimer</button>
+                        <button class="action-btn edit-btn" (click)="editQuestion(Number(question.id))">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteQuestion(Number(question.id))">Supprimer</button>
                     </td>
                 </tr>
                 </tbody>

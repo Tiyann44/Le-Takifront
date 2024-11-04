@@ -10,5 +10,5 @@ export interface Question {
   quiz: Quiz
   quizName?: string
   answers: Answer[]
-  filteredChoices?: { answerId: number; choices: Choice[] }[]; // Ajoute cette ligne
+  filteredChoices?: { answerId: number; choices: Choice[] }[];
 }

@@ -1,97 +1,127 @@
-// Style global pour le panneau d'administration
 :host {
+  --pastel-blue: #A0E1E1;
+  --pastel-pink: #FFD1DC;
+  --off-black: #333;
+  --text-color: #F8F8FF;
+  --light-gray: #f5f5f5;
+}
+
+.admin-container {
+  background-color: var(--light-gray);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-tabs {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #f7f9fc;
-  min-height: 100vh;
-}
+  justify-content: center;
+  margin-bottom: 2rem;
 
-// Titre du panneau d'administration
-.admin-panel-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 20px;
-}
+  .tab-button {
+    background-color: transparent;
+    border: 2px solid var(--pastel-blue);
+    color: var(--pastel-blue);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
 
-// Conteneur pour le contenu principal
-.admin-content {
-  width: 100%;
-  max-width: 800px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-// Boutons pour les actions d'administration
-.action-button {
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-
-  &.danger {
-    background-color: #dc3545;
+    &.active {
+      background-color: var(--pastel-blue);
+      color: var(--text-color);
+    }
 
     &:hover {
-      background-color: #a71d2a;
+      background-color: var(--pastel-pink);
+      color: var(--off-black);
     }
   }
 }
 
-// Tableaux pour la liste des utilisateurs ou des données
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+.admin-content {
+  .section {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    button.add-btn {
+      background-color: var(--pastel-blue);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: var(--pastel-pink);
+      }
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+
+      thead {
+        background-color: var(--pastel-blue);
+        color: white;
+
+        th {
+          padding: 1rem;
+          text-align: left;
+        }
+      }
+
+      tbody {
+        tr {
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+
+          td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+
+            button.action-btn {
+              background-color: transparent;
+              border: none;
+              cursor: pointer;
+              padding: 0.5rem;
+              margin-right: 0.5rem;
+
+              &.edit-btn {
+                color: var(--pastel-blue);
+              }
+
+              &.delete-btn {
+                color: red;
+              }
+
+              &:hover {
+                text-decoration: underline;
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+  .image-url {
+    white-space: nowrap;       // Empêche le texte de se déplacer sur une nouvelle ligne
+    overflow: hidden;          // Masque le texte qui déborde
+    text-overflow: ellipsis;   // Affiche "..." à la fin du texte masqué
+    width: 200px;              // Définissez une largeur fixe selon vos besoins
+    border: 1px solid var(--off-black); // Pour visualiser le cadre
+    padding: 5px;             // Ajoutez un peu de padding
+    border-radius: 5px;       // Coins arrondis pour un aspect esthétique
   }
 
-  th {
-    background-color: #f1f1f1;
-    color: #333;
-    font-weight: 600;
-  }
-
-  td {
-    color: #666;
-  }
-
-  tr:hover {
-    background-color: #f9f9f9;
-  }
-}
-
-// Message d'alerte ou de succès
-.alert {
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  text-align: center;
-
-  &.success {
-    background-color: #d4edda;
-    color: #155724;
-  }
-
-  &.error {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
 }
