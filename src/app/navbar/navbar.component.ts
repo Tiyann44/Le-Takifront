@@ -40,6 +40,9 @@ export class NavbarComponent {
         return this.currentRoute.startsWith('/quiz/');
     }
 
+  isScorePage(): boolean {
+    return this.currentRoute === '/score';
+  }
   isAdminPage(): boolean {
     return this.currentRoute === '/admin';
   }

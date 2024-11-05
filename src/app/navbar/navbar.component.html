@@ -3,6 +3,7 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
+        <a routerLink="/score">Score</a>
         <a routerLink="/contact">Contact</a>
         <a routerLink="/admin">Admin</a>
         <ng-container *ngIf="isLoggedIn(); else showLoginButton">
@@ -20,7 +21,7 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
-        <a routerLink="/contact">Contact</a>
+        <a routerLink="/score">Score</a>
     </div>
 </nav>
 
@@ -28,6 +29,7 @@
     <div class="container nav-content">
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
+        <a routerLink="/score">Score</a>
         <a routerLink="/contact">Contact</a>
         <ng-container *ngIf="isLoggedIn(); else showLoginButton">
             <button (click)="onLogout()" class="cta-button">Déconnexion</button>
@@ -43,6 +45,7 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
+        <a routerLink="/score">Score</a>
         <a routerLink="/contact">Contact</a>
         <ng-container *ngIf="isLoggedIn(); else showLoginButton">
             <button (click)="onLogout()" class="cta-button">Déconnexion</button>
@@ -58,7 +61,22 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
-        <a routerLink="/contact">Contact</a>
+        <a routerLink="/score">Score</a>
+        <ng-container *ngIf="isLoggedIn(); else showLoginButton">
+            <button (click)="onLogout()" class="cta-button">Déconnexion</button>
+        </ng-container>
+        <ng-template #showLoginButton>
+            <a routerLink="/connexion" class="cta-button">Connexion</a>
+        </ng-template>
+    </div>
+</nav>
+
+<nav *ngIf="isScorePage()">
+    <div class="container nav-content">
+        <div class="logo">TakItQuiz</div>
+        <a routerLink="/">Accueil</a>
+        <a routerLink="/themes">Thèmes</a>
+        <a routerLink="/score">Score</a>
         <ng-container *ngIf="isLoggedIn(); else showLoginButton">
             <button (click)="onLogout()" class="cta-button">Déconnexion</button>
         </ng-container>

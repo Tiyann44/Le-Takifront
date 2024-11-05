@@ -1,12 +1,12 @@
 export class ScoreDto {
-    id?: bigint;
-    quizId?: bigint;
-    userId?: bigint;
-    score: bigint;
+    id?: number;
+    quizId: number;
+    userId: number;
+    score: number;
     message: string;
 
 
-    constructor(message: string, score: bigint, quizId?: bigint, userId?: bigint, id?: bigint) {
+    constructor(message: string, score: number, quizId: number, userId: number, id?: number) {
         this.id = id;
         this.userId = userId;
         this.quizId = quizId;
