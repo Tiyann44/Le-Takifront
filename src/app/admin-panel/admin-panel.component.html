@@ -88,7 +88,7 @@
                         </li>
                     </ul>
                     <td>
-                        <button class="action-btn edit-btn" (click)="showModal('edit-question')">Modifier</button>
+                        <button class="action-btn edit-btn" (click)="openEditQuestionModal(question)">Modifier</button>
                         <button class="action-btn delete-btn" (click)="deleteQuestion(Number(question.id))">Supprimer</button>
                     </td>
                 </tr>
@@ -104,4 +104,4 @@
 <app-question-modal *ngIf="isAddQuestionModalOpen" (close)="closeModal('add-question')"></app-question-modal>
 <app-edit-theme-modal *ngIf="isEditThemeModalOpen" (close)="closeModal('edit-theme')"></app-edit-theme-modal>
 <app-edit-quiz-modal *ngIf="isEditQuizModalOpen" (close)="closeModal('edit-quiz')"></app-edit-quiz-modal>
-<app-edit-question-modal *ngIf="isEditQuestionModalOpen" (close)="closeModal('edit-question')"></app-edit-question-modal>
+<app-edit-question-modal *ngIf="isEditQuestionModalOpen" [question]="editingQuestion!" (close)="closeModal('edit-question')"></app-edit-question-modal>

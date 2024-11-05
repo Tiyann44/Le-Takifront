@@ -26,7 +26,7 @@ export class AdminPanelComponent {
   isEditQuestionModalOpen = false;
   editingTheme?: Theme;
   editingQuiz?: Quiz;
-  editingQuestion?: Question;
+  editingQuestion: Question | null = null;
 
   themes: Theme[] = [];
   quizzes: Quiz[] = [];
@@ -98,7 +98,11 @@ export class AdminPanelComponent {
     if (type === 'add-question') this.isAddQuestionModalOpen = true;
     if (type === 'edit-theme') this.isEditThemeModalOpen = true;
     if (type === 'edit-quiz') this.isEditQuizModalOpen = true;
-    if (type === 'edit-question') this.isEditQuestionModalOpen = true;
+  }
+
+  openEditQuestionModal(question: Question) {
+    this.isEditQuestionModalOpen = true; // Ouvre le modal
+    this.editingQuestion = question; // Assignation de la question à modifier
   }
 
   closeModal(type: string) {
@@ -119,6 +123,7 @@ export class AdminPanelComponent {
     }
     if (type === 'edit-question') {
       this.isEditQuestionModalOpen = false;
+      this.editingQuestion = null;
     }
   }
 

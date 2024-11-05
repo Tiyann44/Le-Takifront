@@ -9,7 +9,7 @@ import {QuizService} from "../../services/quiz.service";
   templateUrl: './edit-quiz-modal.component.html',
   styleUrls: ['./edit-quiz-modal.component.scss']
 })
-export class EditQuizModalComponent {
+export class EditQuizModalComponent  {
 
   @Input()
   quiz: Quiz = { id: null, name: '', description: '', themeName: '', image: '', theme: null, themeId: null };
