@@ -2,7 +2,7 @@ import {Theme} from "./theme.model"
 import {Question} from "./question.model";
 
 export interface Quiz {
-    id: bigint
+    id: Number
     name: string
     description: string
     image: string

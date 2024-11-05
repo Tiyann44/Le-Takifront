@@ -1,0 +1,38 @@
+<div class="container">
+    <h1>Classement Global des Quiz</h1>
+    <div class="scoreboard">
+        <div class="quiz-header">
+            <div>
+                <h2 class="quiz-title">Scores par Quiz</h2>
+                <div class="quiz-selector">
+                    <select class="quiz-select" id="quizSelect" (change)="onQuizChange($event)">
+                        <option value="all">Tous les Quiz</option>
+                    </select>
+                </div>
+            </div>
+            <div class="score-filters">
+<!--                <button class="filter-btn" (click)="filterScores('all')">Tous</button>-->
+<!--                <button class="filter-btn" (click)="filterScores('theme')">Par Thème</button>-->
+            </div>
+        </div>
+
+        <table class="score-table">
+            <thead>
+            <tr>
+                <th>Rang</th>
+                <th>Joueur</th>
+                <th>Quiz</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let score of scores; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ score.User?.firstName }}</td>
+                <td>{{ score.Quiz?.name }}</td>
+                <td>{{ score.score }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

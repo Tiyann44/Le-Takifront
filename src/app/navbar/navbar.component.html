@@ -3,7 +3,7 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
-        <a routerLink="/contact">Contact</a>
+        <a routerLink="/score">Score</a>
         <a routerLink="/connexion" class="cta-button">Connexion</a>
     </div>
 </nav>
@@ -13,7 +13,7 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
-        <a routerLink="/contact">Contact</a>
+        <a routerLink="/score">Score</a>
     </div>
 </nav>
 
@@ -21,7 +21,7 @@
     <div class="container nav-content">
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
-        <a routerLink="/contact">Contact</a>
+        <a routerLink="/score">Score</a>
         <a routerLink="/connexion" class="cta-button">Connexion</a>
     </div>
 </nav>
@@ -31,7 +31,7 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
-        <a routerLink="/contact">Contact</a>
+        <a routerLink="/score">Score</a>
         <a routerLink="/connexion" class="cta-button">Connexion</a>
     </div>
 </nav>
@@ -41,7 +41,16 @@
         <div class="logo">TakItQuiz</div>
         <a routerLink="/">Accueil</a>
         <a routerLink="/themes">Thèmes</a>
-        <a routerLink="/contact">Contact</a>
+        <a routerLink="/score">Score</a>
+        <a routerLink="/connexion" class="cta-button">Connexion</a>
+    </div>
+</nav>
+
+<nav *ngIf="isScorePage()">
+    <div class="container nav-content">
+        <div class="logo">TakItQuiz</div>
+        <a routerLink="/">Accueil</a>
+        <a routerLink="/themes">Thèmes</a>
         <a routerLink="/connexion" class="cta-button">Connexion</a>
     </div>
 </nav>

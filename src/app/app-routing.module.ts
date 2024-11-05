@@ -8,6 +8,7 @@ import { UserDetailsResolver } from "users/user-details/user-details.resolver"
 import {QuizzesComponent} from "./Quizzes/quizzes.component";
 import { ConnexionComponent } from "./connexion/connexion.component";
 import { ThemesComponent } from './themes/themes.component';
+import { ScoreComponent } from "./Score/score.component";
 import {QuizComponent} from "./Quiz/quiz.component";
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/themes', pathMatch: 'full' },
   {path: 'connexion', component: ConnexionComponent},
   {path: 'themes', component: ThemesComponent},
+  {path: 'score', component: ScoreComponent},
   {
     path: "students",
     component: UsersComponent,

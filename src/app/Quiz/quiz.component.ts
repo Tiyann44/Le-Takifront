@@ -5,8 +5,7 @@ import { Question } from '../models/question.model';
 import { Choice } from '../models/choice.model';
 import { Answer } from '../models/answer.model';
 import { AnswerService } from '../services/Answer.service';
-import {ChoiceService} from "../services/choice.service";
-import {forkJoin, of, tap} from "rxjs";
+import { ChoiceService } from "../services/choice.service";
 
 @Component({
     selector: 'app-quiz',
@@ -16,10 +15,10 @@ import {forkJoin, of, tap} from "rxjs";
 export class QuizComponent implements OnInit {
     quizId!: number;
     questions: Question[] = [];
-    answers : Answer[] = [];
-    choices : Choice[] = [];
+    answers: Answer[] = [];
+    choices: Choice[] = [];
     currentQuestionIndex: number = 0;
-    selectedChoices: Map<number, Choice> = new Map(); // Stocke les choix sélectionnés
+    selectedChoices: Map<number, Choice> = new Map();
     score: number = 0;
     quizCompleted: boolean = false;
 
@@ -28,32 +27,23 @@ export class QuizComponent implements OnInit {
         private questionService: QuestionService,
         private answerService: AnswerService,
         private choiceService: ChoiceService
-) {}
+    ) {}
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
             this.quizId = Number(params['id']);
-            console.log('Quiz ID récupéré:', this.quizId); // Ajoute cette ligne
             this.loadQuestions();
         });
     }
-
 
     loadQuestions(): void {
         this.questionService.findAll().subscribe((data: Question[]) => {
             this.questions = data.filter(question => Number(question.quizId) === this.quizId);
 
-            console.log('Questions après filtrage:', this.questions);
-
             if (this.questions.length === 0) {
                 console.log('Aucune question disponible pour ce quiz.');
             } else {
-                this.loadAnswers(); // Charger les réponses après avoir récupéré les questions
-                //this.loadChoices(this.answers); // Charger les choix après avoir récupéré les réponses
-
-                console.log('Questions récupérées:', this.questions);
-                console.log('Réponses récupérées:', this.answers);
-                console.log('Choix récupérés:', this.choices);
+                this.loadAnswers();
             }
         }, error => {
             console.error('Erreur lors de la récupération des questions:', error);
@@ -64,12 +54,13 @@ export class QuizComponent implements OnInit {
         this.questions.forEach(question => {
             this.answerService.getAnswersByQuestionId(Number(question.id)).subscribe((answers: Answer[]) => {
                 question.answers = answers;
+                this.shuffleAnswers(question.answers); // Mélange les réponses
                 this.answers.push(...answers);
-                this.answers.forEach(currentAnswer => {
+
+                // Charger les choix pour chaque réponse
+                answers.forEach(currentAnswer => {
                     this.choiceService.findById(Number(currentAnswer.choiceId)).subscribe((choice: Choice) => {
                         currentAnswer.choice = choice;
-                       // console.log(`Choix récupéré pour la réponse ${currentAnswer.id}:`, choice);
-                        //console.log(`choix récupérées pour la question ${question.id}:`, currentAnswer.choice);
                     });
                 });
             }, error => {
@@ -78,17 +69,23 @@ export class QuizComponent implements OnInit {
         });
     }
 
+    // Fonction pour mélanger les réponses
+    shuffleAnswers(answers: Answer[]): void {
+        for (let i = answers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [answers[i], answers[j]] = [answers[j], answers[i]];
+        }
+    }
+
     selectChoice(choice: Choice): void {
         this.selectedChoices.set(this.currentQuestionIndex, choice);
-        console.log('Choix sélectionné pour la question', this.currentQuestionIndex, ':', choice);
     }
 
     nextQuestion(): void {
-        // Vérifie si un choix a été sélectionné pour la question actuelle
         const selectedChoice = this.selectedChoices.get(this.currentQuestionIndex);
         if (!selectedChoice) {
-            alert('Veuillez sélectionner un choix avant de passer à la question suivante.'); // Alerte si aucun choix n'est sélectionné
-            return; // Empêche de passer à la question suivante
+            alert('Veuillez sélectionner un choix avant de passer à la question suivante.');
+            return;
         }
 
         if (this.currentQuestionIndex < this.questions.length - 1) {
@@ -97,7 +94,6 @@ export class QuizComponent implements OnInit {
             this.submitQuiz();
         }
     }
-
 
     submitQuiz(): void {
         this.questions.forEach((question, index) => {
@@ -111,11 +107,10 @@ export class QuizComponent implements OnInit {
     }
 
     resetQuiz(): void {
-        this.currentQuestionIndex = 0; // Réinitialiser l'index de la question
-        this.score = 0; // Réinitialiser le score
-        this.selectedChoices.clear(); // Vider les choix sélectionnés
-        this.quizCompleted = false; // Réinitialiser l'état de complétion du quiz
-        this.loadQuestions(); // Recharger les questions (si nécessaire)
+        this.currentQuestionIndex = 0;
+        this.score = 0;
+        this.selectedChoices.clear();
+        this.quizCompleted = false;
+        this.loadQuestions();
     }
-
 }

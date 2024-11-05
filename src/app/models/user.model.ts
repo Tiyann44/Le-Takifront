@@ -1,7 +1,7 @@
 import {Score} from "./score.model";
 
 export interface User {
-  id: bigint
+  id: Number
   firstName: string
   lastName: string
   email : string

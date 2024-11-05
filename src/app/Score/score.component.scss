@@ -1,0 +1,141 @@
+:host {
+  --pastel-blue: #A0E1E1;
+  --pastel-pink: #FFD1DC;
+  --pastel-green: #D4EDDA;
+  --off-black: #333;
+  --text-color: #F8F8FF;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--pastel-pink);
+  color: var(--off-black);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.scoreboard {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 30px;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--pastel-green);
+}
+
+.quiz-title {
+  font-size: 1.8rem;
+  color: var(--pastel-blue);
+}
+
+.quiz-selector {
+  margin-bottom: 20px;
+}
+
+.quiz-select {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: 1px solid var(--pastel-blue);
+  background: white;
+  color: var(--pastel-blue);
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: var(--pastel-green);
+    box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.2);
+  }
+}
+
+.score-filters {
+  display: flex;
+  gap: 15px;
+}
+
+.filter-btn {
+  background: var(--pastel-blue);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
+    background: var(--pastel-green);
+  }
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.score-table th,
+.score-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--pastel-green);
+}
+
+.score-table th {
+  background: var(--pastel-blue);
+  color: white;
+}
+
+.score-table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.rank {
+  font-weight: bold;
+  color: var(--pastel-green);
+}
+
+.user-score {
+  font-weight: bold;
+  color: var(--pastel-blue);
+}
+
+.medal {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.current-user {
+  background: rgba(160, 225, 225, 0.5) !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scoreboard {
+  animation: fadeIn 0.5s ease-out;
+}

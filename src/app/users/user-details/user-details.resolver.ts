@@ -17,7 +17,7 @@ export class UserDetailsResolver implements Resolve<User> {
       return new Observable((observer) => observer.next({
         firstName: "",
         email: "",
-        id: 0n,
+        id: 0,
         isAdmin: false,
         scores: [],
         lastName: "", }))

@@ -43,7 +43,7 @@ export class QuizzesComponent implements OnInit {
 
 
 
-    startQuiz(quizId: bigint): void {
+    startQuiz(quizId: Number): void {
         this.router.navigate(['/quiz', quizId]); // Redirige vers la page du quiz sélectionné
     }
 
