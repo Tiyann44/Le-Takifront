@@ -18,13 +18,13 @@ import {forkJoin, Observable} from "rxjs";
 })
 export class AdminPanelComponent {
   activeTab: string = 'themes';
-  showThemeModal = false;
-  showQuizModal = false;
-  showQuestionModal = false;
+  isAddThemeModal = false;
+  isAddQuizModal = false;
+  isAddQuestionModal = false;
   currentEditPage: string = '';
-  isEditingTheme = false;
-  isEditingQuiz = false;
-  isEditingQuestion = false;
+  isEditThemeModalOpen = false;
+  isEditQuizModalOpen = false;
+  isEditQuestionModalOpen = false;
   editingTheme?: Theme;
   editingQuiz?: Quiz;
   editingQuestion?: Question;
@@ -94,26 +94,32 @@ export class AdminPanelComponent {
   }
 
   showModal(type: string) {
-    if (type === 'theme') this.showThemeModal = true;
-    if (type === 'quiz') this.showQuizModal = true;
-    if (type === 'question') this.showQuestionModal = true;
+    if (type === 'add-theme') this.isAddThemeModal = true;
+    if (type === 'add-quiz') this.isAddQuizModal = true;
+    if (type === 'add-question') this.isAddQuestionModal = true;
+    if (type === 'edit-theme') this.isEditThemeModalOpen = true;
+    if (type === 'edit-quiz') this.isEditQuizModalOpen = true;
+    if (type === 'edit-question') this.isEditQuestionModalOpen = true;
   }
 
   closeModal(type: string) {
-    if (type === 'theme') {
-      this.showThemeModal = false;
-      this.isEditingTheme = false; // Réinitialiser l'édition
-      this.editingTheme = undefined; // Réinitialiser l'objet d'édition
+    if (type === 'add-theme') {
+      this.isAddThemeModal = false;
     }
-    if (type === 'quiz') {
-      this.showQuizModal = false;
-      this.isEditingQuiz = false; // Réinitialiser l'édition
-      this.editingQuiz = undefined; // Réinitialiser l'objet d'édition
+    if (type === 'add-quiz') {
+      this.isAddQuizModal = false;
     }
-    if (type === 'question') {
-      this.showQuestionModal = false;
-      this.isEditingQuestion = false; // Réinitialiser l'édition
-      this.editingQuestion = undefined; // Réinitialiser l'objet d'édition
+    if (type === 'add-question') {
+      this.isAddQuestionModal = false;
+    }
+    if (type === 'edit-theme') {
+      this.isEditThemeModalOpen = false;
+    }
+    if (type === 'edit-quiz') {
+      this.isEditQuizModalOpen = false;
+    }
+    if (type === 'edit-question') {
+      this.isEditQuestionModalOpen = false;
     }
   }
 
@@ -184,24 +190,6 @@ export class AdminPanelComponent {
     }, error => {
       console.error('Erreur lors de la suppression de la question:', error);
     });
-  }
-
-
-
-
-  editTheme(id: number) {
-    this.isEditingTheme = true;
-    this.editingTheme = this.themes.find(theme => Number(theme.id) === id);
-  }
-
-  editQuiz(id: number) {
-    this.isEditingQuiz = true;
-    this.editingQuiz = this.quizzes.find(quiz => quiz.id === id);
-  }
-
-  editQuestion(id: number) {
-    this.isEditingQuestion = true;
-    this.editingQuestion = this.questions.find(question => question.id === id);
   }
 
   saveTheme(event: Event) {
