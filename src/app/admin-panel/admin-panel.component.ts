@@ -9,7 +9,6 @@ import {Question} from "../models/question.model";
 import {Quiz} from "../models/quiz.model";
 import {Theme} from "../models/theme.model";
 import {ChoiceService} from "../services/choice.service";
-import {forkJoin, Observable} from "rxjs";
 
 @Component({
   selector: 'app-admin',

@@ -5,7 +5,7 @@ import {ThemeService} from "../../services/theme.service";
 import {QuizService} from "../../services/quiz.service";
 
 @Component({
-  selector: 'epf-edit-quiz-modal',
+  selector: 'app-edit-quiz-modal',
   templateUrl: './edit-quiz-modal.component.html',
   styleUrls: ['./edit-quiz-modal.component.scss']
 })

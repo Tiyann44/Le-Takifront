@@ -5,7 +5,7 @@ import {QuizService} from "../../services/quiz.service";
 import {Quiz} from "../../models/quiz.model";
 
 @Component({
-  selector: 'epf-edit-question-modal',
+  selector: 'app-edit-question-modal',
   templateUrl: './edit-question-modal.component.html',
   styleUrls: ['./edit-question-modal.component.scss']
 })
