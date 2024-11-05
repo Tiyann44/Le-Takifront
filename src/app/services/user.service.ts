@@ -21,7 +21,7 @@ export class UserService {
   }
 
   findByEmail(email: string): Observable<User> {
-    return this.http.get<User>(`${this.userURL}/${email}`)
+    return this.http.get<User>(`${this.userURL}/email/${email}`)
   }
 
 

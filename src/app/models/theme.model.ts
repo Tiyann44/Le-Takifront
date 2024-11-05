@@ -1,7 +1,7 @@
 import { Quiz } from "./quiz.model"
 
 export interface Theme {
-    id: bigint
+    id: number | null
     name: string
     description : string
     quizzes: Quiz[]

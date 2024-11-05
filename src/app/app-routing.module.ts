@@ -10,10 +10,13 @@ import { ConnexionComponent } from "./connexion/connexion.component";
 import { ThemesComponent } from './themes/themes.component';
 import { ScoreComponent } from "./Score/score.component";
 import {QuizComponent} from "./Quiz/quiz.component";
+import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
+
 
 
 const routes: Routes = [
   { path: 'quiz/:id', component: QuizComponent },
+  { path: 'admin', component: AdminPanelComponent },
   { path: "", component: HomeComponent },
   { path: 'quizzes/:themeId', component: QuizzesComponent },
   { path: '', redirectTo: '/themes', pathMatch: 'full' },

@@ -53,7 +53,7 @@ export class QuestionService {
         return this.http.post<Question>(this.QuestionURL, Question)
     }
 
-    deleteById(Question: Question) {
-        return this.http.delete(`${this.QuestionURL}/${Question.id}`)
+    deleteById(id: number) {
+        return this.http.delete(`${this.QuestionURL}/${id}`)
     }
 }

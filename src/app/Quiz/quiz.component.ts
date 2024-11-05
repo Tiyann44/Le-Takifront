@@ -5,7 +5,7 @@ import { Question } from '../models/question.model';
 import { Choice } from '../models/choice.model';
 import { Answer } from '../models/answer.model';
 import { AnswerService } from '../services/Answer.service';
-import { ChoiceService } from "../services/choice.service";
+import {ChoiceService} from "../services/choice.service";
 
 @Component({
     selector: 'app-quiz',
@@ -43,7 +43,11 @@ export class QuizComponent implements OnInit {
             if (this.questions.length === 0) {
                 console.log('Aucune question disponible pour ce quiz.');
             } else {
-                this.loadAnswers();
+                this.loadAnswers(); // Charger les réponses après avoir récupéré les questions
+
+                console.log('Questions récupérées:', this.questions);
+                console.log('Réponses récupérées:', this.answers);
+                console.log('Choix récupérés:', this.choices);
             }
         }, error => {
             console.error('Erreur lors de la récupération des questions:', error);

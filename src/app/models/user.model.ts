@@ -1,10 +1,11 @@
 import {Score} from "./score.model";
 
 export interface User {
-  id: Number
+  id: number
   firstName: string
   lastName: string
-  email : string
+  mail : string
   isAdmin : boolean
+  image: string
   scores : Score[]
 }
