@@ -99,6 +99,7 @@
 </div>
 
 <!-- Modal Templates -->
-<app-theme-modal *ngIf="isAddThemeModal" (close)="closeModal('theme')"></app-theme-modal>
-<app-quiz-modal *ngIf="isAddQuizModal" (close)="closeModal('quiz')"></app-quiz-modal>
-<app-question-modal *ngIf="isAddQuestionModal" (close)="closeModal('question')"></app-question-modal>
+<app-theme-modal *ngIf="isAddThemeModalOpen" (close)="closeModal('add-theme')"></app-theme-modal>
+<app-quiz-modal *ngIf="isAddQuizModalOpen" (close)="closeModal('add-quiz')"></app-quiz-modal>
+<app-question-modal *ngIf="isAddQuestionModalOpen" (close)="closeModal('add-question')"></app-question-modal>
+<app-edit-theme-modal *ngIf="isEditThemeModalOpen" (close)="closeModal('edit-theme')"></app-edit-theme-modal>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Question} from "../../models/question.model";
 import {QuestionService} from "../../services/question.service";
 import {QuizService} from "../../services/quiz.service";
@@ -9,9 +9,18 @@ import {Quiz} from "../../models/quiz.model";
   templateUrl: './edit-question-modal.component.html',
   styleUrls: ['./edit-question-modal.component.scss']
 })
-export class EditQuestionModalComponent implements OnInit {
+export class EditQuestionModalComponent  {
 
- // @Input() question: Question; // On reçoit la question existante pour l'édition
+  @Input() question: Question = {
+    question: '',
+    quizId: 0, // Remplacez par un ID de quiz valide si nécessaire
+    answers: [
+      { choice: { id: undefined, option: '' }, isCorrect: false }, // Choix initial
+      { choice: { id: undefined, option: '' }, isCorrect: false },
+      { choice: { id: undefined, option: '' }, isCorrect: false },
+      { choice: { id: undefined, option: '' }, isCorrect: false }
+    ]
+  }; // On reçoit la question existante pour l'édition
   @Output() close = new EventEmitter<void>();
   quizzes: Quiz[] = [];
 
@@ -31,13 +40,13 @@ export class EditQuestionModalComponent implements OnInit {
   }
 
   onCorrectAnswerSelected(selectedIndex: number) {
-    /*this.question.answers.forEach((answer, index) => {
+    this.question.answers.forEach((answer, index) => {
       answer.isCorrect = index === selectedIndex;
-    });*/
+    });
   }
 
   onSubmit() {
-   /* this.questionService.update(this.question).subscribe(
+   /*this.questionService.update(this.question).subscribe(
         (updatedQuestion) => {
           console.log('Question mise à jour:', updatedQuestion);
           this.closeModal();

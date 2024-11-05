@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Quiz} from "../../models/quiz.model";
 import {Theme} from "../../models/theme.model";
 import {ThemeService} from "../../services/theme.service";
@@ -9,9 +9,10 @@ import {QuizService} from "../../services/quiz.service";
   templateUrl: './edit-quiz-modal.component.html',
   styleUrls: ['./edit-quiz-modal.component.scss']
 })
-export class EditQuizModalComponent implements OnInit {
+export class EditQuizModalComponent {
 
-  //@Input() quiz: Quiz; // On reçoit le quiz existant pour l'édition
+  @Input()
+  quiz: Quiz = { id: null, name: '', description: '', themeName: '', image: '', theme: null, themeId: null };
   @Output() close = new EventEmitter<void>();
   themes: Theme[] = [];
 

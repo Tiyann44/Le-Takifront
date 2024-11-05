@@ -18,9 +18,9 @@ import {forkJoin, Observable} from "rxjs";
 })
 export class AdminPanelComponent {
   activeTab: string = 'themes';
-  isAddThemeModal = false;
-  isAddQuizModal = false;
-  isAddQuestionModal = false;
+  isAddThemeModalOpen = false;
+  isAddQuizModalOpen = false;
+  isAddQuestionModalOpen = false;
   currentEditPage: string = '';
   isEditThemeModalOpen = false;
   isEditQuizModalOpen = false;
@@ -94,9 +94,9 @@ export class AdminPanelComponent {
   }
 
   showModal(type: string) {
-    if (type === 'add-theme') this.isAddThemeModal = true;
-    if (type === 'add-quiz') this.isAddQuizModal = true;
-    if (type === 'add-question') this.isAddQuestionModal = true;
+    if (type === 'add-theme') this.isAddThemeModalOpen = true;
+    if (type === 'add-quiz') this.isAddQuizModalOpen = true;
+    if (type === 'add-question') this.isAddQuestionModalOpen = true;
     if (type === 'edit-theme') this.isEditThemeModalOpen = true;
     if (type === 'edit-quiz') this.isEditQuizModalOpen = true;
     if (type === 'edit-question') this.isEditQuestionModalOpen = true;
@@ -104,13 +104,13 @@ export class AdminPanelComponent {
 
   closeModal(type: string) {
     if (type === 'add-theme') {
-      this.isAddThemeModal = false;
+      this.isAddThemeModalOpen = false;
     }
     if (type === 'add-quiz') {
-      this.isAddQuizModal = false;
+      this.isAddQuizModalOpen = false;
     }
     if (type === 'add-question') {
-      this.isAddQuestionModal = false;
+      this.isAddQuestionModalOpen = false;
     }
     if (type === 'edit-theme') {
       this.isEditThemeModalOpen = false;
