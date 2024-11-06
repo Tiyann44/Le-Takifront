@@ -27,7 +27,7 @@
                     <td>{{ theme.image }}</td>
                     </div>
                     <td>
-                        <button class="action-btn edit-btn" (click)="showModal('edit-theme')">Modifier</button>
+                        <button class="action-btn edit-btn" (click)="openEditThemeModal(theme)">Modifier</button>
                         <button class="action-btn delete-btn" (click)="deleteTheme(Number(theme.id))">Supprimer</button>
                     </td>
                 </tr>
@@ -102,6 +102,6 @@
 <app-theme-modal *ngIf="isAddThemeModalOpen" (close)="closeModal('add-theme')"></app-theme-modal>
 <app-quiz-modal *ngIf="isAddQuizModalOpen" (close)="closeModal('add-quiz')"></app-quiz-modal>
 <app-question-modal *ngIf="isAddQuestionModalOpen" (close)="closeModal('add-question')"></app-question-modal>
-<app-edit-theme-modal *ngIf="isEditThemeModalOpen" (close)="closeModal('edit-theme')"></app-edit-theme-modal>
+<app-edit-theme-modal *ngIf="isEditThemeModalOpen" [theme]="editingTheme!"(close)="closeModal('edit-theme')"></app-edit-theme-modal>
 <app-edit-quiz-modal *ngIf="isEditQuizModalOpen" [quiz]="editingQuiz!"(close)="closeModal('edit-quiz')"></app-edit-quiz-modal>
 <app-edit-question-modal *ngIf="isEditQuestionModalOpen" [question]="editingQuestion!" (close)="closeModal('edit-question')"></app-edit-question-modal>

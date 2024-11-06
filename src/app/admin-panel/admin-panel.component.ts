@@ -107,7 +107,13 @@ export class AdminPanelComponent {
   openEditQuizModal(quiz: Quiz) {
         this.isEditQuizModalOpen = true; // Ouvre le modal
         this.editingQuiz = quiz; // Assignation du quiz à modifier
-    }
+  }
+
+  openEditThemeModal(theme: Theme) {
+        this.isEditThemeModalOpen = true; // Ouvre le modal
+        this.editingTheme = theme; // Assignation du thème à modifier
+
+  }
 
   closeModal(type: string) {
     if (type === 'add-theme') {
@@ -121,6 +127,7 @@ export class AdminPanelComponent {
     }
     if (type === 'edit-theme') {
       this.isEditThemeModalOpen = false;
+      this.editingTheme = null;
     }
     if (type === 'edit-quiz') {
       this.isEditQuizModalOpen = false;
@@ -131,6 +138,7 @@ export class AdminPanelComponent {
       this.editingQuestion = null;
     }
   }
+
 
 // Méthodes d'édition
   deleteTheme(id: number) {

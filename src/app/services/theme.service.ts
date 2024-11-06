@@ -20,8 +20,8 @@ export class ThemeService {
     return this.http.get<Theme>(`${this.themeURL}/${id}`)
   }
 
-  update(id: number, student: Theme): Observable<Theme> {
-    return this.http.post<Theme>(`${this.themeURL}/${id}`, student)
+  update(id: number, theme: Theme): Observable<Theme> {
+    return this.http.put<Theme>(`${this.themeURL}/${id}`, theme)
   }
 
   create(Theme: Theme): Observable<Theme> {
