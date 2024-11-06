@@ -20,8 +20,8 @@ export class ChoiceService {
         return this.http.get<Choice>(`${this.ChoiceURL}/${id}`)
     }
 
-    update(id: number, student: Choice): Observable<Choice> {
-        return this.http.post<Choice>(`${this.ChoiceURL}/${id}`, student)
+    update(id: number, choice : Choice): Observable<Choice> {
+        return this.http.put<Choice>(`${this.ChoiceURL}/${id}`, choice)
     }
 
     create(Choice: Choice): Observable<Choice> {

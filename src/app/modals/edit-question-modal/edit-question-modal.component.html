@@ -8,9 +8,11 @@
 
         <!-- Sélection du quiz associé -->
         <label for="quiz">Quiz</label>
-        <select id="quiz" [(ngModel)]="question.quizId" name="quiz" required>
+        <select id="quiz" *ngIf="quizzes.length > 0" [(ngModel)]="question.quizId" name="quiz" required>
+            <option value="" disabled>Sélectionnez un quiz</option> <!-- Pas besoin de selected ici -->
             <option *ngFor="let quiz of quizzes" [value]="quiz.id">{{ quiz.name }}</option>
         </select>
+
 
         <!-- Liste des choix de réponse -->
         <label>Choix</label>
