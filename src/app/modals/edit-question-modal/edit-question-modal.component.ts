@@ -41,16 +41,13 @@ export class EditQuestionModalComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['question'] && changes['question'].currentValue) {
       this.loadQuizzes();
-      console.log('Question mise à jour:', this.question); // Debugging
     }
   }
 
   loadQuizzes() {
     this.quizService.findAll().subscribe((quizzes) => {
       this.quizzes = quizzes;
-      console.log('Quizzes chargés:', this.quizzes);
-      // Assurez-vous que setQuizSelection est appelé ici
-      this.setQuizSelection();
+      this.setQuizSelection(); // Appeler après avoir chargé les quiz
     });
   }
 
