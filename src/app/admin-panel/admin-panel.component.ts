@@ -24,8 +24,8 @@ export class AdminPanelComponent {
   isEditThemeModalOpen = false;
   isEditQuizModalOpen = false;
   isEditQuestionModalOpen = false;
-  editingTheme?: Theme;
-  editingQuiz?: Quiz;
+  editingTheme: Theme | null = null;
+  editingQuiz: Quiz | null = null;
   editingQuestion: Question | null = null;
 
   themes: Theme[] = [];
@@ -97,13 +97,17 @@ export class AdminPanelComponent {
     if (type === 'add-quiz') this.isAddQuizModalOpen = true;
     if (type === 'add-question') this.isAddQuestionModalOpen = true;
     if (type === 'edit-theme') this.isEditThemeModalOpen = true;
-    if (type === 'edit-quiz') this.isEditQuizModalOpen = true;
   }
 
   openEditQuestionModal(question: Question) {
     this.isEditQuestionModalOpen = true; // Ouvre le modal
     this.editingQuestion = question; // Assignation de la question à modifier
   }
+
+  openEditQuizModal(quiz: Quiz) {
+        this.isEditQuizModalOpen = true; // Ouvre le modal
+        this.editingQuiz = quiz; // Assignation du quiz à modifier
+    }
 
   closeModal(type: string) {
     if (type === 'add-theme') {
@@ -120,6 +124,7 @@ export class AdminPanelComponent {
     }
     if (type === 'edit-quiz') {
       this.isEditQuizModalOpen = false;
+      this.editingQuiz = null;
     }
     if (type === 'edit-question') {
       this.isEditQuestionModalOpen = false;

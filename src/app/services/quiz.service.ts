@@ -23,8 +23,8 @@ export class QuizService {
         return this.http.get<Quiz>(`${this.QuizURL}/${id}`)
     }
 
-    update(id: number, student: Quiz): Observable<Quiz> {
-        return this.http.post<Quiz>(`${this.QuizURL}/${id}`, student)
+    update(id: number, quiz: Quiz): Observable<Quiz> {
+        return this.http.put<Quiz>(`${this.QuizURL}/${id}`, quiz)
     }
 
     create(Quiz: Quiz): Observable<Quiz> {

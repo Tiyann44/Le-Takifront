@@ -57,7 +57,7 @@
                     <td>{{ quiz.image }}</td>
                     </div>
                     <td>
-                        <button class="action-btn edit-btn" (click)="showModal('edit-quiz')">Modifier</button>
+                        <button class="action-btn edit-btn" (click)="openEditQuizModal(quiz)">Modifier</button>
                         <button class="action-btn delete-btn" (click)="deleteQuiz(Number(quiz.id))">Supprimer</button>
                     </td>
                 </tr>
@@ -103,5 +103,5 @@
 <app-quiz-modal *ngIf="isAddQuizModalOpen" (close)="closeModal('add-quiz')"></app-quiz-modal>
 <app-question-modal *ngIf="isAddQuestionModalOpen" (close)="closeModal('add-question')"></app-question-modal>
 <app-edit-theme-modal *ngIf="isEditThemeModalOpen" (close)="closeModal('edit-theme')"></app-edit-theme-modal>
-<app-edit-quiz-modal *ngIf="isEditQuizModalOpen" (close)="closeModal('edit-quiz')"></app-edit-quiz-modal>
+<app-edit-quiz-modal *ngIf="isEditQuizModalOpen" [quiz]="editingQuiz!"(close)="closeModal('edit-quiz')"></app-edit-quiz-modal>
 <app-edit-question-modal *ngIf="isEditQuestionModalOpen" [question]="editingQuestion!" (close)="closeModal('edit-question')"></app-edit-question-modal>
