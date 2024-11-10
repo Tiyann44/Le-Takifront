@@ -21,7 +21,7 @@ export class ScoreService {
   }
 
   update(id: number, student: Score): Observable<Score> {
-    return this.http.post<Score>(`${this.ScoreURL}/${id}`, student)
+    return this.http.put<Score>(`${this.ScoreURL}/${id}`, student)
   }
 
   create(Score: Score): Observable<Score> {

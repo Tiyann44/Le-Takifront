@@ -6,6 +6,8 @@ import { Choice } from '../models/choice.model';
 import { Answer } from '../models/answer.model';
 import { AnswerService } from '../services/Answer.service';
 import {ChoiceService} from "../services/choice.service";
+import {ScoreService} from "../services/score.service";
+import {Score} from "../models/score.model";
 
 @Component({
     selector: 'app-quiz',
@@ -26,7 +28,8 @@ export class QuizComponent implements OnInit {
         private route: ActivatedRoute,
         private questionService: QuestionService,
         private answerService: AnswerService,
-        private choiceService: ChoiceService
+        private choiceService: ChoiceService,
+        private scoreService: ScoreService
     ) {}
 
     ngOnInit(): void {
@@ -73,7 +76,6 @@ export class QuizComponent implements OnInit {
         });
     }
 
-    // Fonction pour mélanger les réponses
     shuffleAnswers(answers: Answer[]): void {
         for (let i = answers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -108,7 +110,41 @@ export class QuizComponent implements OnInit {
             }
         });
         this.quizCompleted = true;
+
+        const scorePercentage = (this.score / this.questions.length) * 100;
+        const scoreData: Score = {
+            quizId: this.quizId,
+            userId: 1, // Remplacez par l'ID réel de l'utilisateur
+            score: scorePercentage,
+            message: ''
+        };
+
+        this.scoreService.findAll().subscribe((scores: Score[]) => {
+            // Rechercher un score existant pour le quiz et l'utilisateur
+            const existingScore = scores.find(
+                score => score.quizId === this.quizId && score.userId === scoreData.userId
+            );
+
+            if (existingScore) {
+                // Comparer le score existant avec le nouveau score
+                if (scoreData.score > existingScore.score) {
+                    scoreData.id = existingScore.id; // Utiliser l'ID du score existant pour la mise à jour
+                    this.scoreService.update(Number(scoreData.id), scoreData).subscribe(() => {
+                        console.log('Score mis à jour avec succès car il est supérieur:', scoreData);
+                    });
+                } else {
+                    console.log('Nouveau score inférieur ou égal, aucun enregistrement.');
+                }
+            } else {
+                // Créer un nouveau score si aucun score existant n'a été trouvé
+                this.scoreService.create(scoreData).subscribe(() => {
+                    console.log('Score enregistré avec succès:', scoreData);
+                });
+            }
+        });
+
     }
+
 
     resetQuiz(): void {
         this.currentQuestionIndex = 0;
