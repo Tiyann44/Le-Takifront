@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThemeModalComponent } from './theme-modal.component';
+import { EditThemeModalComponent } from './edit-theme-modal.component';
 
-describe('ThemeModalComponent', () => {
-  let component: ThemeModalComponent;
-  let fixture: ComponentFixture<ThemeModalComponent>;
+describe('EditThemeModalComponent', () => {
+  let component: EditThemeModalComponent;
+  let fixture: ComponentFixture<EditThemeModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThemeModalComponent ]
+      declarations: [ EditThemeModalComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ThemeModalComponent);
+    fixture = TestBed.createComponent(EditThemeModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

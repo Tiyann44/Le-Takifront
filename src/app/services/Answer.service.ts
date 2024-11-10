@@ -20,8 +20,8 @@ export class AnswerService {
         return this.http.get<Answer>(`${this.AnswerURL}/${id}`)
     }
 
-    update(id: number, student: Answer): Observable<Answer> {
-        return this.http.post<Answer>(`${this.AnswerURL}/${id}`, student)
+    update(id: number, answer: Answer): Observable<Answer> {
+        return this.http.put<Answer>(`${this.AnswerURL}/${id}`, answer)
     }
 
     create(Answer: Answer): Observable<Answer> {

@@ -9,7 +9,6 @@ import {Question} from "../models/question.model";
 import {Quiz} from "../models/quiz.model";
 import {Theme} from "../models/theme.model";
 import {ChoiceService} from "../services/choice.service";
-import {forkJoin, Observable} from "rxjs";
 
 @Component({
   selector: 'app-admin',
@@ -18,16 +17,16 @@ import {forkJoin, Observable} from "rxjs";
 })
 export class AdminPanelComponent {
   activeTab: string = 'themes';
-  showThemeModal = false;
-  showQuizModal = false;
-  showQuestionModal = false;
+  isAddThemeModalOpen = false;
+  isAddQuizModalOpen = false;
+  isAddQuestionModalOpen = false;
   currentEditPage: string = '';
-  isEditingTheme = false;
-  isEditingQuiz = false;
-  isEditingQuestion = false;
-  editingTheme?: Theme;
-  editingQuiz?: Quiz;
-  editingQuestion?: Question;
+  isEditThemeModalOpen = false;
+  isEditQuizModalOpen = false;
+  isEditQuestionModalOpen = false;
+  editingTheme: Theme | null = null;
+  editingQuiz: Quiz | null = null;
+  editingQuestion: Question | null = null;
 
   themes: Theme[] = [];
   quizzes: Quiz[] = [];
@@ -94,28 +93,52 @@ export class AdminPanelComponent {
   }
 
   showModal(type: string) {
-    if (type === 'theme') this.showThemeModal = true;
-    if (type === 'quiz') this.showQuizModal = true;
-    if (type === 'question') this.showQuestionModal = true;
+    if (type === 'add-theme') this.isAddThemeModalOpen = true;
+    if (type === 'add-quiz') this.isAddQuizModalOpen = true;
+    if (type === 'add-question') this.isAddQuestionModalOpen = true;
+    if (type === 'edit-theme') this.isEditThemeModalOpen = true;
+  }
+
+  openEditQuestionModal(question: Question) {
+    this.isEditQuestionModalOpen = true; // Ouvre le modal
+    this.editingQuestion = question; // Assignation de la question à modifier
+  }
+
+  openEditQuizModal(quiz: Quiz) {
+        this.isEditQuizModalOpen = true; // Ouvre le modal
+        this.editingQuiz = quiz; // Assignation du quiz à modifier
+  }
+
+  openEditThemeModal(theme: Theme) {
+        this.isEditThemeModalOpen = true; // Ouvre le modal
+        this.editingTheme = theme; // Assignation du thème à modifier
+
   }
 
   closeModal(type: string) {
-    if (type === 'theme') {
-      this.showThemeModal = false;
-      this.isEditingTheme = false; // Réinitialiser l'édition
-      this.editingTheme = undefined; // Réinitialiser l'objet d'édition
+    if (type === 'add-theme') {
+      this.isAddThemeModalOpen = false;
     }
-    if (type === 'quiz') {
-      this.showQuizModal = false;
-      this.isEditingQuiz = false; // Réinitialiser l'édition
-      this.editingQuiz = undefined; // Réinitialiser l'objet d'édition
+    if (type === 'add-quiz') {
+      this.isAddQuizModalOpen = false;
     }
-    if (type === 'question') {
-      this.showQuestionModal = false;
-      this.isEditingQuestion = false; // Réinitialiser l'édition
-      this.editingQuestion = undefined; // Réinitialiser l'objet d'édition
+    if (type === 'add-question') {
+      this.isAddQuestionModalOpen = false;
+    }
+    if (type === 'edit-theme') {
+      this.isEditThemeModalOpen = false;
+      this.editingTheme = null;
+    }
+    if (type === 'edit-quiz') {
+      this.isEditQuizModalOpen = false;
+      this.editingQuiz = null;
+    }
+    if (type === 'edit-question') {
+      this.isEditQuestionModalOpen = false;
+      this.editingQuestion = null;
     }
   }
+
 
 // Méthodes d'édition
   deleteTheme(id: number) {
@@ -184,24 +207,6 @@ export class AdminPanelComponent {
     }, error => {
       console.error('Erreur lors de la suppression de la question:', error);
     });
-  }
-
-
-
-
-  editTheme(id: number) {
-    this.isEditingTheme = true;
-    this.editingTheme = this.themes.find(theme => Number(theme.id) === id);
-  }
-
-  editQuiz(id: number) {
-    this.isEditingQuiz = true;
-    this.editingQuiz = this.quizzes.find(quiz => quiz.id === id);
-  }
-
-  editQuestion(id: number) {
-    this.isEditingQuestion = true;
-    this.editingQuestion = this.questions.find(question => question.id === id);
   }
 
   saveTheme(event: Event) {

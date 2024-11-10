@@ -9,7 +9,7 @@
     <div class="admin-content">
         <!-- Thèmes -->
         <div *ngIf="activeTab === 'themes'" class="section active">
-            <button class="add-btn" (click)="showModal('theme')">Ajouter un Thème</button>
+            <button class="add-btn" (click)="showModal('add-theme')">Ajouter un Thème</button>
             <table class="admin-table">
                 <thead>
                 <tr>
@@ -27,7 +27,7 @@
                     <td>{{ theme.image }}</td>
                     </div>
                     <td>
-                        <button class="action-btn edit-btn" (click)="editTheme(Number(theme.id))">Modifier</button>
+                        <button class="action-btn edit-btn" (click)="openEditThemeModal(theme)">Modifier</button>
                         <button class="action-btn delete-btn" (click)="deleteTheme(Number(theme.id))">Supprimer</button>
                     </td>
                 </tr>
@@ -37,7 +37,7 @@
 
         <!-- Quiz -->
         <div *ngIf="activeTab === 'quizzes'" class="section">
-            <button class="add-btn" (click)="showModal('quiz')">Ajouter un Quiz</button>
+            <button class="add-btn" (click)="showModal('add-quiz')">Ajouter un Quiz</button>
             <table class="admin-table">
                 <thead>
                 <tr>
@@ -57,7 +57,7 @@
                     <td>{{ quiz.image }}</td>
                     </div>
                     <td>
-                        <button class="action-btn edit-btn" (click)="editQuiz(Number(quiz.id))">Modifier</button>
+                        <button class="action-btn edit-btn" (click)="openEditQuizModal(quiz)">Modifier</button>
                         <button class="action-btn delete-btn" (click)="deleteQuiz(Number(quiz.id))">Supprimer</button>
                     </td>
                 </tr>
@@ -67,7 +67,7 @@
 
         <!-- Questions -->
         <div *ngIf="activeTab === 'questions'" class="section">
-            <button class="add-btn" (click)="showModal('question')">Ajouter une Question</button>
+            <button class="add-btn" (click)="showModal('add-question')">Ajouter une Question</button>
             <table class="admin-table">
                 <thead>
                 <tr>
@@ -88,7 +88,7 @@
                         </li>
                     </ul>
                     <td>
-                        <button class="action-btn edit-btn" (click)="editQuestion(Number(question.id))">Modifier</button>
+                        <button class="action-btn edit-btn" (click)="openEditQuestionModal(question)">Modifier</button>
                         <button class="action-btn delete-btn" (click)="deleteQuestion(Number(question.id))">Supprimer</button>
                     </td>
                 </tr>
@@ -98,81 +98,10 @@
     </div>
 </div>
 
-<!-- Section de modification pour les questions -->
-<div id="questionEditPage" class="question-edit-container" *ngIf="isEditingQuestion">
-    <a href="#" class="back-btn" (click)="cancelEdit()">Retour</a>
-    <h2>Modifier la Question</h2>
-    <form class="question-form" (ngSubmit)="saveQuestion($event)">
-        <div class="form-group">
-            <label>Question</label>
-            <input type="text" name="question" [value]="editingQuestion?.question" required>
-        </div>
-        <div class="form-group">
-            <label>Quiz</label>
-            <select name="quiz" required>
-                <option *ngFor="let quiz of quizzes" [value]="quiz.id">{{ quiz.name }}</option>
-            </select>
-        </div>
-        <div class="answers-container">
-            <h3>Réponses</h3>
-            <div class="answer-group" *ngFor="let answer of editingQuestion?.answers; let i = index">
-                <input type="text" [value]="answer.choice?.option" placeholder="Réponse {{i + 1}}" required>
-                <input type="radio" name="correct" [value]="i + 1" class="correct-answer" [checked]="answer.isCorrect">
-                <label>Correcte</label>
-            </div>
-        </div>
-        <button type="submit" class="add-btn">Sauvegarder</button>
-    </form>
-</div>
-
-<!-- Section de modification pour les thèmes -->
-<div id="themeEditPage" class="edit-container" *ngIf="isEditingTheme">
-    <a href="#" class="back-btn" (click)="cancelEdit()">Retour</a>
-    <h2>Modifier le Thème</h2>
-    <form class="edit-form" (ngSubmit)="saveTheme($event)">
-        <div class="form-group">
-            <label>Titre</label>
-            <input type="text" name="title" [value]="editingTheme?.name" required>
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" required>{{ editingTheme?.description }}</textarea>
-        </div>
-        <div class="form-group">
-            <label>Image du thème (URL)</label>
-            <input type="url" name="themeImage" [value]="editingTheme?.image" placeholder="https://example.com/image.jpg" required>
-        </div>
-        <button type="submit" class="add-btn">Sauvegarder</button>
-    </form>
-</div>
-
-<!-- Section de modification pour les quiz -->
-<div id="quizEditPage" class="edit-container" *ngIf="isEditingQuiz">
-    <a href="#" class="back-btn" (click)="cancelEdit()">Retour</a>
-    <h2>Modifier le Quiz</h2>
-    <form class="edit-form" (ngSubmit)="saveQuiz($event)">
-        <div class="form-group">
-            <label>Titre</label>
-            <input type="text" name="title" [value]="editingQuiz?.name" required>
-        </div>
-        <div class="form-group">
-            <label>Thème</label>
-            <select name="theme" required>
-                <option *ngFor="let theme of themes" [value]="theme.id">{{ theme.name }}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" required>{{ editingQuiz?.description }}</textarea>
-        </div>
-        <div class="form-group">
-            <label>Image de bannière (URL)</label>
-            <input type="url" name="quizImage" [value]="editingQuiz?.image" placeholder="https://example.com/image.jpg" required>
-        </div>
-        <button type="submit" class="add-btn">Sauvegarder</button>
-    </form>
-</div>
 <!-- Modal Templates -->
-<app-theme-modal *ngIf="showThemeModal" (close)="closeModal('theme')"></app-theme-modal>
-<app-quiz-modal *ngIf="showQuizModal" (close)="closeModal('quiz')"></app-quiz-modal>
-<app-question-modal *ngIf="showQuestionModal" (close)="closeModal('question')"></app-question-modal>
+<app-theme-modal *ngIf="isAddThemeModalOpen" (close)="closeModal('add-theme')"></app-theme-modal>
+<app-quiz-modal *ngIf="isAddQuizModalOpen" (close)="closeModal('add-quiz')"></app-quiz-modal>
+<app-question-modal *ngIf="isAddQuestionModalOpen" (close)="closeModal('add-question')"></app-question-modal>
+<app-edit-theme-modal *ngIf="isEditThemeModalOpen" [theme]="editingTheme!"(close)="closeModal('edit-theme')"></app-edit-theme-modal>
+<app-edit-quiz-modal *ngIf="isEditQuizModalOpen" [quiz]="editingQuiz!"(close)="closeModal('edit-quiz')"></app-edit-quiz-modal>
+<app-edit-question-modal *ngIf="isEditQuestionModalOpen" [question]="editingQuestion!" (close)="closeModal('edit-question')"></app-edit-question-modal>

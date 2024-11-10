@@ -5,7 +5,7 @@ import {Choice} from "./choice.model";
 export interface Question {
   id?: number
   question: string
-  quizId : number
+  quizId : number | null
   image?: string;
   quiz?: Quiz
   quizName?: string

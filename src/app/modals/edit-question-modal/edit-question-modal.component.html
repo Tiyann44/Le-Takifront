@@ -1,0 +1,31 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-content">
+    <h2>Modifier la Question</h2>
+    <form (ngSubmit)="onSubmit()">
+        <!-- Champ de texte pour la question -->
+        <label for="text">Question</label>
+        <input id="text" [(ngModel)]="question.question" name="text" required />
+
+        <!-- Sélection du quiz associé -->
+        <label for="quiz">Quiz</label>
+        <select id="quiz" [(ngModel)]="question.quizId" name="quiz" required>
+            <option *ngFor="let quiz of quizzes" [value]="quiz.id">{{ quiz.name }}</option>
+        </select>
+
+
+        <!-- Liste des choix de réponse -->
+        <label>Choix</label>
+        <div *ngFor="let answer of question.answers; let i = index">
+            <!-- Champ de texte pour le choix -->
+            <input [(ngModel)]="question.answers[i].choice.option" [name]="'answer' + i" required />
+
+            <!-- Checkbox pour sélectionner la bonne réponse -->
+            <input type="checkbox" [(ngModel)]="question.answers[i].isCorrect"
+                   [name]="'isCorrect' + i" (change)="onCorrectAnswerSelected(i)" /> Correct
+        </div>
+
+        <!-- Boutons de soumission et d'annulation -->
+        <button type="submit">Enregistrer</button>
+        <button type="button" (click)="closeModal()">Annuler</button>
+    </form>
+</div>
