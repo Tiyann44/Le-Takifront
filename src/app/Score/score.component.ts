@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
     templateUrl: './score.component.html',
     styleUrls: ['./score.component.scss']
 })
+
 export class ScoreComponent implements OnInit {
     scores: Score[] = [];      // Tableau pour stocker les scores filtrés
     allScores: Score[] = [];   // Tableau pour stocker tous les scores (non filtrés)
@@ -22,6 +23,7 @@ export class ScoreComponent implements OnInit {
         private scoreService: ScoreService,
         private quizService: QuizService,
         private userService: UserService,
+
         private route: ActivatedRoute) {}
 
     ngOnInit(): void {
@@ -84,6 +86,7 @@ export class ScoreComponent implements OnInit {
 
     populateQuizSelect(): void {
         const quizSelect = document.getElementById('quizSelect') as HTMLSelectElement;
+
         this.quizzes.forEach(quiz => {
             const option = document.createElement('option');
             option.value = String(quiz.id); // L'ID du quiz

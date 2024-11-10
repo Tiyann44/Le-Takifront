@@ -20,8 +20,8 @@ export class ScoreService {
     return this.http.get<Score>(`${this.ScoreURL}/${id}`)
   }
 
-  update(id: number, student: Score): Observable<Score> {
-    return this.http.post<Score>(`${this.ScoreURL}/${id}`, student)
+  update(id: number, score: Score): Observable<Score> {
+    return this.http.put<Score>(`${this.ScoreURL}/${id}`, score)
   }
 
   create(Score: Score): Observable<Score> {
