@@ -51,6 +51,10 @@ export class NavbarComponent {
     return this.authService.isLoggedIn();
   }
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
   onLogout(): void {
     this.authService.logout(); // Gère la déconnexion de l'utilisateur
     this.router.navigate(['/connexion']); // Redirection vers la page de connexion

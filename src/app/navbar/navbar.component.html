@@ -5,7 +5,7 @@
         <a routerLink="/themes">Thèmes</a>
         <a routerLink="/score">Score</a>
         <a routerLink="/contact">Contact</a>
-        <a routerLink="/admin">Admin</a>
+        <a *ngIf="isAdmin()" routerLink="/admin">Admin</a>
         <ng-container *ngIf="isLoggedIn(); else showLoginButton">
             <button (click)="onLogout()" class="cta-button">Déconnexion</button>
         </ng-container>

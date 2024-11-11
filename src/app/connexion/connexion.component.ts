@@ -36,8 +36,19 @@ export class ConnexionComponent implements OnInit {
                 if (response) {
                     console.log('Connexion réussie', response);
                     alert('Connexion réussie !');
+
+                    // Appel de la méthode login avec l'utilisateur connecté
                     this.authService.login(response);
-                    this.router.navigate(['/']);
+
+                    // Vérifie si l'utilisateur est admin et affiche un message ou effectue une action spécifique
+                    if (this.authService.isAdmin()) {
+                        console.log('Utilisateur administrateur');
+                        alert('Bienvenue, administrateur !');
+                        // Par exemple, redirection vers une page d'admin :
+                        this.router.navigate(['/admin']);
+                    } else {
+                        this.router.navigate(['/']); // Redirection vers la page principale pour un utilisateur non-admin
+                    }
                 } else {
                     alert("Utilisateur non trouvé ou email invalide.");
                 }

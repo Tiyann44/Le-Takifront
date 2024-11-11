@@ -24,4 +24,9 @@ export class AuthService {
     getCurrentUser(): User | null {
         return this.currentUserSubject.value;
     }
+
+    isAdmin(): boolean {
+        const user = this.getCurrentUser();
+        return user ? user.isAdmin : false;
+    }
 }
