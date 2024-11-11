@@ -26,11 +26,13 @@
             </label>
         </div>
     </div>
-
-    <button class="quiz-button" (click)="nextQuestion()">
-        {{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Terminer' }}
-    </button>
+    <div *ngIf="!quizCompleted">
+        <button class="quiz-button" (click)="nextQuestion()">
+            {{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Terminer' }}
+        </button>
+    </div>
 </div>
+
 
 <!-- Si aucune question n'est disponible -->
 <ng-template #noQuestions>
