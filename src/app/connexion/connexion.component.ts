@@ -1,42 +1,46 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {UserService} from "../services/user.service";
-import {AuthService} from "../services/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
+import { User } from '../models/user.model';
+import {of} from "rxjs";
 
 @Component({
-    selector: 'app-connexion', // ou app-auth si tu l'appelles autrement
-    templateUrl: './connexion.component.html', // Chemin vers le bon fichier HTML
-    styleUrls: ['./connexion.component.scss'] // Si tu as un fichier de styles
+    selector: 'app-connexion',
+    templateUrl: './connexion.component.html',
+    styleUrls: ['./connexion.component.scss']
 })
 export class ConnexionComponent implements OnInit {
-    isLoginActive: boolean = true; // Variable pour gérer l'état actif des onglets
+    isLoginActive: boolean = true;
 
     constructor(private userService: UserService, private router: Router, private authService: AuthService) {}
 
     ngOnInit(): void {}
 
-    // Méthode pour afficher l'onglet de connexion
     onLoginTabClick(): void {
         this.isLoginActive = true;
     }
 
-    // Méthode pour afficher l'onglet d'inscription
     onRegisterTabClick(): void {
         this.isLoginActive = false;
     }
 
-    // Méthode pour gérer la soumission du formulaire de connexion
-    onLoginSubmit(emailInput: HTMLInputElement): void {
-        const mail = emailInput.value;
-        console.log(`Tentative de connexion avec l'email : ${mail}`);
-        alert(`Tentative de connexion avec ${mail}`);
 
-        this.userService.findByEmail(mail).subscribe(
+    onLoginSubmit(emailInput: HTMLInputElement): void {
+        const email = emailInput.value;
+        console.log(`Tentative de connexion avec l'email : ${email}`);
+        alert(`Tentative de connexion avec ${email}`);
+
+        this.userService.findByEmail(email).subscribe(
             response => {
-                console.log('Connexion réussie', response);
-                alert('Connexion réussie !');
-                this.authService.login(response);
-                this.router.navigate(['/']); // Redirection vers la page principale
+                if (response) {
+                    console.log('Connexion réussie', response);
+                    alert('Connexion réussie !');
+                    this.authService.login(response);
+                    this.router.navigate(['/']);
+                } else {
+                    alert("Utilisateur non trouvé ou email invalide.");
+                }
             },
             error => {
                 console.error('Erreur lors de la connexion', error);
@@ -45,38 +49,52 @@ export class ConnexionComponent implements OnInit {
         );
     }
 
-    // Méthode pour gérer la soumission du formulaire d'inscription
     onRegisterSubmit(
         firstnameInput: HTMLInputElement,
         lastnameInput: HTMLInputElement,
         emailInput: HTMLInputElement,
         usernameInput: HTMLInputElement
     ): void {
-        const id = 0;
         const firstName = firstnameInput.value;
         const lastName = lastnameInput.value;
         const mail = emailInput.value;
         const pseudo = usernameInput.value;
 
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-        const userData = {
-            id,
+        if (!firstName || !lastName || !mail || !pseudo) {
+            alert("Veuillez compléter tous les champs.");
+            return;
+        }
+
+        // Vérification de la validité de l'email
+        if (!emailRegex.test(mail)) {
+            // Afficher une alerte si l'email est invalide
+            alert('L\'email que vous avez entré n\'est pas valide.');
+            return; // Retourne un observable vide ou null
+        }
+
+        const userData: User = {
+            id: 0,
             firstName,
             lastName,
             mail,
             pseudo,
             isAdmin: false,
-            image: "",
+            image: '',
             scores: []
         };
-        console.log(`Tentative d'inscription avec le nom : ${firstName} ${lastName}, l'email : ${mail}, et le pseudo : ${pseudo} `);
+
+        console.log(`Tentative d'inscription avec : ${firstName} ${lastName}, email : ${mail}, pseudo : ${pseudo}`);
         alert(`Tentative d'inscription pour ${pseudo}`);
 
         this.userService.create(userData).subscribe(
             response => {
                 console.log('Inscription réussie', response);
                 alert('Inscription réussie !');
-                this.router.navigate(['/connexion']); // Redirection vers la page principale
+                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                    this.router.navigate(['/connexion']);
+                });
             },
             error => {
                 console.error('Erreur lors de l\'inscription', error);

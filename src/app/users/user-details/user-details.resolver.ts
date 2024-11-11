@@ -18,6 +18,7 @@ export class UserDetailsResolver implements Resolve<User> {
         firstName: "",
         mail: "",
         id: 0,
+        pseudo: "",
         isAdmin: false,
         scores: [],
         image: "",

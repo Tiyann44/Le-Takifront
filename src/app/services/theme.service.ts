@@ -25,6 +25,7 @@ export class ThemeService {
   }
 
   create(Theme: Theme): Observable<Theme> {
+    console.log("Objet à envoyer", Theme);
     return this.http.post<Theme>(this.themeURL, Theme)
   }
 

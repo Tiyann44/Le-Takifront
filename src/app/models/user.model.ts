@@ -5,6 +5,7 @@ export interface User {
   firstName: string
   lastName: string
   mail : string
+  pseudo: string
   isAdmin : boolean
   image: string
   scores : Score[]
