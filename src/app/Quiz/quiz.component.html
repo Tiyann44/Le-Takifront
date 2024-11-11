@@ -1,19 +1,14 @@
-<!-- Bannière avec un fond uni sombre et le titre du quiz -->
 <div class="quiz-banner">
     <div class="quiz-banner-content">
         <h1> {{ questions[currentQuestionIndex]?.quizName }}</h1> <!-- Le titre du quiz dynamique -->
     </div>
 </div>
 
-<!-- Contenu du quiz, affichage des questions et réponses -->
 <div *ngIf="questions.length > 0; else noQuestions" class="quiz-container">
     <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
 
-    <!-- Affichage de l'image de la question si elle est présente -->
     <img [src]="questions[currentQuestionIndex]?.image" *ngIf="questions[currentQuestionIndex]?.image" alt="Question Image">
 
-
-    <!-- Afficher les réponses et les choix associés -->
     <div *ngFor="let answer of questions[currentQuestionIndex]?.answers" class="answer-container">
         <div *ngIf="answer.choice">
             <label>
@@ -22,7 +17,7 @@
                         [value]="answer.choice.id"
                         [checked]="selectedChoices.get(currentQuestionIndex)?.id === answer.choice.id"
                         (change)="selectChoice(answer.choice)">
-                {{ answer.choice.option }} <!-- Affichage de l'option du choix -->
+                {{ answer.choice.option }}
             </label>
         </div>
     </div>
@@ -33,17 +28,14 @@
     </div>
 </div>
 
-
-<!-- Si aucune question n'est disponible -->
 <ng-template #noQuestions>
     <p>Aucune question disponible pour ce quiz.</p>
 </ng-template>
 
-<!-- Affichage du score à la fin du quiz -->
 <ng-container *ngIf="quizCompleted">
     <div class="quiz-completed">
-        <h2>Félicitations ! 🎉</h2>
         <p class="score-message">Vous avez terminé le quiz !</p>
+        <h2 class="score-message">{{ endMessage }}</h2>
         <p class="score-result">Votre score : <span>{{ score }}</span> sur <span>{{ questions.length }}</span></p>
         <button class="reset-btn" (click)="resetQuiz()">Recommencer le quiz</button>
     </div>
