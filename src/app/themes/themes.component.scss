@@ -1,5 +1,5 @@
 :root {
-  --pastel-blue: #A0E1E1;
+  --pastel-blue: rgba(28, 146, 156, 0.84);
   --pastel-pink: #FFD1DC;
   --pastel-lavender: #E6E6FA;
   --off-white: #F8F8FF;
@@ -10,9 +10,21 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--off-white);
+  background-color: #dddddd;
   color: var(--text-color);
   line-height: 1.6;
+}
+.background-cover {
+  position: fixed; /* Fixé pour couvrir l'ensemble de l'écran */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Prend toute la largeur de la fenêtre */
+  height: 100vh; /* Prend toute la hauteur de la fenêtre */
+  background-image: url("/assets/fond2.jpg"); /* Remplace avec le chemin de ton image */
+  background-size: cover; /* Ajuste l'image pour qu'elle couvre tout l'écran */
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; /* Met l'image de fond derrière le contenu */
 }
 
 .container {

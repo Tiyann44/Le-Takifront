@@ -115,7 +115,7 @@ export class QuizComponent implements OnInit {
         this.quizCompleted = true;
         const scorePercentage = (this.score / this.questions.length) * 100;
         if (scorePercentage === 100) {
-            this.endMessage = 'Trop fort ! 🌟 T es un vrai pro !';
+            this.endMessage = 'Trop fort ! 🌟 Tu es un(e) vrai(e) pro !';
         } else if (scorePercentage >= 75) {
             this.endMessage = 'Bien joué ! 👍 Tu as un bonne connaissance du jeu!';
         } else if (scorePercentage >= 50) {
