@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <button (click)="nextQuestion()">
+    <button class="quiz-button" (click)="nextQuestion()">
         {{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Terminer' }}
     </button>
 </div>
@@ -39,7 +39,10 @@
 
 <!-- Affichage du score à la fin du quiz -->
 <ng-container *ngIf="quizCompleted">
-    <h2>Quiz terminé !</h2>
-    <p>Votre score : {{ score }} sur {{ questions.length }}</p>
-    <button (click)="resetQuiz()">Recommencer le quiz</button>
+    <div class="quiz-completed">
+        <h2>Félicitations ! 🎉</h2>
+        <p class="score-message">Vous avez terminé le quiz !</p>
+        <p class="score-result">Votre score : <span>{{ score }}</span> sur <span>{{ questions.length }}</span></p>
+        <button class="reset-btn" (click)="resetQuiz()">Recommencer le quiz</button>
+    </div>
 </ng-container>
