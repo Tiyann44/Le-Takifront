@@ -30,6 +30,12 @@ export class QuizModalComponent {
   }
 
   onSubmit() {
+
+    if (!this.quiz.name || !this.quiz.description || !this.quiz.image || !this.quiz.themeId) {
+      alert("Veuillez compléter tous les champs.");
+      return;
+    } 
+
     this.quizService.create(this.quiz).subscribe(
         (createdQuiz) => {
           console.log('Quiz ajouté:', createdQuiz);

@@ -5,6 +5,10 @@
         <label for="text">Question</label>
         <input id="text" [(ngModel)]="question.question" name="text" required />
 
+        <label for="image">Image</label>
+        <input id="image" [(ngModel)]="question.image" name="image" required />
+
+
         <label for="quiz">Quiz</label>
         <select id="quiz" [(ngModel)]="question.quizId" name="quiz" required>
             <option *ngFor="let quiz of quizzes" [value]="quiz.id">{{ quiz.name }}</option>

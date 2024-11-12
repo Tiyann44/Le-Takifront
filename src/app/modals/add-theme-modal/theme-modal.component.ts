@@ -20,6 +20,12 @@ export class ThemeModalComponent {
   }
 
   onSubmit() {
+
+      if (!this.theme.name || !this.theme.description || !this.theme.image) {
+          alert("Veuillez compléter tous les champs.");
+          return;
+      }
+
     this.themeService.create(this.theme).subscribe(
         (createdQuiz) => {
           console.log('Quiz ajouté:', createdQuiz);
