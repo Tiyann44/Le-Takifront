@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {Observable, of} from "rxjs"
 import { User } from "models/user.model"
 import { HttpClient } from "@angular/common/http"
+
+export type UserResponse = User | null;
 
 @Injectable({
   providedIn: "root",
@@ -20,7 +22,7 @@ export class UserService {
     return this.http.get<User>(`${this.userURL}/${id}`)
   }
 
-  findByEmail(email: string): Observable<User> {
+  findByEmail(email: string): Observable<UserResponse> {
     return this.http.get<User>(`${this.userURL}/email/${email}`)
   }
 
