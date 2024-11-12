@@ -23,6 +23,7 @@ export class QuizComponent implements OnInit {
     selectedChoices: Map<number, Choice> = new Map();
     score: number = 0;
     quizCompleted: boolean = false;
+    endMessage: string = '';
 
     constructor(
         private route: ActivatedRoute,
@@ -102,49 +103,53 @@ export class QuizComponent implements OnInit {
     }
 
     submitQuiz(): void {
+        // Calculer le score
         this.questions.forEach((question, index) => {
             const selectedChoice = this.selectedChoices.get(index);
             const correctAnswer = question.answers.find(answer => answer.isCorrect);
-            if (selectedChoice && correctAnswer && selectedChoice.id === correctAnswer.id) {
+            if (selectedChoice && correctAnswer && selectedChoice.id === correctAnswer.choice?.id) {
                 this.score++;
             }
         });
-        this.quizCompleted = true;
 
+        this.quizCompleted = true;
         const scorePercentage = (this.score / this.questions.length) * 100;
+        if (scorePercentage === 100) {
+            this.endMessage = 'Trop fort ! 🌟 Tu es un(e) vrai(e) pro !';
+        } else if (scorePercentage >= 75) {
+            this.endMessage = 'Bien joué ! 👍 Tu as un bonne connaissance du jeu!';
+        } else if (scorePercentage >= 50) {
+            this.endMessage = 'C est limite ! 😐 Tu as juste les bases, continue de jouer pour t améliorer.';
+        } else if (scorePercentage >= 25) {
+            this.endMessage = 'C est mauvais... 😞 Essayez de faire mieux la prochaine fois.';
+        } else {
+            this.endMessage = 'Je suis sans voix... 😢 As-tu vraiment déjà joué à ce jeu ?!';
+        }
+
         const scoreData: Score = {
             quizId: this.quizId,
-            userId: 1, // Remplacez par l'ID réel de l'utilisateur
+            userId: 1,
             score: scorePercentage,
-            message: ''
+            message: this.endMessage
         };
 
         this.scoreService.findAll().subscribe((scores: Score[]) => {
-            // Rechercher un score existant pour le quiz et l'utilisateur
-            const existingScore = scores.find(
-                score => score.quizId === this.quizId && score.userId === scoreData.userId
-            );
+            const existingScore = scores.find(score => score.quizId === this.quizId && score.userId === scoreData.userId);
 
             if (existingScore) {
-                // Comparer le score existant avec le nouveau score
                 if (scoreData.score > existingScore.score) {
-                    scoreData.id = existingScore.id; // Utiliser l'ID du score existant pour la mise à jour
+                    scoreData.id = existingScore.id;
                     this.scoreService.update(Number(scoreData.id), scoreData).subscribe(() => {
                         console.log('Score mis à jour avec succès car il est supérieur:', scoreData);
                     });
-                } else {
-                    console.log('Nouveau score inférieur ou égal, aucun enregistrement.');
                 }
             } else {
-                // Créer un nouveau score si aucun score existant n'a été trouvé
                 this.scoreService.create(scoreData).subscribe(() => {
                     console.log('Score enregistré avec succès:', scoreData);
                 });
             }
         });
-
     }
-
 
     resetQuiz(): void {
         this.currentQuestionIndex = 0;
