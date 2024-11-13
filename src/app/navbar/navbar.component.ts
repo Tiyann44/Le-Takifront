@@ -46,6 +46,9 @@ export class NavbarComponent {
   isAdminPage(): boolean {
     return this.currentRoute === '/admin';
   }
+  isProfilePage(): boolean {
+    return this.currentRoute === '/profile';
+  }
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();

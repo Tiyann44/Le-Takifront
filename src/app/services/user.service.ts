@@ -19,7 +19,7 @@ export class UserService {
   }
 
   findById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.userURL}/${id}`)
+    return this.http.get<User>(`${this.userURL}/id/${id}`)
   }
 
   findByEmail(email: string): Observable<UserResponse> {
@@ -28,7 +28,7 @@ export class UserService {
 
 
   update(id: number, student: User): Observable<User> {
-    return this.http.post<User>(`${this.userURL}/${id}`, student)
+    return this.http.put<User>(`${this.userURL}/id/${id}`, student)
   }
 
   create(user: User): Observable<User> {

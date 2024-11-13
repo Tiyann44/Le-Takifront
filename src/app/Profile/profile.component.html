@@ -1,0 +1,42 @@
+<div class="profile-container">
+    <!-- Section avatar -->
+    <div class="avatar-section">
+        <div class="avatar-container">
+            <img id="avatar" class="avatar" [src]="updatedUser.image" alt="Avatar de profil" (click)="onAvatarClick()">
+            <input type="file" id="avatar-upload" class="avatar-upload" accept="image/*" (change)="onAvatarChange($event)">
+            <svg class="edit-icon" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Formulaire -->
+    <form id="profile-form" (submit)="onSubmit($event)">
+        <div class="form-group">
+            <label for="firstname">Prénom</label>
+            <input type="text" id="firstname" name="firstname" required [(ngModel)]="updatedUser.firstName">
+        </div>
+
+        <div class="form-group">
+            <label for="lastname">Nom</label>
+            <input type="text" id="lastname" name="lastname" required [(ngModel)]="updatedUser.lastName">
+        </div>
+
+        <div class="form-group">
+            <label for="username">Pseudo</label>
+            <input type="text" id="username" name="username" required [(ngModel)]="updatedUser.pseudo">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email" required [(ngModel)]="updatedUser.mail" readonly>
+        </div>
+
+        <button type="submit" class="save-btn">Enregistrer les modifications</button>
+    </form>
+
+    <!-- Notification de succès -->
+    <div class="notification" *ngIf="notificationVisible">
+        Modifications enregistrées avec succès!
+    </div>
+</div>
