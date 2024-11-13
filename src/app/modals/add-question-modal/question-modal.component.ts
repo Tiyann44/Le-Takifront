@@ -25,7 +25,7 @@ export class QuestionModalComponent {
       { choice: { id: undefined, option: '' }, isCorrect: false },
       { choice: { id: undefined, option: '' }, isCorrect: false }
     ],
-    image: '',
+    image: null,
   };
 
   constructor(
