@@ -8,6 +8,7 @@ import { AnswerService } from '../services/Answer.service';
 import {ChoiceService} from "../services/choice.service";
 import {ScoreService} from "../services/score.service";
 import {Score} from "../models/score.model";
+import {AuthService} from "../services/auth.service";
 
 @Component({
     selector: 'app-quiz',
@@ -30,7 +31,8 @@ export class QuizComponent implements OnInit {
         private questionService: QuestionService,
         private answerService: AnswerService,
         private choiceService: ChoiceService,
-        private scoreService: ScoreService
+        private scoreService: ScoreService,
+        private authService: AuthService
     ) {}
 
     ngOnInit(): void {
@@ -103,7 +105,7 @@ export class QuizComponent implements OnInit {
     }
 
     submitQuiz(): void {
-        // Calculer le score
+        // Calcul du score
         this.questions.forEach((question, index) => {
             const selectedChoice = this.selectedChoices.get(index);
             const correctAnswer = question.answers.find(answer => answer.isCorrect);
@@ -114,25 +116,46 @@ export class QuizComponent implements OnInit {
 
         this.quizCompleted = true;
         const scorePercentage = (this.score / this.questions.length) * 100;
-        if (scorePercentage === 100) {
-            this.endMessage = 'Trop fort ! 🌟 Tu es un(e) vrai(e) pro !';
-        } else if (scorePercentage >= 75) {
-            this.endMessage = 'Bien joué ! 👍 Tu as un bonne connaissance du jeu!';
-        } else if (scorePercentage >= 50) {
-            this.endMessage = 'C est limite ! 😐 Tu as juste les bases, continue de jouer pour t améliorer.';
-        } else if (scorePercentage >= 25) {
-            this.endMessage = 'C est mauvais... 😞 Essayez de faire mieux la prochaine fois.';
-        } else {
-            this.endMessage = 'Je suis sans voix... 😢 As-tu vraiment déjà joué à ce jeu ?!';
+        this.endMessage = this.generateEndMessage(scorePercentage);
+
+        // Récupérer l'utilisateur connecté
+        const currentUser = this.authService.getCurrentUser();
+
+        // Vérifie si l'utilisateur est connecté pour obtenir son userId
+        if (!currentUser) {
+            console.error('Aucun utilisateur connecté !');
+            return;
         }
 
         const scoreData: Score = {
             quizId: this.quizId,
-            userId: 1,
+            userId: currentUser.id, // Utilise l'id de l'utilisateur connecté
             score: scorePercentage,
-            message: this.endMessage
+            message: this.endMessage,
+            Quiz: undefined,  // Peut être laissé vide si inutile
+            User: undefined   // Peut être laissé vide si inutile
         };
 
+        this.saveScore(scoreData);
+    }
+
+// Fonction pour générer le message de fin
+    generateEndMessage(scorePercentage: number): string {
+        if (scorePercentage === 100) {
+            return 'Trop fort ! 🌟 Tu es un(e) vrai(e) pro !';
+        } else if (scorePercentage >= 75) {
+            return 'Bien joué ! 👍 Tu as une bonne connaissance du jeu!';
+        } else if (scorePercentage >= 50) {
+            return 'C est limite ! 😐 Tu as juste les bases, continue de jouer pour t améliorer.';
+        } else if (scorePercentage >= 25) {
+            return 'C est mauvais... 😞 Essayez de faire mieux la prochaine fois.';
+        } else {
+            return 'Je suis sans voix... 😢 As-tu vraiment déjà joué à ce jeu ?!';
+        }
+    }
+
+// Fonction pour enregistrer le score
+    saveScore(scoreData: Score): void {
         this.scoreService.findAll().subscribe((scores: Score[]) => {
             const existingScore = scores.find(score => score.quizId === this.quizId && score.userId === scoreData.userId);
 
@@ -150,6 +173,7 @@ export class QuizComponent implements OnInit {
             }
         });
     }
+
 
     resetQuiz(): void {
         this.currentQuestionIndex = 0;
