@@ -6,7 +6,7 @@ export interface Question {
   id?: number
   question: string
   quizId : number | null
-  image?: string;
+  image?: string | null
   quiz?: Quiz
   quizName?: string
   answers: Answer[]
