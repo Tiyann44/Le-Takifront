@@ -25,6 +25,7 @@ import { QuestionModalComponent } from './modals/add-question-modal/question-mod
 import { EditQuizModalComponent } from './modals/edit-quiz-modal/edit-quiz-modal.component';
 import { EditQuestionModalComponent } from './modals/edit-question-modal/edit-question-modal.component';
 import { EditThemeModalComponent } from './modals/edit-theme-modal/edit-theme-modal.component';
+import {ProfileComponent} from "./Profile/profile.component";
 
 
 
@@ -48,6 +49,7 @@ import { EditThemeModalComponent } from './modals/edit-theme-modal/edit-theme-mo
     EditQuizModalComponent,
     EditQuestionModalComponent,
     EditThemeModalComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

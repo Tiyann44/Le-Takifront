@@ -11,12 +11,14 @@ import { ThemesComponent } from './themes/themes.component';
 import { ScoreComponent } from "./Score/score.component";
 import {QuizComponent} from "./Quiz/quiz.component";
 import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
+import {ProfileComponent} from "./Profile/profile.component";
 
 
 
 const routes: Routes = [
   { path: 'quiz/:id', component: QuizComponent },
   { path: 'admin', component: AdminPanelComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: "", component: HomeComponent },
   { path: 'quizzes/:themeId', component: QuizzesComponent },
   { path: '', redirectTo: '/themes', pathMatch: 'full' },
