@@ -75,6 +75,7 @@
                     <th>Question</th>
                     <th>Quiz</th>
                     <th>Choix</th>
+                    <th>Réponse</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -88,6 +89,14 @@
                             {{ answer.choice?.option }} <!-- Assurez-vous que `choice` est une propriété de `answer` -->
                         </li>
                     </ul>
+
+                    <td>
+                        <!-- Utilisez <ng-container> pour gérer la condition d'affichage de la réponse correcte -->
+                        <ng-container *ngFor="let answer of question.answers">
+                            <span *ngIf="answer.isCorrect">{{ answer.choice?.option }}</span>
+                        </ng-container>
+                    </td>
+
                     <td>
                         <button class="action-btn edit-btn" (click)="openEditQuestionModal(question)">Modifier</button>
                         <button class="action-btn delete-btn" (click)="deleteQuestion(Number(question.id))">Supprimer</button>

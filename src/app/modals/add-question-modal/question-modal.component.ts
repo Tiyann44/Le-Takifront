@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import {QuestionService} from "../../services/question.service";
-import {Question} from "../../models/question.model";
-import {Quiz} from "../../models/quiz.model";
-import {QuizService} from "../../services/quiz.service";
+import { QuestionService } from "../../services/question.service";
+import { AnswerService } from "../../services/Answer.service";
+import { ChoiceService } from "../../services/choice.service";
+import { Question } from "../../models/question.model";
+import { Quiz } from "../../models/quiz.model";
+import { QuizService } from "../../services/quiz.service";
+import { forkJoin, from } from 'rxjs';
+import { switchMap, concatMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-question-modal',
@@ -14,19 +18,21 @@ export class QuestionModalComponent {
   quizzes: Quiz[] = [];
   question: Question = {
     question: '',
-    quizId: 0, // Remplacez par un ID de quiz valide si nécessaire
+    quizId: 0,
     answers: [
-      { choice: { id: undefined, option: '' }, isCorrect: false }, // Choix initial
+      { choice: { id: undefined, option: '' }, isCorrect: false },
       { choice: { id: undefined, option: '' }, isCorrect: false },
       { choice: { id: undefined, option: '' }, isCorrect: false },
       { choice: { id: undefined, option: '' }, isCorrect: false }
     ],
-    image:'',
+    image: '',
   };
 
   constructor(
       private questionService: QuestionService,
-        private quizService: QuizService,
+      private quizService: QuizService,
+      private answerService: AnswerService,
+      private choiceService: ChoiceService,
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +42,7 @@ export class QuestionModalComponent {
   loadQuizzes() {
     this.quizService.findAll().subscribe((quizzes) => {
       this.quizzes = quizzes;
-      console.log('Quizzes chargés:', quizzes); // Vérifiez ce que vous recevez
+      console.log('Quizzes chargés:', quizzes);
     });
   }
 
@@ -54,24 +60,54 @@ export class QuestionModalComponent {
     const hasCorrectAnswer = this.question.answers.some(answer => answer.isCorrect);
 
     if (
-        !this.question.question.trim() || // Vérifie si la question est vide
-        !this.question.quizId ||          // Vérifie si un quiz est sélectionné
-        !allAnswersFilled ||              // Vérifie si chaque réponse a une option remplie
-        !hasCorrectAnswer                 // Vérifie s'il y a au moins une réponse correcte
+        !this.question.question.trim() ||
+        !this.question.quizId ||
+        !allAnswersFilled ||
+        !hasCorrectAnswer
     ) {
       alert("Veuillez compléter tous les champs.");
       return;
     }
 
-    // Envoi de la question au backend via le service
-    this.questionService.create(this.question).subscribe(
-        (response) => {
-          console.log('Question enregistrée avec succès !', response);
-          this.closeModal();
-        },
-        (error) => {
-          console.error('Erreur lors de l\'enregistrement de la question :', error);
-        }
+    // Étape 1 : Créer la question
+    this.questionService.create(this.question).pipe(
+        tap(questionResponse => {
+          console.log('Question enregistrée avec succès !', questionResponse);
+
+          // Mise à jour de l'ID de la question dans chaque réponse
+          this.question.answers.forEach(answer => {
+            answer.questionId = questionResponse.id;
+          });
+        }),
+        // Étape 2 : Créer chaque choix pour les réponses
+        switchMap(() => this.createChoicesAndAnswers())
+    ).subscribe({
+      complete: () => {
+        console.log('Toutes les réponses et leurs choix associés ont été créés.');
+        this.closeModal();
+      },
+      error: (error) => {
+        console.error('Erreur lors de l\'enregistrement des réponses et choix :', error);
+      }
+    });
+  }
+
+  // Créer les choix et ensuite les réponses associées
+  private createChoicesAndAnswers() {
+    return from(this.question.answers).pipe(
+        concatMap(answer =>
+            // Créer le choix pour chaque réponse
+            this.choiceService.create(answer.choice).pipe(
+                tap(choiceResponse => {
+                  console.log('Choix enregistré avec succès !', choiceResponse);
+
+                  // Assigner le `choiceId` de l'answer pour lier à ce choix créé
+                  answer.choiceId = choiceResponse.id;
+                }),
+                // Ensuite, créer l'answer avec le `choiceId` mis à jour
+                switchMap(() => this.answerService.create(answer))
+            )
+        )
     );
   }
 
