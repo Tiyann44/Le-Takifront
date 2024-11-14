@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core"
+import { Component } from "@angular/core"
 import { Link } from "models/link.model"
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "services/auth.service";
@@ -59,8 +59,8 @@ export class NavbarComponent {
   }
 
   onLogout(): void {
-    this.authService.logout(); // Gère la déconnexion de l'utilisateur
-    this.router.navigate(['/connexion']); // Redirection vers la page de connexion
+    this.authService.logout();
+    this.router.navigate(['/connexion']);
   }
 
 }

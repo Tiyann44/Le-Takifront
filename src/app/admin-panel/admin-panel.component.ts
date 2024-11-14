@@ -39,16 +39,16 @@ export class AdminPanelComponent {
       private answerService: AnswerService,
       private choiceService: ChoiceService
 
-  ) {this.loadThemes();  // Charger les thèmes
-    this.loadQuizzes(); // Charger les quiz
-    this.loadQuestions(); // Charger les questions
+  ) {this.loadThemes();
+    this.loadQuizzes();
+    this.loadQuestions();
   }
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
-    this.loadThemes();  // Charger les thèmes
-    this.loadQuizzes(); // Charger les quiz
-    this.loadQuestions(); // Charger les questions
+    this.loadThemes();
+    this.loadQuizzes();
+    this.loadQuestions();
   }
 
   showEditPage(page: string) {
@@ -73,16 +73,13 @@ export class AdminPanelComponent {
     this.questionService.findAll().subscribe((questions) => {
       this.questions = questions;
       console.log('Questions chargées:', questions);
-      // Pour chaque question, chargez les réponses associées
       this.questions.forEach(question => {
-        // Créez une propriété pour stocker les réponses de chaque question
-        question.answers = []; // Initialisez un tableau pour les réponses spécifiques à la question
+        question.answers = [];
         this.answerService.getAnswersByQuestionId(Number(question.id)).subscribe((answers: Answer[]) => {
-          question.answers = answers; // Associez les réponses à la question
-          // Chargez les choix pour chaque réponse
+          question.answers = answers;
           question.answers.forEach(currentAnswer => {
             this.choiceService.findById(Number(currentAnswer.choiceId)).subscribe((choice: Choice) => {
-              currentAnswer.choice = choice; // Associez le choix à la réponse
+              currentAnswer.choice = choice;
             });
           });
         }, error => {
@@ -100,18 +97,18 @@ export class AdminPanelComponent {
   }
 
   openEditQuestionModal(question: Question) {
-    this.isEditQuestionModalOpen = true; // Ouvre le modal
-    this.editingQuestion = question; // Assignation de la question à modifier
+    this.isEditQuestionModalOpen = true;
+    this.editingQuestion = question;
   }
 
   openEditQuizModal(quiz: Quiz) {
-        this.isEditQuizModalOpen = true; // Ouvre le modal
-        this.editingQuiz = quiz; // Assignation du quiz à modifier
+        this.isEditQuizModalOpen = true;
+        this.editingQuiz = quiz;
   }
 
   openEditThemeModal(theme: Theme) {
-        this.isEditThemeModalOpen = true; // Ouvre le modal
-        this.editingTheme = theme; // Assignation du thème à modifier
+        this.isEditThemeModalOpen = true;
+        this.editingTheme = theme;
 
   }
 
@@ -139,15 +136,12 @@ export class AdminPanelComponent {
     }
   }
 
-
-// Méthodes d'édition
   deleteTheme(id: number) {
     this.quizService.findAll().subscribe((data: Quiz[]) => {
       const quizzesToDelete = data.filter(quiz => Number(quiz.themeId) === id);
       console.log('Quizzes à supprimer:', quizzesToDelete);
 
       if (quizzesToDelete.length === 0) {
-        // Supprimer le thème directement s'il n'y a pas de quizzes associés
         this.themeService.deleteById(id).subscribe(() => {
           this.themes = this.themes.filter(theme => theme.id !== id);
           console.log('Thème supprimé avec succès (aucun quiz à supprimer).');
@@ -155,11 +149,9 @@ export class AdminPanelComponent {
           console.error('Erreur lors de la suppression du thème:', error);
         });
       } else {
-        // Supprimer les quizzes associés, puis le thème
         quizzesToDelete.forEach(quiz => {
-          this.deleteQuiz(Number(quiz.id)); // Supprime chaque quiz
+          this.deleteQuiz(Number(quiz.id));
         });
-        // Après la suppression de tous les quizzes, supprimer le thème
         this.themeService.deleteById(id).subscribe(() => {
           this.themes = this.themes.filter(theme => theme.id !== id);
           console.log('Thème supprimé avec succès.');
@@ -176,7 +168,6 @@ export class AdminPanelComponent {
       console.log('Questions à supprimer:', questionsToDelete);
 
       if (questionsToDelete.length === 0) {
-        // Supprimer le quiz directement s'il n'y a pas de questions associées
         this.quizService.deleteById(id).subscribe(() => {
           this.quizzes = this.quizzes.filter(quiz => quiz.id !== id);
           console.log('Quiz supprimé avec succès (aucune question à supprimer).');
@@ -184,11 +175,9 @@ export class AdminPanelComponent {
           console.error('Erreur lors de la suppression du quiz:', error);
         });
       } else {
-        // Supprimer les questions associées, puis le quiz
         questionsToDelete.forEach(question => {
-          this.deleteQuestion(Number(question.id)); // Supprime chaque question
+          this.deleteQuestion(Number(question.id));
         });
-        // Après la suppression de toutes les questions, supprimer le quiz
         this.quizService.deleteById(id).subscribe(() => {
           this.quizzes = this.quizzes.filter(quiz => quiz.id !== id);
           console.log('Quiz supprimé avec succès.');
@@ -213,7 +202,7 @@ export class AdminPanelComponent {
     event.preventDefault();
     if (this.editingTheme) {
       this.themeService.update(Number(this.editingTheme.id), this.editingTheme).subscribe(() => {
-        this.loadThemes(); // Recharger les thèmes
+        this.loadThemes();
         this.closeModal('theme');
       });
     }
@@ -223,7 +212,7 @@ export class AdminPanelComponent {
     event.preventDefault();
     if (this.editingQuiz) {
       this.quizService.update(Number(this.editingQuiz.id), this.editingQuiz).subscribe(() => {
-        this.loadQuizzes(); // Recharger les quiz
+        this.loadQuizzes();
         this.closeModal('quiz');
       });
     }
@@ -233,7 +222,7 @@ export class AdminPanelComponent {
     event.preventDefault();
     if (this.editingQuestion) {
       this.questionService.update(Number(this.editingQuestion.id), this.editingQuestion).subscribe(() => {
-        this.loadQuestions(); // Recharger les questions
+        this.loadQuestions();
         this.closeModal('question');
       });
     }

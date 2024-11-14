@@ -8,7 +8,6 @@
     </div>
 
     <div class="admin-content">
-        <!-- Thèmes -->
         <div *ngIf="activeTab === 'themes'" class="section active">
             <button class="add-btn" (click)="showModal('add-theme')">Ajouter un Thème</button>
             <table class="admin-table">
@@ -35,8 +34,6 @@
                 </tbody>
             </table>
         </div>
-
-        <!-- Quiz -->
         <div *ngIf="activeTab === 'quizzes'" class="section">
             <button class="add-btn" (click)="showModal('add-quiz')">Ajouter un Quiz</button>
             <table class="admin-table">
@@ -65,8 +62,6 @@
                 </tbody>
             </table>
         </div>
-
-        <!-- Questions -->
         <div *ngIf="activeTab === 'questions'" class="section">
             <button class="add-btn" (click)="showModal('add-question')">Ajouter une Question</button>
             <table class="admin-table">
@@ -84,14 +79,12 @@
                     <td>{{ question.question }}</td>
                     <td>{{ question.quizName }}</td>
                     <ul>
-                        <!-- Afficher les réponses associées à la question -->
                         <li *ngFor="let answer of question.answers">
-                            {{ answer.choice?.option }} <!-- Assurez-vous que `choice` est une propriété de `answer` -->
+                            {{ answer.choice?.option }}
                         </li>
                     </ul>
 
                     <td>
-                        <!-- Utilisez <ng-container> pour gérer la condition d'affichage de la réponse correcte -->
                         <ng-container *ngFor="let answer of question.answers">
                             <span *ngIf="answer.isCorrect">{{ answer.choice?.option }}</span>
                         </ng-container>
@@ -108,7 +101,6 @@
     </div>
 </div>
 
-<!-- Modal Templates -->
 <app-theme-modal *ngIf="isAddThemeModalOpen" (close)="closeModal('add-theme')"></app-theme-modal>
 <app-quiz-modal *ngIf="isAddQuizModalOpen" (close)="closeModal('add-quiz')"></app-quiz-modal>
 <app-question-modal *ngIf="isAddQuestionModalOpen" (close)="closeModal('add-question')"></app-question-modal>

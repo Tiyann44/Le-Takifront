@@ -49,7 +49,7 @@ export class EditQuizModalComponent implements OnInit {
     this.quizService.update(Number(this.quiz.id),this.quiz).subscribe(
         (updatedQuiz) => {
           console.log('Quiz mis à jour:', updatedQuiz);
-          this.closeModal(); // Ferme le modal après la mise à jour
+          this.closeModal();
         },
         (error) => {
           console.error('Erreur lors de la mise à jour du quiz:', error);

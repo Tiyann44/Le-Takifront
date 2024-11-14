@@ -13,8 +13,6 @@ import {QuizComponent} from "./Quiz/quiz.component";
 import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
 import {ProfileComponent} from "./Profile/profile.component";
 
-
-
 const routes: Routes = [
   { path: 'quiz/:id', component: QuizComponent },
   { path: 'admin', component: AdminPanelComponent },

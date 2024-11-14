@@ -115,13 +115,13 @@
     }
   }
   .image-url {
-    white-space: nowrap;       // Empêche le texte de se déplacer sur une nouvelle ligne
-    overflow: hidden;          // Masque le texte qui déborde
-    text-overflow: ellipsis;   // Affiche "..." à la fin du texte masqué
-    width: 200px;              // Définissez une largeur fixe selon vos besoins
-    border: 1px solid var(--off-black); // Pour visualiser le cadre
-    padding: 5px;             // Ajoutez un peu de padding
-    border-radius: 5px;       // Coins arrondis pour un aspect esthétique
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+    border: 1px solid var(--off-black);
+    padding: 5px;
+    border-radius: 5px;
   }
 
 }

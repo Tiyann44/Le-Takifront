@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import {catchError, map, Observable, tap} from "rxjs"
+import {Observable, tap} from "rxjs"
 import { Question } from "models/question.model"
 import { HttpClient } from "@angular/common/http"
 import {Answer} from "../models/answer.model";
