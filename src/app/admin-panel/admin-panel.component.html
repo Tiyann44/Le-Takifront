@@ -1,0 +1,109 @@
+<div class="background-cover"></div>
+<div class="admin-container">
+    <h1>Panel d'Administration</h1>
+    <div class="admin-tabs">
+        <button class="tab-button" [class.active]="activeTab === 'themes'" (click)="setActiveTab('themes')">Thèmes</button>
+        <button class="tab-button" [class.active]="activeTab === 'quizzes'" (click)="setActiveTab('quizzes')">Quiz</button>
+        <button class="tab-button" [class.active]="activeTab === 'questions'" (click)="setActiveTab('questions')">Questions</button>
+    </div>
+
+    <div class="admin-content">
+        <div *ngIf="activeTab === 'themes'" class="section active">
+            <button class="add-btn" (click)="showModal('add-theme')">Ajouter un Thème</button>
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let theme of themes">
+                    <td>{{ theme.name }}</td>
+                    <td>{{ theme.description }}</td>
+                    <div class="image-url">
+                    <td>{{ theme.image }}</td>
+                    </div>
+                    <td>
+                        <button class="action-btn edit-btn" (click)="openEditThemeModal(theme)">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteTheme(Number(theme.id))">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="activeTab === 'quizzes'" class="section">
+            <button class="add-btn" (click)="showModal('add-quiz')">Ajouter un Quiz</button>
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Thème</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let quiz of quizzes">
+                    <td>{{ quiz.name }}</td>
+                    <td>{{ quiz.themeName}}</td>
+                    <td>{{ quiz.description }}</td>
+                    <div class="image-url">
+                    <td>{{ quiz.image }}</td>
+                    </div>
+                    <td>
+                        <button class="action-btn edit-btn" (click)="openEditQuizModal(quiz)">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteQuiz(Number(quiz.id))">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="activeTab === 'questions'" class="section">
+            <button class="add-btn" (click)="showModal('add-question')">Ajouter une Question</button>
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Quiz</th>
+                    <th>Choix</th>
+                    <th>Réponse</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let question of questions">
+                    <td>{{ question.question }}</td>
+                    <td>{{ question.quizName }}</td>
+                    <ul>
+                        <li *ngFor="let answer of question.answers">
+                            {{ answer.choice?.option }}
+                        </li>
+                    </ul>
+
+                    <td>
+                        <ng-container *ngFor="let answer of question.answers">
+                            <span *ngIf="answer.isCorrect">{{ answer.choice?.option }}</span>
+                        </ng-container>
+                    </td>
+
+                    <td>
+                        <button class="action-btn edit-btn" (click)="openEditQuestionModal(question)">Modifier</button>
+                        <button class="action-btn delete-btn" (click)="deleteQuestion(Number(question.id))">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<app-theme-modal *ngIf="isAddThemeModalOpen" (close)="closeModal('add-theme')"></app-theme-modal>
+<app-quiz-modal *ngIf="isAddQuizModalOpen" (close)="closeModal('add-quiz')"></app-quiz-modal>
+<app-question-modal *ngIf="isAddQuestionModalOpen" (close)="closeModal('add-question')"></app-question-modal>
+<app-edit-theme-modal *ngIf="isEditThemeModalOpen" [theme]="editingTheme!"(close)="closeModal('edit-theme')"></app-edit-theme-modal>
+<app-edit-quiz-modal *ngIf="isEditQuizModalOpen" [quiz]="editingQuiz!"(close)="closeModal('edit-quiz')"></app-edit-quiz-modal>
+<app-edit-question-modal *ngIf="isEditQuestionModalOpen" [question]="editingQuestion!" (close)="closeModal('edit-question')"></app-edit-question-modal>

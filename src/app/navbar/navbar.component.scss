@@ -1,42 +1,66 @@
-@use "src/theme";
+:host {
+  --pastel-blue: rgba(28, 146, 156, 0.84);
+  --pastel-pink: #FFD1DC;
+  --pastel-lavender: #9683EC;
+  --off-black: #333;
+  --text-color: #F8F8FF;
+}
 
 nav {
-  height: 80px;
-  background: linear-gradient(to right, theme.$common-purple, theme.$common-red);
-
-  div {
-    height: 100%;
-    display: flex;
-    align-items: center;
-
-    img {
-      margin-left: 20px;
-      height: 60px;
-      transition: .3s;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-
-    .active {
-      text-decoration: underline;
-    }
-  }
+  background-color: dimgray;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
-.mat-nav-list {
-  margin-left: 50px;
-  padding: 0;
+.nav-content {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
 }
 
-.mat-list-base .mat-list-item {
-  font-size: large;
-  color: theme.$white;
-  transition: .3s;
-
-  &:hover {
-    transform: scale(1.2);
-  }
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--pastel-blue);
 }
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: rgba(28, 146, 156, 0.84);
+}
+
+.cta-button {
+  background-color: rgba(28, 146, 156, 0.84);
+  color: var(--text-color);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.cta-button:hover {
+  background-color: var(--pastel-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
+

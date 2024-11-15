@@ -1,0 +1,130 @@
+:root {
+  --pastel-blue: rgba(28, 146, 156, 0.84);
+  --off-white: #F8F8FF;
+  --text-color: #333;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--off-white);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+main {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/assets/fond2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.auth-container {
+  background-color: ghostwhite;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 2rem;
+
+}
+
+.auth-tab {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.auth-tab.active {
+  border-bottom-color: rgba(28, 146, 156, 0.84);
+  font-weight: bold;
+  color : rgba(28, 146, 156, 0.84);
+
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.submit-btn {
+  background-color: rgba(28, 146, 156, 0.84);
+  color: var(--text-color);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 1rem;
+  z-index: 5;
+}
+
+.submit-btn:hover {
+  background-color: rgba(28, 146, 156, 0.84);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+footer {
+  background-color: var(--pastel-blue);
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animated {
+  animation: fadeIn 0.5s ease-in-out;
+}

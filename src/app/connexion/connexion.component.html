@@ -1,0 +1,37 @@
+<div class="background-cover"></div>
+<main class="container">
+    <div class="auth-container animated">
+        <div class="auth-tabs">
+            <div class="auth-tab" [ngClass]="{'active': isLoginActive}" (click)="onLoginTabClick()">Connexion</div>
+            <div class="auth-tab" [ngClass]="{'active': !isLoginActive}" (click)="onRegisterTabClick()">Inscription</div>
+        </div>
+
+        <form *ngIf="isLoginActive" (ngSubmit)="onLoginSubmit(loginEmail)">
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" #loginEmail required>
+            </div>
+            <button type="submit" class="submit-btn">Se connecter</button>
+        </form>
+
+        <form *ngIf="!isLoginActive" (ngSubmit)="onRegisterSubmit(registerFirstname, registerLastname, registerEmail, registerUsername)">
+            <div class="form-group">
+                <label for="register-firstname">Prénom</label>
+                <input type="text" id="register-firstname" #registerFirstname required>
+            </div>
+            <div class="form-group">
+                <label for="register-lastname">Nom</label>
+                <input type="text" id="register-lastname" #registerLastname required>
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" #registerEmail required>
+            </div>
+            <div class="form-group">
+                <label for="register-username">Pseudo</label>
+                <input type="text" id="register-username" #registerUsername required>
+            </div>
+            <button type="submit" class="submit-btn">S'inscrire</button>
+        </form>
+    </div>
+</main>

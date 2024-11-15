@@ -1,0 +1,22 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-content">
+    <h2>Modifier le Quiz</h2>
+    <form (ngSubmit)="onSubmit()">
+        <label for="title">Titre</label>
+        <input id="title" [(ngModel)]="quiz.name" name="title" required />
+
+        <label for="theme">Thème</label>
+        <select id="theme" [(ngModel)]="quiz.themeId" name="theme" required>
+            <option *ngFor="let theme of themes" [value]="theme.id">{{ theme.name }}</option>
+        </select>
+
+        <label for="description">Description</label>
+        <input id="description" [(ngModel)]="quiz.description" name="description" required />
+
+        <label for="image">Image</label>
+        <input id="image" [(ngModel)]="quiz.image" name="image" required />
+
+        <button type="submit">Enregistrer</button>
+        <button type="button" (click)="closeModal()">Annuler</button>
+    </form>
+</div>

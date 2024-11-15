@@ -1,0 +1,17 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-content">
+    <h2>Modifier le Thème</h2>
+    <form (ngSubmit)="onSubmit()">
+        <label for="title">Titre</label>
+        <input id="title" [(ngModel)]="theme.name" name="title" required />
+
+        <label for="description">Description</label>
+        <input id="description" [(ngModel)]="theme.description" name="description" required />
+
+        <label for="image">Image</label>
+        <input id="image" [(ngModel)]="theme.image" name="image" required />
+
+        <button type="submit">Mettre à jour</button>
+        <button type="button" (click)="closeModal()">Annuler</button>
+    </form>
+</div>

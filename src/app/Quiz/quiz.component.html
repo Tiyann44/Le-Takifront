@@ -1,0 +1,43 @@
+<div class="background-cover"></div>
+<div class="quiz-banner">
+    <div class="quiz-banner-content">
+        <h1> {{ questions[currentQuestionIndex]?.quizName }}</h1>
+    </div>
+</div>
+
+<div *ngIf="questions.length > 0; else noQuestions" class="quiz-container">
+    <h2>{{ questions[currentQuestionIndex]?.question }}</h2>
+
+    <img [src]="questions[currentQuestionIndex]?.image" *ngIf="questions[currentQuestionIndex]?.image" alt="Question Image" style="width: 100%; max-width: 800px; height: auto; display: block;">
+
+    <div *ngFor="let answer of questions[currentQuestionIndex]?.answers" class="answer-container">
+        <div *ngIf="answer.choice">
+            <label>
+                <input
+                        type="radio"
+                        [value]="answer.choice.id"
+                        [checked]="selectedChoices.get(currentQuestionIndex)?.id === answer.choice.id"
+                        (change)="selectChoice(answer.choice)">
+                {{ answer.choice.option }}
+            </label>
+        </div>
+    </div>
+    <div *ngIf="!quizCompleted">
+        <button class="quiz-button" (click)="nextQuestion()">
+            {{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Terminer' }}
+        </button>
+    </div>
+</div>
+
+<ng-template #noQuestions>
+    <p>Aucune question disponible pour ce quiz.</p>
+</ng-template>
+
+<ng-container *ngIf="quizCompleted">
+    <div class="quiz-completed">
+        <p class="score-message">Vous avez terminé le quiz !</p>
+        <h2 class="score-message">{{ endMessage }}</h2>
+        <p class="score-result">Votre score : <span>{{ score }}</span> sur <span>{{ questions.length }}</span></p>
+        <button class="reset-btn" (click)="resetQuiz()">Recommencer le quiz</button>
+    </div>
+</ng-container>
