@@ -5,7 +5,7 @@ export interface Theme {
     name: string
     description : string
     quizzes: Quiz[]
-    image?: string; // Ajout de l'image
-    showQuizzes?: boolean; // Pour gérer l'affichage des quiz
+    image?: string;
+    showQuizzes?: boolean;
 
 }

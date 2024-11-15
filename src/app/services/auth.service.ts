@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from 'models/user.model'; // Assurez-vous que le chemin est correct
+import { User } from 'models/user.model';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

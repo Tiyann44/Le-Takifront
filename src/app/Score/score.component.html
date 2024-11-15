@@ -27,7 +27,7 @@
             <tbody>
             <tr *ngFor="let score of scores; let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{ score.User?.firstName }}</td>
+                <td>{{ score.User?.pseudo }}</td>
                 <td>{{ score.Quiz?.name }}</td>
                 <td>{{ score.score }}</td>
             </tr>

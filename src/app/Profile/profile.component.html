@@ -1,5 +1,4 @@
 <div class="profile-container">
-    <!-- Section avatar -->
     <div class="avatar-section">
         <div class="avatar-container">
             <img id="avatar" class="avatar" [src]="updatedUser.image" alt="Avatar de profil" (click)="onAvatarClick()">
@@ -9,8 +8,6 @@
             </svg>
         </div>
     </div>
-
-    <!-- Formulaire -->
     <form id="profile-form" (submit)="onSubmit($event)">
         <div class="form-group">
             <label for="firstname">Prénom</label>
@@ -34,8 +31,6 @@
 
         <button type="submit" class="save-btn">Enregistrer les modifications</button>
     </form>
-
-    <!-- Notification de succès -->
     <div class="notification" *ngIf="notificationVisible">
         Modifications enregistrées avec succès!
     </div>

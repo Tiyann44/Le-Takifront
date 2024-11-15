@@ -5,7 +5,7 @@ import { ChoiceService } from "../../services/choice.service";
 import { Question } from "../../models/question.model";
 import { Quiz } from "../../models/quiz.model";
 import { QuizService } from "../../services/quiz.service";
-import { forkJoin, from } from 'rxjs';
+import { from } from 'rxjs';
 import { switchMap, concatMap, tap } from 'rxjs/operators';
 
 @Component({
@@ -69,17 +69,13 @@ export class QuestionModalComponent {
       return;
     }
 
-    // Étape 1 : Créer la question
     this.questionService.create(this.question).pipe(
         tap(questionResponse => {
           console.log('Question enregistrée avec succès !', questionResponse);
-
-          // Mise à jour de l'ID de la question dans chaque réponse
           this.question.answers.forEach(answer => {
             answer.questionId = questionResponse.id;
           });
         }),
-        // Étape 2 : Créer chaque choix pour les réponses
         switchMap(() => this.createChoicesAndAnswers())
     ).subscribe({
       complete: () => {
@@ -92,19 +88,14 @@ export class QuestionModalComponent {
     });
   }
 
-  // Créer les choix et ensuite les réponses associées
   private createChoicesAndAnswers() {
     return from(this.question.answers).pipe(
         concatMap(answer =>
-            // Créer le choix pour chaque réponse
             this.choiceService.create(answer.choice).pipe(
                 tap(choiceResponse => {
                   console.log('Choix enregistré avec succès !', choiceResponse);
-
-                  // Assigner le `choiceId` de l'answer pour lier à ce choix créé
                   answer.choiceId = choiceResponse.id;
                 }),
-                // Ensuite, créer l'answer avec le `choiceId` mis à jour
                 switchMap(() => this.answerService.create(answer))
             )
         )

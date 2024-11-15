@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
         lastName: '',
         pseudo: '',
         mail: '',
-        image: '/assets/defaultPicture.svg', // Avatar par défaut
+        image: '/assets/defaultPicture.svg',
         isAdmin:false,
         scores:[]
     };
@@ -29,11 +29,10 @@ export class ProfileComponent implements OnInit {
         const currentUser = this.authService.getCurrentUser();
 
         if (currentUser) {
-            // Charger les informations de l'utilisateur depuis le backend
             this.userService.findById(currentUser.id).subscribe(
                 (user) => {
                     this.user = user;
-                    this.updatedUser = { ...user }; // Copie pour les modifications
+                    this.updatedUser = { ...user };
                 },
                 (error) => {
                     console.error('Erreur lors du chargement des informations utilisateur', error);
@@ -42,9 +41,8 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    // Méthode pour changer l'avatar
     onAvatarClick(): void {
-        document.getElementById('avatar-upload')?.click();  // Ouvre le dialogue de fichier
+        document.getElementById('avatar-upload')?.click();
     }
 
     onAvatarChange(event: Event): void {
@@ -59,9 +57,8 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    // Méthode pour enregistrer les modifications
     onSubmit(event: Event): void {
-        event.preventDefault();  // Empêche la soumission par défaut
+        event.preventDefault();
 
         if (this.updatedUser && this.user) {
             this.userService.update(this.user.id, this.updatedUser).subscribe(
@@ -70,7 +67,6 @@ export class ProfileComponent implements OnInit {
                     this.user = updatedUser;
                     this.updatedUser = { ...updatedUser };
 
-                    // Afficher la notification de succès
                     this.showNotification();
                 },
                 (error) => {
@@ -80,11 +76,10 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    // Méthode pour afficher la notification
     showNotification(): void {
         this.notificationVisible = true;
         setTimeout(() => {
             this.notificationVisible = false;
-        }, 3000);  // Masque la notification après 3 secondes
+        }, 3000);
     }
 }

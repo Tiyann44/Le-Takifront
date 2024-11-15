@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { QuizService } from 'services/quiz.service'; // Le service pour gérer les quiz
-import { Quiz } from 'models/quiz.model'; // Le modèle de données pour les quiz
+import { QuizService } from 'services/quiz.service';
+import { Quiz } from 'models/quiz.model';
 
 @Component({
     selector: 'app-quizzes',
@@ -16,15 +16,12 @@ export class QuizzesComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private quizService: QuizService,
-        private router: Router // Ajout de Router ici
+        private router: Router
     ) {}
 
     ngOnInit(): void {
-        // Récupérer l'ID du thème et le nom du thème depuis l'URL
         this.themeId = BigInt(this.route.snapshot.paramMap.get('themeId') || '0');
         this.themeName = this.route.snapshot.paramMap.get('themeName') || '';
-        //console.log(this.themeId);
-
         this.loadQuizzes();
     }
 
@@ -33,7 +30,7 @@ export class QuizzesComponent implements OnInit {
             this.quizService.findAll().subscribe((data: Quiz[]) => {
                 this.quizzes = data.filter(quiz => {
                     const quizThemeId = Number(quiz.themeId);
-                    return quizThemeId === Number(this.themeId); // Comparer les deux en tant que number
+                    return quizThemeId === Number(this.themeId);
                 });
             });
         } else {
@@ -42,9 +39,6 @@ export class QuizzesComponent implements OnInit {
     }
 
     startQuiz(quizId: number): void {
-        this.router.navigate(['/quiz', quizId]); // Redirige vers la page du quiz sélectionné
+        this.router.navigate(['/quiz', quizId]);
     }
-
-
-
 }

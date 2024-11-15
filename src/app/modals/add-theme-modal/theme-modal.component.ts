@@ -29,7 +29,7 @@ export class ThemeModalComponent {
     this.themeService.create(this.theme).subscribe(
         (createdQuiz) => {
           console.log('Quiz ajouté:', createdQuiz);
-          this.closeModal(); // Ferme le modal après l'ajout
+          this.closeModal();
         },
         (error) => {
           console.error('Erreur lors de l\'ajout du quiz:', error);

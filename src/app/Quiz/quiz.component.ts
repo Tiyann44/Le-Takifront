@@ -49,7 +49,7 @@ export class QuizComponent implements OnInit {
             if (this.questions.length === 0) {
                 console.log('Aucune question disponible pour ce quiz.');
             } else {
-                this.loadAnswers(); // Charger les réponses après avoir récupéré les questions
+                this.loadAnswers();
 
                 console.log('Questions récupérées:', this.questions);
                 console.log('Réponses récupérées:', this.answers);
@@ -64,10 +64,8 @@ export class QuizComponent implements OnInit {
         this.questions.forEach(question => {
             this.answerService.getAnswersByQuestionId(Number(question.id)).subscribe((answers: Answer[]) => {
                 question.answers = answers;
-                this.shuffleAnswers(question.answers); // Mélange les réponses
+                this.shuffleAnswers(question.answers);
                 this.answers.push(...answers);
-
-                // Charger les choix pour chaque réponse
                 answers.forEach(currentAnswer => {
                     this.choiceService.findById(Number(currentAnswer.choiceId)).subscribe((choice: Choice) => {
                         currentAnswer.choice = choice;
@@ -105,7 +103,6 @@ export class QuizComponent implements OnInit {
     }
 
     submitQuiz(): void {
-        // Calcul du score
         this.questions.forEach((question, index) => {
             const selectedChoice = this.selectedChoices.get(index);
             const correctAnswer = question.answers.find(answer => answer.isCorrect);
@@ -118,10 +115,8 @@ export class QuizComponent implements OnInit {
         const scorePercentage = (this.score / this.questions.length) * 100;
         this.endMessage = this.generateEndMessage(scorePercentage);
 
-        // Récupérer l'utilisateur connecté
         const currentUser = this.authService.getCurrentUser();
 
-        // Vérifie si l'utilisateur est connecté pour obtenir son userId
         if (!currentUser) {
             console.error('Aucun utilisateur connecté !');
             return;
@@ -129,17 +124,16 @@ export class QuizComponent implements OnInit {
 
         const scoreData: Score = {
             quizId: this.quizId,
-            userId: currentUser.id, // Utilise l'id de l'utilisateur connecté
+            userId: currentUser.id,
             score: scorePercentage,
             message: this.endMessage,
-            Quiz: undefined,  // Peut être laissé vide si inutile
-            User: undefined   // Peut être laissé vide si inutile
+            Quiz: undefined,
+            User: undefined
         };
 
         this.saveScore(scoreData);
     }
 
-// Fonction pour générer le message de fin
     generateEndMessage(scorePercentage: number): string {
         if (scorePercentage === 100) {
             return 'Trop fort ! 🌟 Tu es un(e) vrai(e) pro !';
@@ -154,7 +148,6 @@ export class QuizComponent implements OnInit {
         }
     }
 
-// Fonction pour enregistrer le score
     saveScore(scoreData: Score): void {
         this.scoreService.findAll().subscribe((scores: Score[]) => {
             const existingScore = scores.find(score => score.quizId === this.quizId && score.userId === scoreData.userId);

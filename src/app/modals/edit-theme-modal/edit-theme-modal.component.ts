@@ -21,7 +21,7 @@ export class EditThemeModalComponent {
     this.themeService.update(Number(this.theme.id), this.theme).subscribe(
         (updatedTheme) => {
           console.log('Thème mis à jour:', updatedTheme);
-          this.closeModal(); // Ferme le modal après la mise à jour
+          this.closeModal();
         },
         (error) => {
           console.error('Erreur lors de la mise à jour du thème:', error);

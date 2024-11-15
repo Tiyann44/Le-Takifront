@@ -123,8 +123,8 @@ input:focus {
 }
 
 input[readonly] {
-  background-color: #f0f0f0; /* Griser le fond */
-  cursor: not-allowed; /* Changer le curseur pour indiquer qu'il est non modifiable */
+  background-color: #f0f0f0;
+  cursor: not-allowed;
 }
 
 @keyframes slideIn {

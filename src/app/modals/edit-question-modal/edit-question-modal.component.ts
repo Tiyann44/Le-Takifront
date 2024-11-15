@@ -15,7 +15,7 @@ export class EditQuestionModalComponent implements OnInit, OnChanges {
 
   @Input() question: Question = {
     question: '',
-    quizId: 0, // ID de quiz par défaut
+    quizId: 0,
     answers: [
       { choice: { id: undefined, option: '' }, isCorrect: false },
       { choice: { id: undefined, option: '' }, isCorrect: false },
@@ -47,7 +47,7 @@ export class EditQuestionModalComponent implements OnInit, OnChanges {
   loadQuizzes() {
     this.quizService.findAll().subscribe((quizzes) => {
       this.quizzes = quizzes;
-      this.setQuizSelection(); // Appeler après avoir chargé les quiz
+      this.setQuizSelection();
     });
   }
 
@@ -55,7 +55,7 @@ export class EditQuestionModalComponent implements OnInit, OnChanges {
     console.log('quizId avant la sélection:', this.question.quizId);
     const selectedQuiz = this.quizzes.find(quiz => quiz.id === this.question.quizId);
     if (selectedQuiz) {
-      this.question.quizId = this.question.quizId; // Ce que vous faites déjà
+      this.question.quizId = this.question.quizId;
       console.log('Quiz sélectionné:', selectedQuiz);
     } else {
       console.log('Aucun quiz trouvé avec l\'ID de la question:', this.question.quizId);
@@ -69,9 +69,7 @@ export class EditQuestionModalComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    // Mettre à jour les choix de réponses
     this.question.answers.forEach(answer => {
-      // Mise à jour de l'option du choix
       if (answer.choice.id) {
         this.choiceService.update(answer.choice.id, answer.choice).subscribe(() => {
           console.log(`Choix ${answer.choice.id} mis à jour avec succès`);
@@ -79,9 +77,7 @@ export class EditQuestionModalComponent implements OnInit, OnChanges {
           console.error(`Erreur lors de la mise à jour du choix ${answer.choice.id}:`, error);
         });
       }
-
-      // Mise à jour de la propriété isCorrect dans l'answer
-      if (answer.id) { // Assurez-vous que l'answer a un ID
+      if (answer.id) {
         this.answerService.update(answer.id, answer).subscribe(() => {
           console.log(`Answer ${answer.id} mis à jour avec succès`);
         }, error => {
@@ -90,11 +86,9 @@ export class EditQuestionModalComponent implements OnInit, OnChanges {
       }
     });
 
-    // Ensuite, mettez à jour la question elle-même
     this.questionService.update(Number(this.question.id), this.question).subscribe(() => {
       console.log('Question mise à jour avec succès');
       this.closeModal();
-      // Autres actions, comme fermer le modal ou rafraîchir les données
     }, error => {
       console.error('Erreur lors de la mise à jour de la question:', error);
     });

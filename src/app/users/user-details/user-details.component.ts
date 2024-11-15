@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core"
+import { Component } from "@angular/core"
 import { map, Observable } from "rxjs"
 import { User } from "models/user.model"
 import { ActivatedRoute, Router } from "@angular/router"
@@ -14,13 +14,8 @@ import { ScoreService } from "services/score.service"
   styleUrls: ["./User-details.component.scss"],
 })
 export class UserDetailsComponent {
-  User$: Observable<User> = this._route.data.pipe(map((data) => data["User"]))
   allScores$: Observable<Score[]> | undefined
   allQuestions$: Observable<Question[]> | undefined
-  ScoreSelectModel: Score | null = null
-  QuestionSelectModel: Question | null = null
-  notSelectedQuestion: boolean | undefined
-  today = new Date(Date.now())
 
   constructor(
     private _route: ActivatedRoute,
@@ -30,10 +25,6 @@ export class UserDetailsComponent {
     private router: Router,
   ) {
     this.allScores$ = this.ScoreService.findAll()
-  }
-
-  QuestionClick() {
-    this.allQuestions$ = this.QuestionService.findAll()
   }
 
   /*addQuestionToUser(User: User) {
@@ -65,7 +56,5 @@ export class UserDetailsComponent {
       })
     }
   }
-
-  // because the format of the date doesn't fit date picker
 
 }
